@@ -7,7 +7,8 @@ public class CameraMovement : MonoBehaviour {
     public float smoothing = 5f;
 
     // Use this for initialization
-    void Start () {
+    void Start ()
+    {
     }
 	
 	// Update is called once per frame

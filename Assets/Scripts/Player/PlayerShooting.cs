@@ -16,14 +16,18 @@ public class PlayerShooting : MonoBehaviour {
 	void Update () {
 	    if(Input.GetButtonUp("Fire1"))
         {
-            var newProjectile = Instantiate(physicsBullet, transform.position, transform.rotation);
-            Rigidbody pRigidbody = ((GameObject)newProjectile).GetComponent<Rigidbody>();
+            GameObject newProjectile = Instantiate(physicsBullet, transform.position, transform.rotation) as GameObject;
+            // tag the projectile as a coming from the player
+            newProjectile.tag = "Player";
+
+            Rigidbody pRigidbody = newProjectile.GetComponent<Rigidbody>();
 
             if (pRigidbody != null)
             {
                 Vector3 velocityVector = new Vector3(0f, 0f, bulletSpeed);
                 pRigidbody.velocity = bulletSpeed * transform.forward;
             }
+
             Destroy(newProjectile, bulletLifeTime);
         }
 	}
