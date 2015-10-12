@@ -5,25 +5,34 @@ using System.Collections.Generic;
 public class SphericalGravity : MonoBehaviour {
 
     public float gravitationalPull;
+    public float pullRadius = 5f;
+    public LayerMask pullFromMasks;
 
-    LayerMask ignorePullMask;
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, pullRadius);
+    }
 
     void FixedUpdate()
     {
-        ignorePullMask = LayerMask.GetMask("IgnoreGPull");
+        Collider[] colliders = Physics.OverlapSphere(transform.position, pullRadius, pullFromMasks);
+
+        foreach(Collider other in colliders)
+        {
+            Rigidbody oRigidBody = other.GetComponent<Rigidbody>();
+
+            if (oRigidBody != null)
+            {
+                Vector3 forceDirection = (transform.position - other.transform.position).normalized;
+                oRigidBody.AddForce(forceDirection * gravitationalPull);
+            }
+        }
     }
 
     void OnTriggerStay(Collider other)
     {
-        // this object ignores planets gravity pull, useful for hard-wire satellites
-        if ((1 << other.gameObject.layer & ignorePullMask) > 0) return;
 
-        Rigidbody oRigidBody = other.GetComponent<Rigidbody>();
-
-        if (oRigidBody != null)
-        {
-            Vector3 forceDirection = (transform.position - other.transform.position).normalized;
-            oRigidBody.AddForce(forceDirection * gravitationalPull);
-        }  
     }
 }

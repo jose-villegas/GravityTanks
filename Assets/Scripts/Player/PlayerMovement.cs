@@ -39,7 +39,7 @@ public class PlayerMovement : MonoBehaviour {
     void Turn(float h, float v)
     {
         Vector3 upToCenterG = (transform.position - gravityPuller.position).normalized;
-        playerRigidbody.transform.up = upToCenterG;
+        transform.up = Vector3.Slerp(transform.up, upToCenterG, damping * Time.deltaTime);
     }
 
     void OnDrawGizmosSelected()

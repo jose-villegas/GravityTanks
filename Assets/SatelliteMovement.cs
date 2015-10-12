@@ -10,7 +10,7 @@ public class SatelliteMovement : MonoBehaviour {
 
     // precision of the final point list, higher = less points
     [Tooltip("Precision of the final point list (higher = less points)")]
-    public int precision = 100;
+    public uint curvePrecision = 100;
     // maximum number of points to simulate orbit, important to stop long simulations
     [Tooltip("Maximum number of points to simulate orbit, stops long simulations")]
     public int maxSimulationCount = 10000;
@@ -18,15 +18,14 @@ public class SatelliteMovement : MonoBehaviour {
     [Tooltip("Distance * Time simulation step through orbit")]
     public float distanceTime = 0.05f;
 
-    public bool recalculate = false;
-
     public float orbitalSpeed;
     public float orbitalSpeedFactor = 1f;
+    // distance of the last point on orbit to the first to be considered stable
+    [Tooltip("Distance of the last point on orbit to the first to be considered stable")]
+    public float orbitToleranceDistance = 0.05f;
 
-    public SphericalGravity gPullRange;
-
+    SphericalGravity gPullRange;
     Rigidbody sRigidbody;
-    Transform parentTransform;
 
     List<Vector3> OrbitPoints = new List<Vector3>();
 
@@ -36,20 +35,9 @@ public class SatelliteMovement : MonoBehaviour {
     void Start()
     {
         sRigidbody = GetComponent<Rigidbody>();
+        gPullRange = GetComponent<SphericalGravity>();
         pullersMask = LayerMask.GetMask("GPullRange");
         ComputeTrajectory();
-
-        parentTransform = transform.parent.transform;
-    }
-
-    void Update()
-    {
-        // recalculates trajectorie on current parameters - cpu heavy
-        if (recalculate == true)
-        {
-            recalculate = !recalculate;
-            ComputeTrajectory();
-        }
     }
 
     void FixedUpdate()
@@ -71,7 +59,7 @@ public class SatelliteMovement : MonoBehaviour {
         orbitalSpeed = Mathf.Sqrt((gPullRange.gravitationalPull * sRigidbody.mass) / ClosestPuller()) * orbitalSpeedFactor; // non-accurate
         timer += Time.deltaTime * orbitalSpeed; timer %= 1f; // mod 1, values go from 0 to 1
 
-        parentTransform.position = CurveAt(timer);
+        transform.position = CurveAt(timer);
     }
 
     float ClosestPuller()
@@ -104,11 +92,14 @@ public class SatelliteMovement : MonoBehaviour {
 
         while (angle < 360 && step < maxSimulationCount)
         {
-            if (step % precision == 0)
+            if (step % curvePrecision == 0)
             {
                 OrbitPoints.Add(s);
                 angle += tempAngleSum;
                 tempAngleSum = 0;
+
+                float distanceT = Vector3.Distance(s, OrbitPoints[0]);
+                if (distanceT < orbitToleranceDistance && OrbitPoints.Count > 1) break;
             }
 
             a = AccelerationCalc(gravityObjects, s);
@@ -146,7 +137,15 @@ public class SatelliteMovement : MonoBehaviour {
     {
         // recalculates trajectorie on current parameters - cpu heavy
         if (!Application.isPlaying)  ComputeTrajectory();
-        
+
+        // draw initial velocity vector
+        float maxScale = Mathf.Max(transform.lossyScale.x, transform.lossyScale.y, transform.lossyScale.z);
+
+        Gizmos.color = Color.blue;
+        Gizmos.DrawLine(transform.position, transform.position + startingVelocity * maxScale);
+        DrawArrow.ForGizmo(transform.position + startingVelocity * maxScale, startingVelocity * maxScale);
+
+        Gizmos.color = Color.magenta;
         // draws current simulation orbit points
         for (int i = 0; i < OrbitPoints.Count - 1; i++)
         {

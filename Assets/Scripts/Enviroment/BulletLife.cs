@@ -3,12 +3,27 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class BulletLife : MonoBehaviour {
-    public LayerMask exceptions;
+    public float timeToIgnoreOwner = 1f;
+
+    void Start()
+    {
+        Invoke("ForgetOwner", timeToIgnoreOwner);
+    }
+
+    void ForgetOwner()
+    {
+        gameObject.tag = "Untagged";
+    }
 
     void OnTriggerEnter(Collider other)
     {
-        if ((1 << other.gameObject.layer & exceptions) > 0) return;
+        if (other.gameObject.tag == gameObject.tag) return;
 
         Destroy(gameObject);
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        DrawArrow.ForGizmo(transform.position, GetComponent<Rigidbody>().velocity);
     }
 }
