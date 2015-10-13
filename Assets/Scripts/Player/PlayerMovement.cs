@@ -2,15 +2,19 @@
 using System.Collections;
 
 public class PlayerMovement : MonoBehaviour {
+
     public float movementSpeed = 5f;
     public float damping = 8f;
     public float jumpStrength = 2f;
     public Transform gravityPuller;
+    public Transform playerStick;
 
     Vector3 movement;
     Vector3 turnDirection;
     Vector3 upToCenterG;
+    Transform mainCamera;
     Rigidbody playerRigidbody;
+
     bool isWalking = false;
 
     void Awake()
@@ -21,10 +25,10 @@ public class PlayerMovement : MonoBehaviour {
     void FixedUpdate()
     {
 
-        float h = Input.GetAxis("Horizontal");
-        float v = Input.GetAxis("Vertical");
-        float f = Input.GetAxis("Jump");
-        Debug.Log(f);
+        float h = Input.GetAxisRaw("Horizontal");
+        float v = Input.GetAxisRaw("Vertical");
+        float f = Input.GetAxisRaw("Jump");
+
         // flags
         isWalking = h != 0 || v != 0;
         // player movement calls
@@ -37,7 +41,9 @@ public class PlayerMovement : MonoBehaviour {
     {
         if (!isWalking) return;
 
-        movement = transform.right * h + transform.forward * v;
+        mainCamera = Camera.main.transform;
+
+        movement = mainCamera.right * h + mainCamera.up * v;
         movement = movement.normalized * movementSpeed * Time.fixedDeltaTime;
 
         playerRigidbody.MovePosition(transform.position + movement);
@@ -45,37 +51,37 @@ public class PlayerMovement : MonoBehaviour {
 
     void Turn(float h, float v)
     {
+        turnDirection = isWalking ? new Vector3(h, 0f, v) : turnDirection;
         upToCenterG = (transform.position - gravityPuller.position).normalized;
-        playerRigidbody.transform.up = Vector3.Slerp(transform.up, upToCenterG, damping * Time.deltaTime);
 
-        if (!isWalking) return;
-
-        turnDirection = transform.right * h + transform.forward * v;
-        Quaternion lookAtTurn = Quaternion.LookRotation(turnDirection, upToCenterG);
-        playerRigidbody.MoveRotation(lookAtTurn);
+        Quaternion surfaceRot = Quaternion.FromToRotation(Vector3.up, upToCenterG);
+        Quaternion rotAround = Quaternion.FromToRotation(Vector3.right, turnDirection);
+        // smooth rotation with damping parameter
+        playerRigidbody.MoveRotation(Quaternion.Slerp(transform.rotation, surfaceRot * rotAround, damping * Time.deltaTime));
     }
 
     void Jump(float f)
     {
         if (f <= 0f) return;
 
-        playerRigidbody.velocity += transform.up * f * jumpStrength;
+        playerRigidbody.velocity = transform.up * f * jumpStrength;
     }
 
     void OnDrawGizmosSelected()
     {
-        // velocity vector direction
-        if (playerRigidbody != null && playerRigidbody.velocity.magnitude > 0)
+        if(Application.isPlaying)
         {
-            Gizmos.color = Color.cyan;
-            DrawArrow.ForGizmo(transform.position, playerRigidbody.velocity.normalized);
+            // velocity vector direction
+            Gizmos.color = Color.magenta;
+            DrawArrow.ForGizmo(transform.position, playerRigidbody.velocity);
         }
+        
         // draw initial velocity vector
         float maxScale = Mathf.Max(transform.lossyScale.x, transform.lossyScale.y, transform.lossyScale.z);
 
-        // turn direction
+        // movement direction
         Gizmos.color = Color.black;
-        DrawArrow.ForGizmo(transform.position + turnDirection * maxScale, turnDirection);
+        DrawArrow.ForGizmo(transform.position + movement * maxScale, turnDirection);
 
         // gravity opposite direction
         Gizmos.color = Color.cyan;
