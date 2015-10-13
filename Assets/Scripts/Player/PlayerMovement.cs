@@ -25,9 +25,9 @@ public class PlayerMovement : MonoBehaviour {
     void FixedUpdate()
     {
 
-        float h = Input.GetAxisRaw("Horizontal");
-        float v = Input.GetAxisRaw("Vertical");
-        float f = Input.GetAxisRaw("Jump");
+        float h = Input.GetAxis("Horizontal");
+        float v = Input.GetAxis("Vertical");
+        float f = Input.GetAxis("Jump");
 
         // flags
         isWalking = h != 0 || v != 0;

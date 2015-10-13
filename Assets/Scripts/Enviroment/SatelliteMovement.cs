@@ -18,7 +18,6 @@ public class SatelliteMovement : MonoBehaviour {
     [Tooltip("Distance * Time simulation step through orbit")]
     public float distanceTime = 0.05f;
 
-    public float orbitalSpeed;
     public float orbitalSpeedFactor = 1f;
     // distance of the last point on orbit to the first to be considered stable
     [Tooltip("Distance of the last point on orbit to the first to be considered stable")]
@@ -26,17 +25,14 @@ public class SatelliteMovement : MonoBehaviour {
 
     SphericalGravity gPullRange;
     Rigidbody sRigidbody;
-
     List<Vector3> OrbitPoints = new List<Vector3>();
 
-    int pullersMask;
     float timer = 0f;
 
     void Start()
     {
         sRigidbody = GetComponent<Rigidbody>();
         gPullRange = GetComponent<SphericalGravity>();
-        pullersMask = LayerMask.GetMask("GPullRange");
         ComputeTrajectory();
     }
 
@@ -56,8 +52,8 @@ public class SatelliteMovement : MonoBehaviour {
 
     void Move()
     {
-        orbitalSpeed = Mathf.Sqrt((gPullRange.gravitationalPull * sRigidbody.mass) / ClosestPuller()) * orbitalSpeedFactor; // non-accurate
-        timer += Time.fixedDeltaTime * orbitalSpeed; timer %= 1f; // mod 1, values go from 0 to 1
+        // orbitalSpeed = Mathf.Sqrt((gPullRange.gravitationalPull * sRigidbody.mass) / ClosestPuller());
+        timer += Time.fixedDeltaTime * orbitalSpeedFactor; timer %= 1f; // mod 1, values go from 0 to 1
 
         sRigidbody.MovePosition(CurveAt(timer));
     }

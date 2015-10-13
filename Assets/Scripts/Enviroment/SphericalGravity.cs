@@ -30,9 +30,4 @@ public class SphericalGravity : MonoBehaviour {
             }
         }
     }
-
-    void OnTriggerStay(Collider other)
-    {
-
-    }
 }
