@@ -24,7 +24,6 @@ public class PlayerShooting : MonoBehaviour {
 
             if (pRigidbody != null)
             {
-                Vector3 velocityVector = new Vector3(0f, 0f, bulletSpeed);
                 pRigidbody.velocity = bulletSpeed * transform.forward;
             }
 

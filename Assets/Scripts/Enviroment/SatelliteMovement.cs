@@ -23,7 +23,6 @@ public class SatelliteMovement : MonoBehaviour {
     [Tooltip("Distance of the last point on orbit to the first to be considered stable")]
     public float orbitToleranceDistance = 0.05f;
 
-    SphericalGravity gPullRange;
     Rigidbody sRigidbody;
     List<Vector3> OrbitPoints = new List<Vector3>();
 
@@ -32,7 +31,6 @@ public class SatelliteMovement : MonoBehaviour {
     void Start()
     {
         sRigidbody = GetComponent<Rigidbody>();
-        gPullRange = GetComponent<SphericalGravity>();
         ComputeTrajectory();
     }
 

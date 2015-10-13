@@ -11,14 +11,12 @@ public class EnemyMovement : MonoBehaviour {
     public float limitCapsuleEnd = 0.95f;
 
     Rigidbody eRigidbody;
-    SphereCollider eCollider;
     public bool isPlayerInRange = false;
     int playerLayer;
 
     void Awake()
     {
         eRigidbody = GetComponent<Rigidbody>();
-        eCollider = GetComponent<SphereCollider>();
         playerLayer = LayerMask.GetMask("PlayerLayer");
     }
 

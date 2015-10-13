@@ -12,7 +12,6 @@ public class PlayerMovement : MonoBehaviour {
     Vector3 movement;
     Vector3 turnDirection;
     Vector3 upToCenterG;
-    Transform mainCamera;
     Rigidbody playerRigidbody;
 
     bool isWalking = false;
@@ -41,7 +40,7 @@ public class PlayerMovement : MonoBehaviour {
     {
         if (!isWalking) return;
 
-        mainCamera = Camera.main.transform;
+        Transform mainCamera = Camera.main.transform;
 
         movement = mainCamera.right * h + mainCamera.up * v;
         movement = movement.normalized * movementSpeed * Time.fixedDeltaTime;
@@ -51,13 +50,24 @@ public class PlayerMovement : MonoBehaviour {
 
     void Turn(float h, float v)
     {
-        turnDirection = isWalking ? new Vector3(h, 0f, v) : turnDirection;
         upToCenterG = (transform.position - gravityPuller.position).normalized;
 
-        Quaternion surfaceRot = Quaternion.FromToRotation(Vector3.up, upToCenterG);
-        Quaternion rotAround = Quaternion.FromToRotation(Vector3.right, turnDirection);
         // smooth rotation with damping parameter
-        playerRigidbody.MoveRotation(Quaternion.Slerp(transform.rotation, surfaceRot * rotAround, damping * Time.deltaTime));
+        if (isWalking)
+        {
+            Transform mainCamera = Camera.main.transform;
+
+            turnDirection = Quaternion.LookRotation(mainCamera.up, upToCenterG) * new Vector3(h, 0f, v);
+            Quaternion rotAround = Quaternion.LookRotation(turnDirection, upToCenterG);
+            // look forward to input plane direction
+            playerRigidbody.MoveRotation(Quaternion.Slerp(transform.rotation, rotAround, damping * Time.deltaTime));
+        }
+        else
+        {
+            Quaternion rotAround = Quaternion.LookRotation(turnDirection, upToCenterG);
+            // rot to up vector based on gravity
+            playerRigidbody.MoveRotation(Quaternion.Slerp(transform.rotation, rotAround, damping * Time.deltaTime));
+        }
     }
 
     void Jump(float f)
@@ -81,10 +91,16 @@ public class PlayerMovement : MonoBehaviour {
 
         // movement direction
         Gizmos.color = Color.black;
-        DrawArrow.ForGizmo(transform.position + movement * maxScale, turnDirection);
+        DrawArrow.ForGizmo(transform.position + movement * maxScale, movement);
 
         // gravity opposite direction
         Gizmos.color = Color.cyan;
         DrawArrow.ForGizmo(transform.position + upToCenterG * maxScale, upToCenterG);
+
+        // axis input plane
+        Gizmos.color = Color.red;
+        DebugExtension.DrawCircle(transform.position, upToCenterG, Color.red, 1f);
+        // draw current input position
+        Gizmos.DrawCube(transform.position + turnDirection, Vector3.one * 0.15f);
     }
 }
