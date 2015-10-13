@@ -57,9 +57,9 @@ public class SatelliteMovement : MonoBehaviour {
     void Move()
     {
         orbitalSpeed = Mathf.Sqrt((gPullRange.gravitationalPull * sRigidbody.mass) / ClosestPuller()) * orbitalSpeedFactor; // non-accurate
-        timer += Time.deltaTime * orbitalSpeed; timer %= 1f; // mod 1, values go from 0 to 1
+        timer += Time.fixedDeltaTime * orbitalSpeed; timer %= 1f; // mod 1, values go from 0 to 1
 
-        transform.position = CurveAt(timer);
+        sRigidbody.MovePosition(CurveAt(timer));
     }
 
     float ClosestPuller()

@@ -24,6 +24,7 @@ public class BulletLife : MonoBehaviour {
 
     void OnDrawGizmosSelected()
     {
+        Gizmos.color = Color.yellow;
         DrawArrow.ForGizmo(transform.position, GetComponent<Rigidbody>().velocity);
     }
 }

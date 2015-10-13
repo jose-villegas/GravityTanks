@@ -170,6 +170,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotateAround: {fileID: 487456}
   canonDistance: .5
+  turningSpeed: 15
 --- !u!114 &11460296
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -195,7 +196,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf8352749e1aa10469bb3ee567f628c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  physicsBullet: {fileID: 0}
+  physicsBullet: {fileID: 183204, guid: 5b5debbc91fe5b443aa352975cd265fc, type: 2}
   bulletLifeTime: 30
   bulletSpeed: 10
 --- !u!135 &13509682

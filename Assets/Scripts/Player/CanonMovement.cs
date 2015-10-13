@@ -5,6 +5,7 @@ public class CanonMovement : MonoBehaviour {
 
     public Transform rotateAround;
     public float canonDistance = 0.5f;
+    public float turningSpeed = 8.0f;
 
     int inputMask;
     float camRayLength = 100f;
@@ -31,8 +32,9 @@ public class CanonMovement : MonoBehaviour {
 
         if (Physics.Raycast(camRay, out inputPlaneHit, camRayLength, inputMask))
         {
-            Vector3 playerToMouse = (inputPlaneHit.point - transform.position).normalized;
-            transform.rotation = Quaternion.LookRotation(playerToMouse, rotateAround.up);
+            Vector3 mouseDirection = (inputPlaneHit.point - transform.position).normalized;
+            Quaternion toMouse = Quaternion.LookRotation(mouseDirection, rotateAround.up);
+            transform.rotation = Quaternion.Slerp(transform.rotation, toMouse, turningSpeed * Time.deltaTime);
         }
     }
 }

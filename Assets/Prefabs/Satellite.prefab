@@ -14,7 +14,7 @@ GameObject:
   - 54: {fileID: 5427044}
   - 114: {fileID: 11419466}
   - 114: {fileID: 11468764}
-  m_Layer: 11
+  m_Layer: 8
   m_Name: Satellite
   m_TagString: Untagged
   m_Icon: {fileID: 0}

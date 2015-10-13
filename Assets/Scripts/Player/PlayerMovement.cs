@@ -7,7 +7,8 @@ public class PlayerMovement : MonoBehaviour {
     public Transform gravityPuller;
 
     Vector3 movement;
-    Vector3 turnAround;
+    Vector3 turnDirection;
+    Vector3 upToCenterG;
     Rigidbody playerRigidbody;
     bool isWalking = false;
 
@@ -19,17 +20,19 @@ public class PlayerMovement : MonoBehaviour {
     void FixedUpdate()
     {
 
-        float h = Input.GetAxisRaw("Horizontal");
-        float v = Input.GetAxisRaw("Vertical");
+        float h = Input.GetAxis("Horizontal");
+        float v = Input.GetAxis("Vertical");
         // flags
         isWalking = h != 0 || v != 0;
         // player movement calls
-        Move(h, v);
         Turn(h, v);
+        Move(h, v);
     }
 
     void Move(float h, float v)
     {
+        if (!isWalking) return;
+
         movement = transform.right * h + transform.forward * v;
         movement = movement.normalized * movementSpeed * Time.fixedDeltaTime;
 
@@ -38,8 +41,14 @@ public class PlayerMovement : MonoBehaviour {
 
     void Turn(float h, float v)
     {
-        Vector3 upToCenterG = (transform.position - gravityPuller.position).normalized;
-        transform.up = Vector3.Slerp(transform.up, upToCenterG, damping * Time.deltaTime);
+        upToCenterG = (transform.position - gravityPuller.position).normalized;
+        playerRigidbody.transform.up = Vector3.Slerp(transform.up, upToCenterG, damping * Time.deltaTime);
+
+        if (!isWalking) return;
+
+        turnDirection = transform.right * h + transform.forward * v;
+        Quaternion lookAtTurn = Quaternion.LookRotation(turnDirection, upToCenterG);
+        playerRigidbody.MoveRotation(lookAtTurn);
     }
 
     void OnDrawGizmosSelected()
@@ -47,7 +56,18 @@ public class PlayerMovement : MonoBehaviour {
         // velocity vector direction
         if (playerRigidbody != null && playerRigidbody.velocity.magnitude > 0)
         {
+            Gizmos.color = Color.cyan;
             DrawArrow.ForGizmo(transform.position, playerRigidbody.velocity.normalized);
         }
+        // draw initial velocity vector
+        float maxScale = Mathf.Max(transform.lossyScale.x, transform.lossyScale.y, transform.lossyScale.z);
+
+        // turn direction
+        Gizmos.color = Color.black;
+        DrawArrow.ForGizmo(transform.position + turnDirection * maxScale, turnDirection);
+
+        // gravity opposite direction
+        Gizmos.color = Color.cyan;
+        DrawArrow.ForGizmo(transform.position + upToCenterG * maxScale, upToCenterG);
     }
 }

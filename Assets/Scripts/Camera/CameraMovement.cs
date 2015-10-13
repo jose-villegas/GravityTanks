@@ -16,8 +16,8 @@ public class CameraMovement : MonoBehaviour {
         Vector3 targetCamPos = target.position + target.up * heightToTarget;
         Vector3 targetDirection = target.position - transform.position;
         transform.position = Vector3.Lerp(transform.position, targetCamPos, smoothing * Time.deltaTime);
-        transform.rotation = Quaternion.Lerp(transform.rotation, 
-                             Quaternion.LookRotation(targetDirection, target.forward), 
-                             smoothing * Time.deltaTime);
+
+        Quaternion lookToPlayer = Quaternion.LookRotation(targetDirection, transform.up);
+        transform.rotation = Quaternion.Lerp(transform.rotation, lookToPlayer, smoothing * Time.deltaTime);
     }
 }
