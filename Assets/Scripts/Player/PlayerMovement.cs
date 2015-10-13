@@ -10,8 +10,8 @@ public class PlayerMovement : MonoBehaviour {
     public Transform playerStick;
 
     Vector3 movement;
-    Vector3 turnDirection;
-    Vector3 upToCenterG;
+    Vector3 turnDirection = Vector3.up;
+    Vector3 upToCenterG = Vector3.forward;
     Rigidbody playerRigidbody;
 
     bool isWalking = false;
@@ -88,10 +88,6 @@ public class PlayerMovement : MonoBehaviour {
         
         // draw initial velocity vector
         float maxScale = Mathf.Max(transform.lossyScale.x, transform.lossyScale.y, transform.lossyScale.z);
-
-        // movement direction
-        Gizmos.color = Color.black;
-        DrawArrow.ForGizmo(transform.position + movement * maxScale, movement);
 
         // gravity opposite direction
         Gizmos.color = Color.cyan;

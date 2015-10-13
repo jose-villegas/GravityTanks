@@ -195,7 +195,7 @@ Rigidbody:
   m_GameObject: {fileID: 155926}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 5
+  m_Drag: 1
   m_AngularDrag: .0500000007
   m_UseGravity: 0
   m_IsKinematic: 0
@@ -243,6 +243,7 @@ MonoBehaviour:
   damping: 8
   jumpStrength: 2
   gravityPuller: {fileID: 0}
+  playerStick: {fileID: 480062}
 --- !u!114 &11442512
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -254,7 +255,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81495d85906670841a98f9bda9fab94a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 155926}
+  target: {fileID: 464836}
 --- !u!114 &11490822
 MonoBehaviour:
   m_ObjectHideFlags: 1
