@@ -4,6 +4,7 @@ using System.Collections;
 public class PlayerMovement : MonoBehaviour {
     public float movementSpeed = 5f;
     public float damping = 8f;
+    public float jumpStrength = 2f;
     public Transform gravityPuller;
 
     Vector3 movement;
@@ -22,11 +23,14 @@ public class PlayerMovement : MonoBehaviour {
 
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
+        float f = Input.GetAxis("Jump");
+        Debug.Log(f);
         // flags
         isWalking = h != 0 || v != 0;
         // player movement calls
         Turn(h, v);
         Move(h, v);
+        Jump(f);
     }
 
     void Move(float h, float v)
@@ -49,6 +53,13 @@ public class PlayerMovement : MonoBehaviour {
         turnDirection = transform.right * h + transform.forward * v;
         Quaternion lookAtTurn = Quaternion.LookRotation(turnDirection, upToCenterG);
         playerRigidbody.MoveRotation(lookAtTurn);
+    }
+
+    void Jump(float f)
+    {
+        if (f <= 0f) return;
+
+        playerRigidbody.velocity += transform.up * f * jumpStrength;
     }
 
     void OnDrawGizmosSelected()
