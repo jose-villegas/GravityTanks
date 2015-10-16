@@ -9,7 +9,6 @@ public class PlayerMovement : MonoBehaviour {
     public float Damping = 8f;
     public float JumpStrength = 2f;
     public Transform GravityPuller;
-    public Transform PlayerStick;
     public CameraMovement GameCamera;
 
     Vector3 _movement;

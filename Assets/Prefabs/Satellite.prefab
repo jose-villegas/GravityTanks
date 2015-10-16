@@ -90,14 +90,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75c3034244c681844823ea002e427650, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gravityObjects:
+  GravityObjects:
   - {fileID: 0}
-  startingVelocity: {x: 0, y: 0, z: -.379999995}
-  curvePrecision: 100
-  maxSimulationCount: 10000
-  distanceTime: .0500000007
-  orbitalSpeedFactor: .200000003
-  orbitToleranceDistance: .449999988
+  StartingVelocity: {x: 0, y: 0, z: .349999994}
+  CurvePrecision: 100
+  MaxSimulationCount: 10000
+  DistanceTime: .0500000007
+  OrbitalSpeedFactor: .0500000007
+  OrbitToleranceDistance: .0500000007
 --- !u!114 &11468764
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -109,11 +109,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4dc243e7cae8634a8b8083ec8fd9a0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gravitationalPull: 4
-  pullRadius: 5.5
-  pullFromMasks:
+  GravitationalPull: 4.5
+  PullRadius: 10
+  PullMasks:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 3584
 --- !u!135 &13544352
 SphereCollider:
   m_ObjectHideFlags: 1

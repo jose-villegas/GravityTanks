@@ -89,13 +89,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd9e5fe9aaeba2040820dae801fec245, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  gravityPuller: {fileID: 0}
-  velocityImpulse: 5
-  detectionRange: 5
-  outRangeSlowdown: 1
-  limitCapsuleEnd: .99000001
-  isPlayerInRange: 0
+  Player: {fileID: 0}
+  Planet: {fileID: 0}
+  VelocityImpulse: 175
+  DetectionRange: 5
+  OutRangeSlowdown: .125
+  LimitCapsuleEnd: .949999988
 --- !u!135 &13571690
 SphereCollider:
   m_ObjectHideFlags: 1

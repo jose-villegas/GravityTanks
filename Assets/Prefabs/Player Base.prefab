@@ -16,6 +16,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &120342
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 455402}
+  - 33: {fileID: 3374818}
+  - 23: {fileID: 2362588}
+  m_Layer: 10
+  m_Name: Nose
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &136296
 GameObject:
   m_ObjectHideFlags: 1
@@ -123,6 +140,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 464836}
   m_RootOrder: 0
+--- !u!4 &455402
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 120342}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: .5}
+  m_LocalScale: {x: .25, y: .25, z: .25}
+  m_Children: []
+  m_Father: {fileID: 464836}
+  m_RootOrder: 1
 --- !u!4 &464836
 Transform:
   m_ObjectHideFlags: 1
@@ -134,6 +163,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 437444}
+  - {fileID: 455402}
   m_Father: {fileID: 422390}
   m_RootOrder: 0
 --- !u!4 &480062
@@ -149,6 +179,30 @@ Transform:
   - {fileID: 434066}
   m_Father: {fileID: 422390}
   m_RootOrder: 1
+--- !u!23 &2362588
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 120342}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_Materials:
+  - {fileID: 2100000, guid: 0ded8083e6dd1ed40b7fd3ef5fe34463, type: 2}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 1
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 1
+  m_ImportantGI: 0
+  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
 --- !u!23 &2370084
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -180,6 +234,13 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 196448}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!33 &3374818
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 120342}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!33 &3386652
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -225,9 +286,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf8352749e1aa10469bb3ee567f628c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  physicsBullet: {fileID: 183204, guid: 5b5debbc91fe5b443aa352975cd265fc, type: 2}
-  bulletLifeTime: 30
-  bulletSpeed: 10
+  BulletObject: {fileID: 183204, guid: 5b5debbc91fe5b443aa352975cd265fc, type: 2}
+  BulletLifeTime: 30
+  BulletSpeed: 10
 --- !u!114 &11441024
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -239,11 +300,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c59e76ff58f95db41a3e2005edf53f31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 5
-  damping: 8
-  jumpStrength: 2
-  gravityPuller: {fileID: 0}
-  playerStick: {fileID: 480062}
+  MovementSpeed: 5
+  Damping: 8
+  JumpStrength: 2
+  GravityPuller: {fileID: 0}
+  GameCamera: {fileID: 0}
 --- !u!114 &11442512
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -255,7 +316,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81495d85906670841a98f9bda9fab94a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 464836}
+  Target: {fileID: 464836}
 --- !u!114 &11490822
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -267,9 +328,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 416b9f33bcc857f48bfba3175a18e4c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateAround: {fileID: 464836}
-  canonDistance: .5
-  turningSpeed: 15
+  RotateAround: {fileID: 464836}
+  CanonDistance: .5
+  TurningSpeed: 8
+  CamRayLength: 100
 --- !u!135 &13560576
 SphereCollider:
   m_ObjectHideFlags: 1

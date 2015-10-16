@@ -89,9 +89,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4dc243e7cae8634a8b8083ec8fd9a0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gravitationalPull: 9.80000019
-  pullRadius: 50
-  pullFromMasks:
+  GravitationalPull: 9
+  PullRadius: 50
+  PullMasks:
     serializedVersion: 2
     m_Bits: 3584
 --- !u!135 &13518502
@@ -104,7 +104,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: .5
+  m_Radius: .495000005
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &100100000
 Prefab:

@@ -91,9 +91,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 146678953ca420f4aa42ea05ef065286, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  heightToTarget: 10
-  smoothing: 2
+  Target: {fileID: 0}
+  HeightToTarget: 10
+  Smoothing: 5
 --- !u!124 &12499078
 Behaviour:
   m_ObjectHideFlags: 1

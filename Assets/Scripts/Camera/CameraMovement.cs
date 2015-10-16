@@ -12,7 +12,7 @@ public class CameraMovement : MonoBehaviour {
     {
         GameObject go = new GameObject("NonInterpolatedTransform");
         NonInterpolatedTransform = go.transform;
-        go.transform.parent = transform;
+        go.transform.SetParent(transform, false);
     }
 	
 	// Update is called once per frame

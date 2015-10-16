@@ -155,10 +155,6 @@ Prefab:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 11418036, guid: 4aafb086a43f6494ba12c1de5b54c4c7, type: 2}
-      propertyPath: target
-      value: 
-      objectReference: {fileID: 47463764}
-    - target: {fileID: 11418036, guid: 4aafb086a43f6494ba12c1de5b54c4c7, type: 2}
       propertyPath: Target
       value: 
       objectReference: {fileID: 47463764}
@@ -251,45 +247,13 @@ Prefab:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 11467908, guid: d80ae988248f3e549915ebaa61349f78, type: 2}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 1756232767}
-    - target: {fileID: 11467908, guid: d80ae988248f3e549915ebaa61349f78, type: 2}
-      propertyPath: gravityPuller
-      value: 
-      objectReference: {fileID: 1263583747}
-    - target: {fileID: 11467908, guid: d80ae988248f3e549915ebaa61349f78, type: 2}
-      propertyPath: velocityImpulse
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 11467908, guid: d80ae988248f3e549915ebaa61349f78, type: 2}
       propertyPath: Player
       value: 
       objectReference: {fileID: 1756232767}
     - target: {fileID: 11467908, guid: d80ae988248f3e549915ebaa61349f78, type: 2}
-      propertyPath: GravityPuller
-      value: 
-      objectReference: {fileID: 1263583747}
-    - target: {fileID: 11467908, guid: d80ae988248f3e549915ebaa61349f78, type: 2}
-      propertyPath: VelocityImpulse
-      value: 175
-      objectReference: {fileID: 0}
-    - target: {fileID: 11467908, guid: d80ae988248f3e549915ebaa61349f78, type: 2}
-      propertyPath: OutRangeSlowdown
-      value: .125
-      objectReference: {fileID: 0}
-    - target: {fileID: 11467908, guid: d80ae988248f3e549915ebaa61349f78, type: 2}
-      propertyPath: DetectionRange
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 11467908, guid: d80ae988248f3e549915ebaa61349f78, type: 2}
       propertyPath: Planet
       value: 
       objectReference: {fileID: 1263583747}
-    - target: {fileID: 13571690, guid: d80ae988248f3e549915ebaa61349f78, type: 2}
-      propertyPath: m_Radius
-      value: .5
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d80ae988248f3e549915ebaa61349f78, type: 2}
   m_IsPrefabParent: 0
@@ -300,10 +264,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 46480925}
     m_Modifications:
-    - target: {fileID: 11419466, guid: b7a2ccab67cf514479129c6567aebf2b, type: 2}
-      propertyPath: GravityObjects.Array.size
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 437890, guid: b7a2ccab67cf514479129c6567aebf2b, type: 2}
       propertyPath: m_LocalPosition.x
       value: 49.7000008
@@ -337,41 +297,9 @@ Prefab:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11419466, guid: b7a2ccab67cf514479129c6567aebf2b, type: 2}
-      propertyPath: gravityObjects.Array.data[0]
-      value: 
-      objectReference: {fileID: 2095856041}
-    - target: {fileID: 11419466, guid: b7a2ccab67cf514479129c6567aebf2b, type: 2}
       propertyPath: GravityObjects.Array.data[0]
       value: 
       objectReference: {fileID: 2095856041}
-    - target: {fileID: 11419466, guid: b7a2ccab67cf514479129c6567aebf2b, type: 2}
-      propertyPath: StartingVelocity.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11419466, guid: b7a2ccab67cf514479129c6567aebf2b, type: 2}
-      propertyPath: StartingVelocity.z
-      value: .349999994
-      objectReference: {fileID: 0}
-    - target: {fileID: 11419466, guid: b7a2ccab67cf514479129c6567aebf2b, type: 2}
-      propertyPath: StartingVelocity.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11419466, guid: b7a2ccab67cf514479129c6567aebf2b, type: 2}
-      propertyPath: OrbitalSpeedFactor
-      value: .0500000007
-      objectReference: {fileID: 0}
-    - target: {fileID: 11468764, guid: b7a2ccab67cf514479129c6567aebf2b, type: 2}
-      propertyPath: GravitationalPull
-      value: 4.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 11468764, guid: b7a2ccab67cf514479129c6567aebf2b, type: 2}
-      propertyPath: PullMasks.m_Bits
-      value: 3584
-      objectReference: {fileID: 0}
-    - target: {fileID: 11468764, guid: b7a2ccab67cf514479129c6567aebf2b, type: 2}
-      propertyPath: PullRadius
-      value: 10
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b7a2ccab67cf514479129c6567aebf2b, type: 2}
   m_IsPrefabParent: 0
@@ -415,37 +343,9 @@ Prefab:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 11441024, guid: fafc09c156af55343888850228e7c0f0, type: 2}
-      propertyPath: gravityPuller
-      value: 
-      objectReference: {fileID: 1263583747}
-    - target: {fileID: 11490822, guid: fafc09c156af55343888850228e7c0f0, type: 2}
-      propertyPath: RotateAround
-      value: 
-      objectReference: {fileID: 1756232767}
-    - target: {fileID: 11442512, guid: fafc09c156af55343888850228e7c0f0, type: 2}
-      propertyPath: Target
-      value: 
-      objectReference: {fileID: 1756232767}
-    - target: {fileID: 11441024, guid: fafc09c156af55343888850228e7c0f0, type: 2}
       propertyPath: GravityPuller
       value: 
       objectReference: {fileID: 1263583747}
-    - target: {fileID: 11441024, guid: fafc09c156af55343888850228e7c0f0, type: 2}
-      propertyPath: PlayerStick
-      value: 
-      objectReference: {fileID: 47463764}
-    - target: {fileID: 11408690, guid: fafc09c156af55343888850228e7c0f0, type: 2}
-      propertyPath: BulletObject
-      value: 
-      objectReference: {fileID: 183204, guid: 5b5debbc91fe5b443aa352975cd265fc, type: 2}
-    - target: {fileID: 11408690, guid: fafc09c156af55343888850228e7c0f0, type: 2}
-      propertyPath: BulletLifeTime
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 11408690, guid: fafc09c156af55343888850228e7c0f0, type: 2}
-      propertyPath: BulletSpeed
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 11441024, guid: fafc09c156af55343888850228e7c0f0, type: 2}
       propertyPath: GameCamera
       value: 
@@ -453,66 +353,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fafc09c156af55343888850228e7c0f0, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &1041374235
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1041374236}
-  - 33: {fileID: 1041374239}
-  - 23: {fileID: 1041374237}
-  m_Layer: 10
-  m_Name: Nose
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1041374236
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1041374235}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: .5}
-  m_LocalScale: {x: .25, y: .25, z: .25}
-  m_Children: []
-  m_Father: {fileID: 1756232767}
-  m_RootOrder: 1
---- !u!23 &1041374237
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1041374235}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_Materials:
-  - {fileID: 2100000, guid: 0ded8083e6dd1ed40b7fd3ef5fe34463, type: 2}
-  m_SubsetIndices: 
-  m_StaticBatchRoot: {fileID: 0}
-  m_UseLightProbes: 1
-  m_ReflectionProbeUsage: 1
-  m_ProbeAnchor: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 1
-  m_ImportantGI: 0
-  m_AutoUVMaxDistance: .5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
---- !u!33 &1041374239
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1041374235}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!114 &1233251204 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 11418036, guid: 4aafb086a43f6494ba12c1de5b54c4c7,
@@ -561,22 +401,6 @@ Prefab:
     - target: {fileID: 402560, guid: eab9b685c47541d4d9f55b07258d79d6, type: 2}
       propertyPath: m_RootOrder
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11401954, guid: eab9b685c47541d4d9f55b07258d79d6, type: 2}
-      propertyPath: PullMasks.m_Bits
-      value: 3584
-      objectReference: {fileID: 0}
-    - target: {fileID: 11401954, guid: eab9b685c47541d4d9f55b07258d79d6, type: 2}
-      propertyPath: GravitationalPull
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 11401954, guid: eab9b685c47541d4d9f55b07258d79d6, type: 2}
-      propertyPath: PullRadius
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 13518502, guid: eab9b685c47541d4d9f55b07258d79d6, type: 2}
-      propertyPath: m_Radius
-      value: .495000005
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: eab9b685c47541d4d9f55b07258d79d6, type: 2}
