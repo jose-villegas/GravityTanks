@@ -5,6 +5,9 @@ using System.Collections;
 public class EnemyMovement : MonoBehaviour
 {
     public Transform Player;
+    /// <summary>
+    /// Planetary body where this object resides
+    /// </summary>
     public Transform Planet;
     public MovementBehaviour MovementType;
     public float VelocityImpulse = 5f;
