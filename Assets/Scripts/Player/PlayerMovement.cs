@@ -11,17 +11,17 @@ public class PlayerMovement : MonoBehaviour {
     public Transform GravityPuller;
     public CameraMovement GameCamera;
 
-    Vector3 _movement;
-    Vector3 _turnDirection = Vector3.up;
-    Vector3 _upToCenterG = Vector3.forward;
-    Rigidbody _playerRigidbody;
+    private Vector3 _movement;
+    private Vector3 _turnDirection = Vector3.up;
+    private Vector3 _upToCenterG = Vector3.forward;
+    private Rigidbody _pRigidbody;
 
     bool _isWalking;
     
 
     void Awake()
     {
-        _playerRigidbody = GetComponent<Rigidbody>();
+        _pRigidbody = GetComponent<Rigidbody>();
     }
 
     void FixedUpdate()
@@ -46,7 +46,7 @@ public class PlayerMovement : MonoBehaviour {
         _movement = GameCamera.NonInterpolatedTransform.right * h + GameCamera.NonInterpolatedTransform.up * v;
         _movement = _movement.normalized * MovementSpeed * Time.fixedDeltaTime;
 
-        _playerRigidbody.MovePosition(transform.position + _movement);
+        _pRigidbody.MovePosition(_pRigidbody.transform.position + _movement);
     }
 
     void Turn(float h, float v)
@@ -61,13 +61,13 @@ public class PlayerMovement : MonoBehaviour {
             _turnDirection = Quaternion.LookRotation(mainCamera.up, _upToCenterG) * new Vector3(h, 0f, v);
             Quaternion rotAround = Quaternion.LookRotation(_turnDirection, _upToCenterG);
             // look forward to input plane direction
-            _playerRigidbody.MoveRotation(Quaternion.Slerp(transform.rotation, rotAround, Damping * Time.deltaTime));
+            _pRigidbody.MoveRotation(Quaternion.Slerp(_pRigidbody.transform.rotation, rotAround, Damping * Time.deltaTime));
         }
-        else
+        else if(_turnDirection != Vector3.zero)
         {
             Quaternion rotAround = Quaternion.LookRotation(_turnDirection, _upToCenterG);
             // rot to up vector based on gravity
-            _playerRigidbody.MoveRotation(Quaternion.Slerp(transform.rotation, rotAround, Damping * Time.deltaTime));
+            _pRigidbody.MoveRotation(Quaternion.Slerp(_pRigidbody.transform.rotation, rotAround, Damping * Time.deltaTime));
         }
     }
 
@@ -75,7 +75,7 @@ public class PlayerMovement : MonoBehaviour {
     {
         if (f <= 0f) return;
 
-        _playerRigidbody.velocity = transform.up * f * JumpStrength;
+        _pRigidbody.velocity = transform.up * f * JumpStrength;
     }
 
     void OnDrawGizmosSelected()
@@ -84,7 +84,7 @@ public class PlayerMovement : MonoBehaviour {
         {
             // velocity vector direction
             Gizmos.color = Color.magenta;
-            DrawArrow.ForGizmo(transform.position, _playerRigidbody.velocity);
+            DrawArrow.ForGizmo(transform.position, _pRigidbody.velocity);
         }
         
         // draw initial velocity vector

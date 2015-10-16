@@ -2,7 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class BulletLife : MonoBehaviour {
+public class BulletLife : MonoBehaviour
+{
+    /// <summary>
+    /// Bullets have an initial owner to avoid self collision
+    /// </summary>
     public float TimeToIgnoreOwner = 1f;
 
     void Start()

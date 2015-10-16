@@ -6,29 +6,47 @@ using System.Linq;
 // on rails accurate orbit
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(SphericalGravity))]
-public class SatelliteMovement : MonoBehaviour {
-
+public class SatelliteMovement : MonoBehaviour
+{
+    /// <summary>
+    /// Gravitational bodies which this object interacts with
+    /// </summary>
+    [Tooltip("Gravitational bodies which this object interacts with")]
     public List<SphericalGravity> GravityObjects;
     public Vector3 StartingVelocity = Vector3.up;
-
-    // precision of the final point list, higher = less points
+    /// <summary>
+    /// Precision of the final point list, higher = less points
+    /// </summary>
     [Tooltip("Precision of the final point list (higher = less points)")]
     public uint CurvePrecision = 100;
-    // maximum number of points to simulate orbit, important to stop long simulations
+    /// <summary>
+    /// Maximum number of points to simulate orbit, important to stop long simulations
+    /// </summary>
     [Tooltip("Maximum number of points to simulate orbit, stops long simulations")]
     public int MaxSimulationCount = 10000;
-    // distance * time simulation step through orbit
+    /// <summary>
+    /// Distance * Time simulation step through orbit, higher = less points
+    /// </summary>
     [Tooltip("Distance * Time simulation step through orbit")]
-    public float DistanceTime = 0.05f;
+    public float DistanceTimeStep = 0.02f;
 
+    /// <summary>
+    /// Controls the speed in which the object complets its orbit
+    /// </summary>
+    [Tooltip("Controls the speed in which the object complets its orbit")]
     public float OrbitalSpeedFactor = 1f;
-    // distance of the last point on orbit to the first to be considered stable
+    /// <summary>
+    /// Distance of the last point to the first point on orbit to be considered stable
+    /// </summary>
     [Tooltip("Distance of the last point on orbit to the first to be considered stable")]
     public float OrbitToleranceDistance = 0.05f;
 
     private Rigidbody _sRigidbody;
     private SphericalGravity _gravityPull;
-    private readonly List<Vector3> _orbitPoints = new List<Vector3>();
+    /// <summary>
+    /// Collection of precomputed orbit points
+    /// </summary>
+    private List<Vector3> _orbitPoints = new List<Vector3>();
     private float _timer = 0f;
 
     void Awake()
@@ -65,7 +83,7 @@ public class SatelliteMovement : MonoBehaviour {
 
     float ClosestPuller()
     {
-        return GravityObjects.Select(go => Vector3.Distance(transform.position, go.transform.position)).Concat(new[] {Mathf.Infinity}).Min();
+        return GravityObjects.Select(go => Vector3.Distance(transform.position, go.transform.position)).Concat(new[] { Mathf.Infinity }).Min();
     }
 
     float OrbitalSpeed()
@@ -76,7 +94,7 @@ public class SatelliteMovement : MonoBehaviour {
     void ComputeTrajectory()
     {
         float angle = 0;
-        float dt = DistanceTime;
+        float dt = DistanceTimeStep;
 
         Vector3 s = transform.position;
         Vector3 lastS = s;
@@ -133,7 +151,7 @@ public class SatelliteMovement : MonoBehaviour {
     void OnDrawGizmosSelected()
     {
         // recalculates trajectorie on current parameters - cpu heavy
-        if (!Application.isPlaying)  ComputeTrajectory();
+        if (!Application.isPlaying) ComputeTrajectory();
 
         // draw initial velocity vector
         float maxScale = Mathf.Max(transform.lossyScale.x, transform.lossyScale.y, transform.lossyScale.z);

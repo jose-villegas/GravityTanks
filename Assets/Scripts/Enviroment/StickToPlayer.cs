@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class StickToPlayer : MonoBehaviour {
-
+public class StickToPlayer : MonoBehaviour
+{
     public Transform Target;
     private PlayerMovement _playerMovement;
 

@@ -254,6 +254,22 @@ Prefab:
       propertyPath: Planet
       value: 
       objectReference: {fileID: 1263583747}
+    - target: {fileID: 11467908, guid: d80ae988248f3e549915ebaa61349f78, type: 2}
+      propertyPath: VelocityImpulse
+      value: .5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11467908, guid: d80ae988248f3e549915ebaa61349f78, type: 2}
+      propertyPath: MovementType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11467908, guid: d80ae988248f3e549915ebaa61349f78, type: 2}
+      propertyPath: LimitCapsuleEnd
+      value: .899999976
+      objectReference: {fileID: 0}
+    - target: {fileID: 11467908, guid: d80ae988248f3e549915ebaa61349f78, type: 2}
+      propertyPath: OutRangeSlowdown
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d80ae988248f3e549915ebaa61349f78, type: 2}
   m_IsPrefabParent: 0
@@ -300,6 +316,22 @@ Prefab:
       propertyPath: GravityObjects.Array.data[0]
       value: 
       objectReference: {fileID: 2095856041}
+    - target: {fileID: 11419466, guid: b7a2ccab67cf514479129c6567aebf2b, type: 2}
+      propertyPath: StartingVelocity.z
+      value: .349999994
+      objectReference: {fileID: 0}
+    - target: {fileID: 11419466, guid: b7a2ccab67cf514479129c6567aebf2b, type: 2}
+      propertyPath: OrbitToleranceDistance
+      value: .699999988
+      objectReference: {fileID: 0}
+    - target: {fileID: 11419466, guid: b7a2ccab67cf514479129c6567aebf2b, type: 2}
+      propertyPath: DistanceTimeStep
+      value: .0500000007
+      objectReference: {fileID: 0}
+    - target: {fileID: 11419466, guid: b7a2ccab67cf514479129c6567aebf2b, type: 2}
+      propertyPath: MaxSimulationCount
+      value: 10000
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b7a2ccab67cf514479129c6567aebf2b, type: 2}
   m_IsPrefabParent: 0
@@ -350,6 +382,22 @@ Prefab:
       propertyPath: GameCamera
       value: 
       objectReference: {fileID: 1233251204}
+    - target: {fileID: 107018, guid: fafc09c156af55343888850228e7c0f0, type: 2}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 196448, guid: fafc09c156af55343888850228e7c0f0, type: 2}
+      propertyPath: m_Layer
+      value: 31
+      objectReference: {fileID: 0}
+    - target: {fileID: 107018, guid: fafc09c156af55343888850228e7c0f0, type: 2}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 166952, guid: fafc09c156af55343888850228e7c0f0, type: 2}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fafc09c156af55343888850228e7c0f0, type: 2}
   m_IsPrefabParent: 0
