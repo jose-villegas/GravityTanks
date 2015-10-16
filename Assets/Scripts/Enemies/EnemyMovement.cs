@@ -1,23 +1,27 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(Rigidbody))]
 public class EnemyMovement : MonoBehaviour {
 
-    public Transform player;
-    public Transform gravityPuller;
-    public float velocityImpulse = 5f;
-    public float detectionRange = 5f;
-    public float outRangeSlowdown = 1f;
-    public float limitCapsuleEnd = 0.95f;
+    public Transform Player;
+    public Transform Planet;
+    public float VelocityImpulse = 5f;
+    public float DetectionRange = 5f;
+    public float OutRangeSlowdown = 1f;
+    /// <summary>
+    /// Prevents the collision capsule from coming out on the opposite side of the planet
+    /// </summary>
+    public float LimitCapsuleEnd = 0.95f;
 
-    Rigidbody eRigidbody;
-    public bool isPlayerInRange = false;
-    int playerLayer;
+    private Rigidbody _eRigidbody;
+    private bool _isPlayerInRange;
+    private int _playerLayer;
 
     void Awake()
     {
-        eRigidbody = GetComponent<Rigidbody>();
-        playerLayer = LayerMask.GetMask("PlayerLayer");
+        _eRigidbody = GetComponent<Rigidbody>();
+        _playerLayer = LayerMask.GetMask("PlayerLayer");
     }
 
     void Start()
@@ -27,46 +31,40 @@ public class EnemyMovement : MonoBehaviour {
 
     void FixedUpdate()
     {
-        if (isPlayerInRange)
-            eRigidbody.velocity = (player.position - transform.position).normalized * velocityImpulse * Time.fixedDeltaTime;
+        if (_isPlayerInRange)
+            _eRigidbody.velocity = (Player.position - transform.position).normalized * VelocityImpulse * Time.fixedDeltaTime;
         else
-            eRigidbody.velocity = Vector3.Lerp(eRigidbody.velocity, Vector3.zero, Time.fixedDeltaTime * outRangeSlowdown); // slowly slow down
+            _eRigidbody.velocity = Vector3.Lerp(_eRigidbody.velocity, Vector3.zero, Time.fixedDeltaTime * OutRangeSlowdown); // slowly slow down
     }
 
     void DetectPlayer()
     {
-        float gPullerRadius = Mathf.Max(gravityPuller.lossyScale.x, gravityPuller.lossyScale.y, gravityPuller.lossyScale.z) / 2f;
-        float targetDistance = Mathf.Sqrt(gPullerRadius * gPullerRadius - detectionRange * detectionRange);
+        float gPullerRadius = Mathf.Max(Planet.lossyScale.x, Planet.lossyScale.y, Planet.lossyScale.z) / 2f;
+        float targetDistance = Mathf.Sqrt(gPullerRadius * gPullerRadius - DetectionRange * DetectionRange);
 
-        Vector3 circleNormal = (transform.position - gravityPuller.position).normalized;
-        Vector3 capsuleOrigin = gravityPuller.position - circleNormal * (gPullerRadius * limitCapsuleEnd);
-        Vector3 capsuleEnd = gravityPuller.position + circleNormal * (targetDistance + detectionRange);
+        Vector3 circleNormal = (transform.position - Planet.position).normalized;
+        Vector3 capsuleOrigin = Planet.position - circleNormal * (gPullerRadius * LimitCapsuleEnd);
+        Vector3 capsuleEnd = Planet.position + circleNormal * (targetDistance + DetectionRange);
 
-        isPlayerInRange = Physics.CheckCapsule(capsuleOrigin, capsuleEnd, detectionRange, playerLayer);
+        _isPlayerInRange = Physics.CheckCapsule(capsuleOrigin, capsuleEnd, DetectionRange, _playerLayer);
     }
 
     void OnDrawGizmosSelected()
     {
         // gravity opposite direction
-        if (eRigidbody != null) { 
+        if (_eRigidbody != null) { 
             Gizmos.color = Color.cyan;
-            DrawArrow.ForGizmo(transform.position, eRigidbody.velocity);
+            DrawArrow.ForGizmo(transform.position, _eRigidbody.velocity);
         }
 
         // bomb player detection range
-        float gPullerRadius = Mathf.Max(gravityPuller.lossyScale.x, gravityPuller.lossyScale.y, gravityPuller.lossyScale.z) / 2f;
-        float targetDistance = Mathf.Sqrt(gPullerRadius * gPullerRadius - detectionRange * detectionRange);
+        float gPullerRadius = Mathf.Max(Planet.lossyScale.x, Planet.lossyScale.y, Planet.lossyScale.z) / 2f;
+        float targetDistance = Mathf.Sqrt(gPullerRadius * gPullerRadius - DetectionRange * DetectionRange);
 
-        Vector3 circleNormal = (transform.position - gravityPuller.position).normalized;
-        Vector3 capsuleOrigin = gravityPuller.position - circleNormal * (gPullerRadius * limitCapsuleEnd);
-        Vector3 capsuleEnd = gravityPuller.position + circleNormal * (targetDistance + detectionRange);
+        Vector3 circleNormal = (transform.position - Planet.position).normalized;
+        Vector3 capsuleOrigin = Planet.position - circleNormal * (gPullerRadius * LimitCapsuleEnd);
+        Vector3 capsuleEnd = Planet.position + circleNormal * (targetDistance + DetectionRange);
 
-        DebugExtension.DrawCapsule(capsuleOrigin, capsuleEnd, Color.red, detectionRange);
-
-        Matrix4x4 cubeSpace = new Matrix4x4();
-        Vector3 planePosition = gravityPuller.position + circleNormal * targetDistance;
-        cubeSpace.SetTRS(planePosition, Quaternion.LookRotation(circleNormal, Vector3.up), Vector3.one);
-
-        DebugExtension.DrawLocalCube(cubeSpace, new Vector3(detectionRange + gPullerRadius, detectionRange + gPullerRadius, 0), Color.red);
+        DebugExtension.DrawCapsule(capsuleOrigin, capsuleEnd, _isPlayerInRange ? Color.red : Color.gray, DetectionRange);
     }
 }

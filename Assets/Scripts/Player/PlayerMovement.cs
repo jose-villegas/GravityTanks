@@ -1,24 +1,28 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(Rigidbody))]
 public class PlayerMovement : MonoBehaviour {
 
-    public float movementSpeed = 5f;
-    public float damping = 8f;
-    public float jumpStrength = 2f;
-    public Transform gravityPuller;
-    public Transform playerStick;
+    public float MovementSpeed = 5f;
+    public float Damping = 8f;
+    public float JumpStrength = 2f;
+    public Transform GravityPuller;
+    public Transform PlayerStick;
+    public CameraMovement GameCamera;
 
-    Vector3 movement;
-    Vector3 turnDirection = Vector3.up;
-    Vector3 upToCenterG = Vector3.forward;
-    Rigidbody playerRigidbody;
+    Vector3 _movement;
+    Vector3 _turnDirection = Vector3.up;
+    Vector3 _upToCenterG = Vector3.forward;
+    Rigidbody _playerRigidbody;
 
-    bool isWalking = false;
+    bool _isWalking;
+    
 
     void Awake()
     {
-        playerRigidbody = GetComponent<Rigidbody>();
+        _playerRigidbody = GetComponent<Rigidbody>();
     }
 
     void FixedUpdate()
@@ -29,7 +33,7 @@ public class PlayerMovement : MonoBehaviour {
         float f = Input.GetAxis("Jump");
 
         // flags
-        isWalking = h != 0 || v != 0;
+        _isWalking = Mathf.Abs(h) > Mathf.Epsilon || Mathf.Abs(v) > Mathf.Epsilon;
         // player movement calls
         Turn(h, v);
         Move(h, v);
@@ -38,35 +42,33 @@ public class PlayerMovement : MonoBehaviour {
 
     void Move(float h, float v)
     {
-        if (!isWalking) return;
+        if (!_isWalking) return;
 
-        Transform mainCamera = Camera.main.transform;
+        _movement = GameCamera.NonInterpolatedTransform.right * h + GameCamera.NonInterpolatedTransform.up * v;
+        _movement = _movement.normalized * MovementSpeed * Time.fixedDeltaTime;
 
-        movement = mainCamera.right * h + mainCamera.up * v;
-        movement = movement.normalized * movementSpeed * Time.fixedDeltaTime;
-
-        playerRigidbody.MovePosition(transform.position + movement);
+        _playerRigidbody.MovePosition(transform.position + _movement);
     }
 
     void Turn(float h, float v)
     {
-        upToCenterG = (transform.position - gravityPuller.position).normalized;
+        _upToCenterG = (transform.position - GravityPuller.position).normalized;
 
         // smooth rotation with damping parameter
-        if (isWalking)
+        if (_isWalking)
         {
             Transform mainCamera = Camera.main.transform;
 
-            turnDirection = Quaternion.LookRotation(mainCamera.up, upToCenterG) * new Vector3(h, 0f, v);
-            Quaternion rotAround = Quaternion.LookRotation(turnDirection, upToCenterG);
+            _turnDirection = Quaternion.LookRotation(mainCamera.up, _upToCenterG) * new Vector3(h, 0f, v);
+            Quaternion rotAround = Quaternion.LookRotation(_turnDirection, _upToCenterG);
             // look forward to input plane direction
-            playerRigidbody.MoveRotation(Quaternion.Slerp(transform.rotation, rotAround, damping * Time.deltaTime));
+            _playerRigidbody.MoveRotation(Quaternion.Slerp(transform.rotation, rotAround, Damping * Time.deltaTime));
         }
         else
         {
-            Quaternion rotAround = Quaternion.LookRotation(turnDirection, upToCenterG);
+            Quaternion rotAround = Quaternion.LookRotation(_turnDirection, _upToCenterG);
             // rot to up vector based on gravity
-            playerRigidbody.MoveRotation(Quaternion.Slerp(transform.rotation, rotAround, damping * Time.deltaTime));
+            _playerRigidbody.MoveRotation(Quaternion.Slerp(transform.rotation, rotAround, Damping * Time.deltaTime));
         }
     }
 
@@ -74,7 +76,7 @@ public class PlayerMovement : MonoBehaviour {
     {
         if (f <= 0f) return;
 
-        playerRigidbody.velocity = transform.up * f * jumpStrength;
+        _playerRigidbody.velocity = transform.up * f * JumpStrength;
     }
 
     void OnDrawGizmosSelected()
@@ -83,7 +85,7 @@ public class PlayerMovement : MonoBehaviour {
         {
             // velocity vector direction
             Gizmos.color = Color.magenta;
-            DrawArrow.ForGizmo(transform.position, playerRigidbody.velocity);
+            DrawArrow.ForGizmo(transform.position, _playerRigidbody.velocity);
         }
         
         // draw initial velocity vector
@@ -91,12 +93,12 @@ public class PlayerMovement : MonoBehaviour {
 
         // gravity opposite direction
         Gizmos.color = Color.cyan;
-        DrawArrow.ForGizmo(transform.position + upToCenterG * maxScale, upToCenterG);
+        DrawArrow.ForGizmo(transform.position + _upToCenterG * maxScale, _upToCenterG);
 
         // axis input plane
         Gizmos.color = Color.red;
-        DebugExtension.DrawCircle(transform.position, upToCenterG, Color.red, 1f);
+        DebugExtension.DrawCircle(transform.position, _upToCenterG, Color.red, 1f);
         // draw current input position
-        Gizmos.DrawCube(transform.position + turnDirection, Vector3.one * 0.15f);
+        Gizmos.DrawCube(transform.position + _turnDirection, Vector3.one * 0.15f);
     }
 }

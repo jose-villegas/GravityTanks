@@ -2,32 +2,28 @@
 using System.Collections;
 
 public class PlayerShooting : MonoBehaviour {
-    public GameObject physicsBullet;
-    public float bulletLifeTime = 2f;
-    public float bulletSpeed = 5f;
-
-
-	// Use this for initialization
-	void Start () {
-	
-	}
+    public GameObject BulletObject;
+    public float BulletLifeTime = 2f;
+    public float BulletSpeed = 5f;
 	
 	// Update is called once per frame
 	void Update () {
 	    if(Input.GetButtonUp("Fire1"))
         {
-            GameObject newProjectile = Instantiate(physicsBullet, transform.position, transform.rotation) as GameObject;
-            // tag the projectile as a coming from the player
-            newProjectile.tag = "Player";
+            GameObject newProjectile = Instantiate(BulletObject, transform.position, transform.rotation) as GameObject;
+            if (newProjectile == null) return;
 
             Rigidbody pRigidbody = newProjectile.GetComponent<Rigidbody>();
 
             if (pRigidbody != null)
             {
-                pRigidbody.velocity = bulletSpeed * transform.forward;
+                // tag the projectile as a coming from the player
+                newProjectile.tag = "Player";
+                // move towards forward vec3
+                pRigidbody.velocity = BulletSpeed * transform.forward;
             }
 
-            Destroy(newProjectile, bulletLifeTime);
+            Destroy(newProjectile, BulletLifeTime);
         }
 	}
 }

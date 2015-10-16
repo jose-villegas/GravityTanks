@@ -3,11 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class BulletLife : MonoBehaviour {
-    public float timeToIgnoreOwner = 1f;
+    public float TimeToIgnoreOwner = 1f;
 
     void Start()
     {
-        Invoke("ForgetOwner", timeToIgnoreOwner);
+        Invoke("ForgetOwner", TimeToIgnoreOwner);
     }
 
     void ForgetOwner()

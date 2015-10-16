@@ -41,7 +41,7 @@ RenderSettings:
 LightmapSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 5
-  m_GIWorkflowMode: 0
+  m_GIWorkflowMode: 1
   m_LightmapsMode: 1
   m_GISettings:
     serializedVersion: 2
@@ -60,13 +60,14 @@ LightmapSettings:
     m_TextureHeight: 1024
     m_AOMaxDistance: 1
     m_Padding: 2
-    m_CompAOExponent: 0
+    m_CompAOExponent: 5
     m_LightmapParameters: {fileID: 0}
     m_TextureCompression: 1
     m_FinalGather: 0
     m_FinalGatherRayCount: 1024
     m_ReflectionCompression: 1
-  m_LightmapSnapshot: {fileID: 0}
+  m_LightmapSnapshot: {fileID: 112000002, guid: b242aba98fbb16a4da29f5532eb319e8,
+    type: 2}
   m_RuntimeCPUUsage: 25
 --- !u!196 &4
 NavMeshSettings:
@@ -155,6 +156,10 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11418036, guid: 4aafb086a43f6494ba12c1de5b54c4c7, type: 2}
       propertyPath: target
+      value: 
+      objectReference: {fileID: 47463764}
+    - target: {fileID: 11418036, guid: 4aafb086a43f6494ba12c1de5b54c4c7, type: 2}
+      propertyPath: Target
       value: 
       objectReference: {fileID: 47463764}
     m_RemovedComponents: []
@@ -253,6 +258,38 @@ Prefab:
       propertyPath: gravityPuller
       value: 
       objectReference: {fileID: 1263583747}
+    - target: {fileID: 11467908, guid: d80ae988248f3e549915ebaa61349f78, type: 2}
+      propertyPath: velocityImpulse
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 11467908, guid: d80ae988248f3e549915ebaa61349f78, type: 2}
+      propertyPath: Player
+      value: 
+      objectReference: {fileID: 1756232767}
+    - target: {fileID: 11467908, guid: d80ae988248f3e549915ebaa61349f78, type: 2}
+      propertyPath: GravityPuller
+      value: 
+      objectReference: {fileID: 1263583747}
+    - target: {fileID: 11467908, guid: d80ae988248f3e549915ebaa61349f78, type: 2}
+      propertyPath: VelocityImpulse
+      value: 175
+      objectReference: {fileID: 0}
+    - target: {fileID: 11467908, guid: d80ae988248f3e549915ebaa61349f78, type: 2}
+      propertyPath: OutRangeSlowdown
+      value: .125
+      objectReference: {fileID: 0}
+    - target: {fileID: 11467908, guid: d80ae988248f3e549915ebaa61349f78, type: 2}
+      propertyPath: DetectionRange
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11467908, guid: d80ae988248f3e549915ebaa61349f78, type: 2}
+      propertyPath: Planet
+      value: 
+      objectReference: {fileID: 1263583747}
+    - target: {fileID: 13571690, guid: d80ae988248f3e549915ebaa61349f78, type: 2}
+      propertyPath: m_Radius
+      value: .5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d80ae988248f3e549915ebaa61349f78, type: 2}
   m_IsPrefabParent: 0
@@ -263,6 +300,10 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 46480925}
     m_Modifications:
+    - target: {fileID: 11419466, guid: b7a2ccab67cf514479129c6567aebf2b, type: 2}
+      propertyPath: GravityObjects.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 437890, guid: b7a2ccab67cf514479129c6567aebf2b, type: 2}
       propertyPath: m_LocalPosition.x
       value: 49.7000008
@@ -299,6 +340,38 @@ Prefab:
       propertyPath: gravityObjects.Array.data[0]
       value: 
       objectReference: {fileID: 2095856041}
+    - target: {fileID: 11419466, guid: b7a2ccab67cf514479129c6567aebf2b, type: 2}
+      propertyPath: GravityObjects.Array.data[0]
+      value: 
+      objectReference: {fileID: 2095856041}
+    - target: {fileID: 11419466, guid: b7a2ccab67cf514479129c6567aebf2b, type: 2}
+      propertyPath: StartingVelocity.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11419466, guid: b7a2ccab67cf514479129c6567aebf2b, type: 2}
+      propertyPath: StartingVelocity.z
+      value: .349999994
+      objectReference: {fileID: 0}
+    - target: {fileID: 11419466, guid: b7a2ccab67cf514479129c6567aebf2b, type: 2}
+      propertyPath: StartingVelocity.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11419466, guid: b7a2ccab67cf514479129c6567aebf2b, type: 2}
+      propertyPath: OrbitalSpeedFactor
+      value: .0500000007
+      objectReference: {fileID: 0}
+    - target: {fileID: 11468764, guid: b7a2ccab67cf514479129c6567aebf2b, type: 2}
+      propertyPath: GravitationalPull
+      value: 4.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11468764, guid: b7a2ccab67cf514479129c6567aebf2b, type: 2}
+      propertyPath: PullMasks.m_Bits
+      value: 3584
+      objectReference: {fileID: 0}
+    - target: {fileID: 11468764, guid: b7a2ccab67cf514479129c6567aebf2b, type: 2}
+      propertyPath: PullRadius
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b7a2ccab67cf514479129c6567aebf2b, type: 2}
   m_IsPrefabParent: 0
@@ -345,6 +418,38 @@ Prefab:
       propertyPath: gravityPuller
       value: 
       objectReference: {fileID: 1263583747}
+    - target: {fileID: 11490822, guid: fafc09c156af55343888850228e7c0f0, type: 2}
+      propertyPath: RotateAround
+      value: 
+      objectReference: {fileID: 1756232767}
+    - target: {fileID: 11442512, guid: fafc09c156af55343888850228e7c0f0, type: 2}
+      propertyPath: Target
+      value: 
+      objectReference: {fileID: 1756232767}
+    - target: {fileID: 11441024, guid: fafc09c156af55343888850228e7c0f0, type: 2}
+      propertyPath: GravityPuller
+      value: 
+      objectReference: {fileID: 1263583747}
+    - target: {fileID: 11441024, guid: fafc09c156af55343888850228e7c0f0, type: 2}
+      propertyPath: PlayerStick
+      value: 
+      objectReference: {fileID: 47463764}
+    - target: {fileID: 11408690, guid: fafc09c156af55343888850228e7c0f0, type: 2}
+      propertyPath: BulletObject
+      value: 
+      objectReference: {fileID: 183204, guid: 5b5debbc91fe5b443aa352975cd265fc, type: 2}
+    - target: {fileID: 11408690, guid: fafc09c156af55343888850228e7c0f0, type: 2}
+      propertyPath: BulletLifeTime
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 11408690, guid: fafc09c156af55343888850228e7c0f0, type: 2}
+      propertyPath: BulletSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 11441024, guid: fafc09c156af55343888850228e7c0f0, type: 2}
+      propertyPath: GameCamera
+      value: 
+      objectReference: {fileID: 1233251204}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fafc09c156af55343888850228e7c0f0, type: 2}
   m_IsPrefabParent: 0
@@ -387,7 +492,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 0ded8083e6dd1ed40b7fd3ef5fe34463, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -408,6 +513,12 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1041374235}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1233251204 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 11418036, guid: 4aafb086a43f6494ba12c1de5b54c4c7,
+    type: 2}
+  m_PrefabInternal: {fileID: 46674359}
+  m_Script: {fileID: 11500000, guid: 146678953ca420f4aa42ea05ef065286, type: 3}
 --- !u!4 &1263583747 stripped
 Transform:
   m_PrefabParentObject: {fileID: 402560, guid: eab9b685c47541d4d9f55b07258d79d6, type: 2}
@@ -450,6 +561,22 @@ Prefab:
     - target: {fileID: 402560, guid: eab9b685c47541d4d9f55b07258d79d6, type: 2}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11401954, guid: eab9b685c47541d4d9f55b07258d79d6, type: 2}
+      propertyPath: PullMasks.m_Bits
+      value: 3584
+      objectReference: {fileID: 0}
+    - target: {fileID: 11401954, guid: eab9b685c47541d4d9f55b07258d79d6, type: 2}
+      propertyPath: GravitationalPull
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 11401954, guid: eab9b685c47541d4d9f55b07258d79d6, type: 2}
+      propertyPath: PullRadius
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 13518502, guid: eab9b685c47541d4d9f55b07258d79d6, type: 2}
+      propertyPath: m_Radius
+      value: .495000005
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: eab9b685c47541d4d9f55b07258d79d6, type: 2}

@@ -3,17 +3,16 @@ using System.Collections;
 
 public class CanonMovement : MonoBehaviour {
 
-    public Transform rotateAround;
-    public float canonDistance = 0.5f;
-    public float turningSpeed = 8.0f;
+    public Transform RotateAround;
+    public float CanonDistance = 0.5f;
+    public float TurningSpeed = 8.0f;
+    public float CamRayLength = 100f;
 
-    int inputMask;
-    float camRayLength = 100f;
+    public int InputMask { get; private set; }
 
-    // Use this for initialization
     void Start ()
     {
-        inputMask = LayerMask.GetMask("InputCapture");
+        InputMask = LayerMask.GetMask("InputCapture");
     }
 
     // Update is called once per frame
@@ -25,16 +24,16 @@ public class CanonMovement : MonoBehaviour {
     void Move()
     {
         // set cannon to proper distance to the player or target
-        transform.position = rotateAround.position + transform.forward * canonDistance;
+        transform.position = RotateAround.position + transform.forward * CanonDistance;
 
         Ray camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit inputPlaneHit;
 
-        if (Physics.Raycast(camRay, out inputPlaneHit, camRayLength, inputMask))
+        if (Physics.Raycast(camRay, out inputPlaneHit, CamRayLength, InputMask))
         {
             Vector3 mouseDirection = (inputPlaneHit.point - transform.position).normalized;
-            Quaternion toMouse = Quaternion.LookRotation(mouseDirection, rotateAround.up);
-            transform.rotation = Quaternion.Slerp(transform.rotation, toMouse, turningSpeed * Time.deltaTime);
+            Quaternion toMouse = Quaternion.LookRotation(mouseDirection, RotateAround.up);
+            transform.rotation = Quaternion.Slerp(transform.rotation, toMouse, TurningSpeed * Time.deltaTime);
         }
     }
 }
