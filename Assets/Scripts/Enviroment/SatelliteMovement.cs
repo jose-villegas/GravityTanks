@@ -88,7 +88,7 @@ public class SatelliteMovement : MonoBehaviour
 
     float OrbitalSpeed()
     {
-        return Mathf.Sqrt((_gravityPull.GravitationalPull * _sRigidbody.mass) / ClosestPuller());
+        return Mathf.Sqrt((_gravityPull.PlanetInformation.Gravity * _sRigidbody.mass) / ClosestPuller());
     }
 
     void ComputeTrajectory()
@@ -141,7 +141,7 @@ public class SatelliteMovement : MonoBehaviour
         foreach (SphericalGravity t in goArray)
         {
             Vector3 dir = t.transform.position - simPos;
-            float gravity = t.GetComponent<SphericalGravity>().GravitationalPull;
+            float gravity = t.GetComponent<SphericalGravity>().PlanetInformation.Gravity;
             a += dir.normalized * gravity / dir.sqrMagnitude;
         }
 

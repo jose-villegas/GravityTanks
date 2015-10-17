@@ -2,9 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class SphericalGravity : MonoBehaviour {
-
-    public float GravitationalPull;
+[RequireComponent(typeof(PlanetInfo))]
+public class SphericalGravity : MonoBehaviour
+{
+    public PlanetInfo PlanetInformation;
     public float PullRadius = 5f;
     public LayerMask PullMasks;
 
@@ -26,7 +27,7 @@ public class SphericalGravity : MonoBehaviour {
             if (oRigidBody == null) continue;
 
             Vector3 forceDirection = (transform.position - other.transform.position).normalized;
-            oRigidBody.AddForce(forceDirection * GravitationalPull);
+            oRigidBody.AddForce(forceDirection * PlanetInformation.Gravity);
         }
     }
 }

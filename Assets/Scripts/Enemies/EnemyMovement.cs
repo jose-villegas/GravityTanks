@@ -4,26 +4,34 @@ using System.Collections;
 [RequireComponent(typeof(Rigidbody))]
 public class EnemyMovement : MonoBehaviour
 {
-    public Transform Player;
     /// <summary>
     /// Planetary body where this object resides
     /// </summary>
     public Transform Planet;
+    public Transform Player;
+
     public MovementBehaviour MovementType;
-    public float VelocityImpulse = 5f;
-    public float DetectionRange = 5f;
-    public float OutRangeSlowdown = 1f;
-    /// <summary>
-    /// Prevents the collision capsule from coming out on the opposite side of the planet
-    /// </summary>
-    public float LimitCapsuleEnd = 0.95f;
     public bool UseSquareDistance = false;
+    public float VelocityImpulse = 5f;
+    public float OutRangeSlowdown = 1f;
+
+    public float CapsuleRadius = 1f;
+    /// <summary>
+    /// Traslates the area detection capsule beginning position
+    /// from the object position, aligned with Planet center of mass
+    /// </summary>
+    public Vector3 CapsuleBegin = Vector3.zero;
+    /// <summary>
+    /// Translates the area detection capsule ending position
+    /// from the object position, aligned with Planet center of mass
+    /// </summary>
+    public Vector3 CapsuleEnd = Vector3.zero;
 
     private Rigidbody _eRigidbody;
     private bool _isPlayerInRange;
     private float _distanceToPlayer;
     private int _playerLayer;
-
+    
     public enum MovementBehaviour
     {
         Fixed,
@@ -61,8 +69,8 @@ public class EnemyMovement : MonoBehaviour
             }
 
             // apply force on object rigidbody
-            if(MovementType != MovementBehaviour.Fixed) { _eRigidbody.AddForce(forceIntensity); }
-            else { _eRigidbody.velocity = (targetDirection * VelocityImpulse * Time.fixedDeltaTime); }
+            if (MovementType != MovementBehaviour.Fixed) { _eRigidbody.AddForce(forceIntensity); }
+            else { _eRigidbody.velocity = targetDirection * VelocityImpulse * Time.fixedDeltaTime; }
         }
         else // slowly slow down
         {
@@ -72,18 +80,15 @@ public class EnemyMovement : MonoBehaviour
 
     void DetectPlayer()
     {
-        float gPullerRadius = Mathf.Max(Planet.lossyScale.x, Planet.lossyScale.y, Planet.lossyScale.z) / 2f;
-        float targetDistance = Mathf.Sqrt(gPullerRadius * gPullerRadius - DetectionRange * DetectionRange);
+        Vector3 targetNormal = (transform.position - Planet.position).normalized;
+        Vector3 capsuleB = Quaternion.FromToRotation(Vector3.up, targetNormal) * CapsuleBegin;
+        Vector3 capsuleE = Quaternion.FromToRotation(Vector3.up, targetNormal) * CapsuleEnd;
 
-        Vector3 circleNormal = (transform.position - Planet.position).normalized;
-        Vector3 capsuleOrigin = Planet.position - circleNormal * (gPullerRadius * LimitCapsuleEnd);
-        Vector3 capsuleEnd = Planet.position + circleNormal * (targetDistance + DetectionRange);
-
-        _isPlayerInRange = Physics.CheckCapsule(capsuleOrigin, capsuleEnd, DetectionRange, _playerLayer);
-        _distanceToPlayer = _isPlayerInRange ? 
-                                UseSquareDistance ? 
-                                    Vector3.Distance(transform.position, Player.position) : 
-                                    Vector3.SqrMagnitude(transform.position - Player.position) : 
+        _isPlayerInRange = Physics.CheckCapsule(transform.position + capsuleB, transform.position + capsuleE, CapsuleRadius, _playerLayer);
+        _distanceToPlayer = _isPlayerInRange ?
+                                UseSquareDistance ?
+                                    Vector3.SqrMagnitude(transform.position - Player.position) :
+                                    Vector3.Distance(transform.position, Player.position)  :
                             Mathf.Infinity;
     }
 
@@ -96,20 +101,26 @@ public class EnemyMovement : MonoBehaviour
             DrawArrow.ForGizmo(transform.position, _eRigidbody.velocity);
         }
 
+        Vector3 targetNormal = (transform.position - Planet.position).normalized;
+        Vector3 capsuleB = Quaternion.FromToRotation(Vector3.up, targetNormal) * CapsuleBegin;
+        Vector3 capsuleE = Quaternion.FromToRotation(Vector3.up, targetNormal) * CapsuleEnd;
         // bomb player detection range
-        float planetRadius = Mathf.Max(Planet.lossyScale.x, Planet.lossyScale.y, Planet.lossyScale.z) / 2f;
-        float targetDistance = Mathf.Sqrt(planetRadius * planetRadius - DetectionRange * DetectionRange);
-
-        Vector3 circleNormal = (transform.position - Planet.position).normalized;
-        Vector3 capsuleOrigin = Planet.position - circleNormal * (planetRadius * LimitCapsuleEnd);
-        Vector3 capsuleEnd = Planet.position + circleNormal * (targetDistance + DetectionRange);
-
-        DebugExtension.DrawCapsule(capsuleOrigin, capsuleEnd, _isPlayerInRange ? Color.red : Color.gray, DetectionRange);
+        DebugExtension.DrawCapsule(
+            transform.position + capsuleB,
+            transform.position + capsuleE,
+            _isPlayerInRange ? Color.red : Color.gray,
+            CapsuleRadius
+        );
 
         if (_isPlayerInRange)
         {
             Gizmos.color = Color.red;
-            Gizmos.DrawLine(transform.position, transform.position + (Player.position - transform.position).normalized * _distanceToPlayer);
+            Gizmos.DrawLine(
+                transform.position,
+                transform.position + 
+                (Player.position - transform.position).normalized 
+                * _distanceToPlayer
+            );
         }
     }
 }

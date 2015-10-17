@@ -3,25 +3,31 @@ using UnityEngine;
 using System.Collections;
 
 [RequireComponent(typeof(Rigidbody))]
-public class PlayerMovement : MonoBehaviour {
-
+[RequireComponent(typeof(StickToPlanet))]
+public class PlayerMovement : MonoBehaviour
+{
     public float MovementSpeed = 5f;
-    public float Damping = 8f;
     public float JumpStrength = 2f;
-    public Transform GravityPuller;
+    /// <summary>
+    /// Torque based solution to kill angular velocity
+    /// this value decides how fast this happens
+    /// </summary>
+    public float KillAngularVelocity = 0.1f;
+    public float Damping = 8f;
     public CameraMovement GameCamera;
 
     private Vector3 _movement;
     private Vector3 _turnDirection = Vector3.up;
-    private Vector3 _upToCenterG = Vector3.forward;
     private Rigidbody _pRigidbody;
+    private StickToPlanet _stickToPlanet;
 
     bool _isWalking;
-    
+
 
     void Awake()
     {
         _pRigidbody = GetComponent<Rigidbody>();
+        _stickToPlanet = GetComponent<StickToPlanet>();
     }
 
     void FixedUpdate()
@@ -51,23 +57,24 @@ public class PlayerMovement : MonoBehaviour {
 
     void Turn(float h, float v)
     {
-        _upToCenterG = (transform.position - GravityPuller.position).normalized;
-
         // smooth rotation with damping parameter
         if (_isWalking)
         {
             Transform mainCamera = Camera.main.transform;
 
-            _turnDirection = Quaternion.LookRotation(mainCamera.up, _upToCenterG) * new Vector3(h, 0f, v);
-            Quaternion rotAround = Quaternion.LookRotation(_turnDirection, _upToCenterG);
+            _turnDirection = Quaternion.LookRotation(mainCamera.up, _stickToPlanet.PlanetCurrentNormal) * new Vector3(h, 0f, v);
+            Quaternion rotAround = Quaternion.LookRotation(_turnDirection, _stickToPlanet.PlanetCurrentNormal);
             // look forward to input plane direction
             _pRigidbody.MoveRotation(Quaternion.Slerp(_pRigidbody.transform.rotation, rotAround, Damping * Time.deltaTime));
         }
-        else if(_turnDirection != Vector3.zero)
+        else
         {
-            Quaternion rotAround = Quaternion.LookRotation(_turnDirection, _upToCenterG);
+            Quaternion rotAround = Quaternion.FromToRotation(transform.up, _stickToPlanet.PlanetCurrentNormal);            
             // rot to up vector based on gravity
-            _pRigidbody.MoveRotation(Quaternion.Slerp(_pRigidbody.transform.rotation, rotAround, Damping * Time.deltaTime));
+            _pRigidbody.MoveRotation(Quaternion.Slerp(_pRigidbody.transform.rotation, rotAround * _pRigidbody.transform.rotation, Damping * Time.deltaTime));
+            // kill angular rotation from accumulated force on rigidbody
+            // _pRigidbody.angularVelocity *= 1f - 1f / Damping;
+            _pRigidbody.AddTorque(-_pRigidbody.angularVelocity * KillAngularVelocity);
         }
     }
 
@@ -80,23 +87,20 @@ public class PlayerMovement : MonoBehaviour {
 
     void OnDrawGizmosSelected()
     {
-        if(Application.isPlaying)
+        if (Application.isPlaying)
         {
             // velocity vector direction
             Gizmos.color = Color.magenta;
             DrawArrow.ForGizmo(transform.position, _pRigidbody.velocity);
+
+            // axis input plane
+            Gizmos.color = Color.red;
+            DebugExtension.DrawCircle(transform.position, _stickToPlanet.PlanetCurrentNormal, Color.red, 1f);
         }
-        
+
         // draw initial velocity vector
         float maxScale = Mathf.Max(transform.lossyScale.x, transform.lossyScale.y, transform.lossyScale.z);
 
-        // gravity opposite direction
-        Gizmos.color = Color.cyan;
-        DrawArrow.ForGizmo(transform.position + _upToCenterG * maxScale, _upToCenterG);
-
-        // axis input plane
-        Gizmos.color = Color.red;
-        DebugExtension.DrawCircle(transform.position, _upToCenterG, Color.red, 1f);
         // draw current input position
         Gizmos.DrawCube(transform.position + _turnDirection, Vector3.one * 0.15f);
     }

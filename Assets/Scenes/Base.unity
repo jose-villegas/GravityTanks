@@ -113,6 +113,7 @@ Transform:
   m_Children:
   - {fileID: 1263583747}
   - {fileID: 1822577473}
+  - {fileID: 1938204299}
   m_Father: {fileID: 0}
   m_RootOrder: 1
 --- !u!1001 &46674359
@@ -270,6 +271,38 @@ Prefab:
       propertyPath: OutRangeSlowdown
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 11467908, guid: d80ae988248f3e549915ebaa61349f78, type: 2}
+      propertyPath: CapsuleBegin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11467908, guid: d80ae988248f3e549915ebaa61349f78, type: 2}
+      propertyPath: CapsuleEnd.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11467908, guid: d80ae988248f3e549915ebaa61349f78, type: 2}
+      propertyPath: CapsuleEnd.y
+      value: -5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11467908, guid: d80ae988248f3e549915ebaa61349f78, type: 2}
+      propertyPath: CapsuleEnd.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11467908, guid: d80ae988248f3e549915ebaa61349f78, type: 2}
+      propertyPath: CapsuleRadius
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11467908, guid: d80ae988248f3e549915ebaa61349f78, type: 2}
+      propertyPath: CapsuleBegin.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11467908, guid: d80ae988248f3e549915ebaa61349f78, type: 2}
+      propertyPath: CapsuleBegin.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11467908, guid: d80ae988248f3e549915ebaa61349f78, type: 2}
+      propertyPath: UseSquareDistance
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d80ae988248f3e549915ebaa61349f78, type: 2}
   m_IsPrefabParent: 0
@@ -332,6 +365,10 @@ Prefab:
       propertyPath: MaxSimulationCount
       value: 10000
       objectReference: {fileID: 0}
+    - target: {fileID: 133388, guid: b7a2ccab67cf514479129c6567aebf2b, type: 2}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b7a2ccab67cf514479129c6567aebf2b, type: 2}
   m_IsPrefabParent: 0
@@ -346,7 +383,7 @@ GameObject:
   - 33: {fileID: 289942605}
   - 135: {fileID: 289942604}
   - 23: {fileID: 289942603}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sphere (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -483,6 +520,10 @@ Prefab:
       propertyPath: m_LocalScale.z
       value: .25
       objectReference: {fileID: 0}
+    - target: {fileID: 11441024, guid: fafc09c156af55343888850228e7c0f0, type: 2}
+      propertyPath: KillAngularVelocity
+      value: .100000001
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fafc09c156af55343888850228e7c0f0, type: 2}
   m_IsPrefabParent: 0
@@ -521,6 +562,22 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
+--- !u!1 &1042522771 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 174812, guid: eab9b685c47541d4d9f55b07258d79d6, type: 2}
+  m_PrefabInternal: {fileID: 1560672510}
+--- !u!114 &1042522772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1042522771}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3748d13bd616f2c42b2f8b6b85c8cbc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Gravity: 9.80000019
 --- !u!114 &1233251204 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 11418036, guid: 4aafb086a43f6494ba12c1de5b54c4c7,
@@ -542,7 +599,7 @@ GameObject:
   - 33: {fileID: 1496325185}
   - 136: {fileID: 1496325184}
   - 23: {fileID: 1496325183}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -644,6 +701,14 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 174812, guid: eab9b685c47541d4d9f55b07258d79d6, type: 2}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 11401954, guid: eab9b685c47541d4d9f55b07258d79d6, type: 2}
+      propertyPath: PlanetInformation
+      value: 
+      objectReference: {fileID: 1042522772}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: eab9b685c47541d4d9f55b07258d79d6, type: 2}
   m_IsPrefabParent: 0
@@ -666,7 +731,7 @@ GameObject:
   - 33: {fileID: 1920315126}
   - 135: {fileID: 1920315125}
   - 23: {fileID: 1920315124}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -736,7 +801,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1938204299}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: IrregularPlanet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -756,8 +821,24 @@ Transform:
   - {fileID: 1496325186}
   - {fileID: 1920315123}
   - {fileID: 289942602}
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_Father: {fileID: 46480925}
+  m_RootOrder: 2
+--- !u!1 &2048164054 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 155926, guid: fafc09c156af55343888850228e7c0f0, type: 2}
+  m_PrefabInternal: {fileID: 463626596}
+--- !u!114 &2048164060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2048164054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b83be8d56bea42d4fb7f600aba8004f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LinkToPlanetDistance: 10
 --- !u!114 &2095856041 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 11401954, guid: eab9b685c47541d4d9f55b07258d79d6,
