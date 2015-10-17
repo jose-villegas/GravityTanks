@@ -73,7 +73,6 @@ public class PlayerMovement : MonoBehaviour
             // rot to up vector based on gravity
             _pRigidbody.MoveRotation(Quaternion.Slerp(_pRigidbody.transform.rotation, rotAround * _pRigidbody.transform.rotation, Damping * Time.deltaTime));
             // kill angular rotation from accumulated force on rigidbody
-            // _pRigidbody.angularVelocity *= 1f - 1f / Damping;
             _pRigidbody.AddTorque(-_pRigidbody.angularVelocity * KillAngularVelocity);
         }
     }
