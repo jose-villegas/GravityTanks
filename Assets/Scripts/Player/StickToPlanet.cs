@@ -41,19 +41,20 @@ public class StickToPlanet : MonoBehaviour
         if (Physics.Raycast(transform.position, _downDirection, out _hitDown, LinkToPlanetDistance, _planetLayer))
         {
             notStranded = true;
-            LinkToPlanet(_hitDown);
+            // change status based on distance to ground
+            Status = _hitDown.distance < GroundMinimumDistance
+                ? StickStatus.OnGround
+                : (Status | StickStatus.Flying) & ~StickStatus.OnGround;
+            // normal extracted from ground hit
+            PlanetCurrentNormal = _hitDown.normal;
         }
 
         // link ray from transform to whatever is on it
         if (Physics.Raycast(transform.position, transform.up, out _hitUp, LinkToPlanetDistance, _planetLayer))
         {
-            if ((Status & StickStatus.ChangingPlanet) == 0 &&
-                (Status & (StickStatus.Flying | StickStatus.Stranded)) > 0 &&
-                _hitUp.distance < _hitDown.distance)
-            {
-                notStranded = true;
-                // LinkToPlanet(_hitUp);
-            }
+            if (_hitUp.distance > _hitDown.distance || (Status & StickStatus.OnGround) > 0) return;
+
+            Debug.Log(_hitUp);
         }
 
         Status = notStranded ? Status : StickStatus.Stranded;
@@ -80,7 +81,7 @@ public class StickToPlanet : MonoBehaviour
 
         if ((Status & StickStatus.ChangingPlanet) > 0)
         {
-            _targetNormal = -hit.normal;
+            _targetNormal = hit.normal;
         }
         // change normal with closest planet body hit
         if(_onPlanet == lastPlanet) PlanetCurrentNormal = hit.normal;
@@ -88,14 +89,9 @@ public class StickToPlanet : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        //Gizmos.color = Color.red;
-        //Gizmos.DrawLine(transform.position, transform.position + _downDirection * LinkToPlanetDistance);
-        //Gizmos.color = Color.blue;
-        //Gizmos.DrawLine(transform.position, transform.position + transform.up * LinkToPlanetDistance);
-        // stick planet
-        Gizmos.color = Color.green;
-        Gizmos.DrawLine(transform.position, _hitDown.point);
         Gizmos.color = Color.red;
-        DrawArrow.ForGizmo(transform.position + _targetNormal, _targetNormal);
+        DrawArrow.ForGizmo(transform.position, _hitDown.normal);
+        Gizmos.color = Color.red;
+        DrawArrow.ForGizmo(transform.position, _hitUp.normal);
     }
 }
