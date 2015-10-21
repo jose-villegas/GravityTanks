@@ -89,9 +89,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48a09a8d3a787444292160a4a21b0b81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ignoreLayers:
-    serializedVersion: 2
-    m_Bits: 2147483648
+  TimeToIgnoreOwner: 1
 --- !u!136 &13664088
 CapsuleCollider:
   m_ObjectHideFlags: 1

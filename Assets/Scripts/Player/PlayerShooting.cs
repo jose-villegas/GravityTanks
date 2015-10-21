@@ -1,29 +1,29 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-public class PlayerShooting : MonoBehaviour {
-    public GameObject BulletObject;
+public class PlayerShooting : MonoBehaviour
+{
     public float BulletLifeTime = 2f;
+    public GameObject BulletObject;
     public float BulletSpeed = 5f;
-	
-	// Update is called once per frame
-	void Update () {
-	    if(Input.GetButtonUp("Fire1"))
+
+    // Update is called once per frame
+    private void Update()
+    {
+        if (!Input.GetButtonUp("Fire1")) return;
+
+        var newProjectile = Instantiate(BulletObject, transform.position, transform.rotation) as GameObject;
+        if (newProjectile == null) return;
+
+        var pRigidbody = newProjectile.GetComponent<Rigidbody>();
+
+        if (pRigidbody != null)
         {
-            GameObject newProjectile = Instantiate(BulletObject, transform.position, transform.rotation) as GameObject;
-            if (newProjectile == null) return;
-
-            Rigidbody pRigidbody = newProjectile.GetComponent<Rigidbody>();
-
-            if (pRigidbody != null)
-            {
-                // tag the projectile as a coming from the player
-                newProjectile.tag = "Player";
-                // move towards forward vec3
-                pRigidbody.velocity = BulletSpeed * transform.forward;
-            }
-
-            Destroy(newProjectile, BulletLifeTime);
+            // tag the projectile as a coming from the player
+            newProjectile.tag = "Player";
+            // move towards forward vec3
+            pRigidbody.velocity = BulletSpeed*transform.forward;
         }
-	}
+
+        Destroy(newProjectile, BulletLifeTime);
+    }
 }

@@ -1,18 +1,17 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class StickToPlayer : MonoBehaviour
 {
+    private StickToPlanet _stickToPlanet;
     public Transform Target;
 
-    private StickToPlanet _stickToPlanet;
-    void Awake()
+    private void Awake()
     {
         _stickToPlanet = Target.gameObject.GetComponent<StickToPlanet>();
     }
 
     // Update is called once per frame
-    void LateUpdate()
+    private void LateUpdate()
     {
         transform.position = Target.position;
         transform.up = _stickToPlanet.PlanetCurrentNormal;

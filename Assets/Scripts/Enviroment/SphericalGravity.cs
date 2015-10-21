@@ -1,33 +1,55 @@
 ﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
 
-[RequireComponent(typeof(PlanetInfo))]
+[RequireComponent(typeof (PlanetInfo))]
 public class SphericalGravity : MonoBehaviour
 {
+    private int _playerLayer;
     public PlanetInfo PlanetInformation;
-    public float PullRadius = 5f;
     public LayerMask PullMasks;
+    public float PullRadius = 5f;
 
+    private void Awake()
+    {
+        _playerLayer = LayerMask.GetMask("PlayerLayer");
+    }
 
-    void OnDrawGizmosSelected()
+    private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, PullRadius);
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
-        Collider[] colliders = Physics.OverlapSphere(transform.position, PullRadius, PullMasks);
+        var colliders = Physics.OverlapSphere(transform.position, PullRadius, PullMasks);
 
-        foreach(Collider other in colliders)
+        foreach (var other in colliders)
         {
-            Rigidbody oRigidBody = other.GetComponent<Rigidbody>();
+            var oRigidBody = other.GetComponent<Rigidbody>();
 
-            if (oRigidBody == null) continue;
+            if (oRigidBody != null)
+            {
+                var forceDirection = (transform.position - other.transform.position).normalized;
 
-            Vector3 forceDirection = (transform.position - other.transform.position).normalized;
-            oRigidBody.AddForce(forceDirection * PlanetInformation.Gravity);
+                // player special case
+                if ((1 << other.gameObject.layer & _playerLayer) > 0)
+                {
+                    var playerStick = other.gameObject.GetComponent<StickToPlanet>();
+
+                    if ((playerStick.Status & StickToPlanet.StickStatus.Stranded) > 0)
+                    {
+                        oRigidBody.AddForce(forceDirection*PlanetInformation.Gravity);
+                    }
+                    else
+                    {
+                        oRigidBody.AddForce(-playerStick.PlanetCurrentNormal*PlanetInformation.Gravity);
+                    }
+                }
+                else
+                {
+                    oRigidBody.AddForce(forceDirection*PlanetInformation.Gravity);
+                }
+            }
         }
     }
 }

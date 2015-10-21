@@ -269,7 +269,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11467908, guid: d80ae988248f3e549915ebaa61349f78, type: 2}
       propertyPath: OutRangeSlowdown
-      value: 2
+      value: .649999976
       objectReference: {fileID: 0}
     - target: {fileID: 11467908, guid: d80ae988248f3e549915ebaa61349f78, type: 2}
       propertyPath: CapsuleBegin.x
@@ -369,6 +369,14 @@ Prefab:
       propertyPath: m_TagString
       value: Untagged
       objectReference: {fileID: 0}
+    - target: {fileID: 11468764, guid: b7a2ccab67cf514479129c6567aebf2b, type: 2}
+      propertyPath: PlanetInformation
+      value: 
+      objectReference: {fileID: 849599989}
+    - target: {fileID: 11468764, guid: b7a2ccab67cf514479129c6567aebf2b, type: 2}
+      propertyPath: PullMasks.m_Bits
+      value: 3584
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b7a2ccab67cf514479129c6567aebf2b, type: 2}
   m_IsPrefabParent: 0
@@ -397,7 +405,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 289942601}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.67000008, y: -1.62, z: 4.19000006}
+  m_LocalPosition: {x: 0, y: 1.5, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 1938204299}
@@ -527,6 +535,22 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fafc09c156af55343888850228e7c0f0, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &849599988 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 133388, guid: b7a2ccab67cf514479129c6567aebf2b, type: 2}
+  m_PrefabInternal: {fileID: 198187317}
+--- !u!114 &849599989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 849599988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3748d13bd616f2c42b2f8b6b85c8cbc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Gravity: 4
 --- !u!1 &931461556 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 136296, guid: fafc09c156af55343888850228e7c0f0, type: 2}
@@ -577,7 +601,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3748d13bd616f2c42b2f8b6b85c8cbc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Gravity: 9.80000019
+  Gravity: 9
 --- !u!114 &1233251204 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 11418036, guid: 4aafb086a43f6494ba12c1de5b54c4c7,
@@ -657,7 +681,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1496325182}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.67000008, y: .231000006, z: 4.19000006}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 1938204299}
@@ -709,6 +733,10 @@ Prefab:
       propertyPath: PlanetInformation
       value: 
       objectReference: {fileID: 1042522772}
+    - target: {fileID: 11401954, guid: eab9b685c47541d4d9f55b07258d79d6, type: 2}
+      propertyPath: PullMasks.m_Bits
+      value: 3584
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: eab9b685c47541d4d9f55b07258d79d6, type: 2}
   m_IsPrefabParent: 0
@@ -745,7 +773,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1920315122}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.67000008, y: 1.454, z: 4.19000006}
+  m_LocalPosition: {x: 0, y: -1.5, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 1938204299}
@@ -801,6 +829,8 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1938204299}
+  - 114: {fileID: 1938204301}
+  - 114: {fileID: 1938204300}
   m_Layer: 8
   m_Name: IrregularPlanet
   m_TagString: Untagged
@@ -815,14 +845,42 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1938204298}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.0080899, y: .324204594, z: -20.7099991}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -16.7299995, y: 0, z: -14.1999998}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_Children:
   - {fileID: 1496325186}
   - {fileID: 1920315123}
   - {fileID: 289942602}
   m_Father: {fileID: 46480925}
   m_RootOrder: 2
+--- !u!114 &1938204300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1938204298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4dc243e7cae8634a8b8083ec8fd9a0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlanetInformation: {fileID: 1938204301}
+  PullMasks:
+    serializedVersion: 2
+    m_Bits: 3584
+  PullRadius: 11.1199999
+--- !u!114 &1938204301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1938204298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3748d13bd616f2c42b2f8b6b85c8cbc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Gravity: 5.5
 --- !u!1 &2048164054 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 155926, guid: fafc09c156af55343888850228e7c0f0, type: 2}
@@ -838,10 +896,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b83be8d56bea42d4fb7f600aba8004f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GroundMinimumDistance: .75
   LinkToPlanetDistance: 10
+  PlanetChangeDamping: 5
+  Status: 0
+--- !u!114 &2048164061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2048164054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b02d4d8195cbc0488427523b69495c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _currentStatus: 0
+  _moveDirection: 0
+  PositionChangeTolerance: .00249999994
+  RefreshStatusFrequency: .25
+  TurningDistanceTolerance: .349999994
+  UseSquareDistance: 1
 --- !u!114 &2095856041 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 11401954, guid: eab9b685c47541d4d9f55b07258d79d6,
     type: 2}
   m_PrefabInternal: {fileID: 1560672510}
   m_Script: {fileID: 11500000, guid: f4dc243e7cae8634a8b8083ec8fd9a0f, type: 3}
+--- !u!1 &2142809016 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 183274, guid: d80ae988248f3e549915ebaa61349f78, type: 2}
+  m_PrefabInternal: {fileID: 123242065}
+--- !u!114 &2142809023
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2142809016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b02d4d8195cbc0488427523b69495c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _currentStatus: 0
+  _moveDirection: 0
+  PositionChangeTolerance: .100000001
+  RefreshStatusFrequency: .25
+  TurningDistanceTolerance: .100000001
+  UseSquareDistance: 0
