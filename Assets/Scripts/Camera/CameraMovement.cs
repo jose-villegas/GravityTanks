@@ -2,8 +2,8 @@
 
 public class CameraMovement : MonoBehaviour
 {
-    public Vector3 DirectionToTarget = Vector3.zero;
-    public Vector3 PositionToTarget = Vector3.zero;
+    public Vector3 MovePosition = Vector3.zero;
+    public Vector3 MoveTarget = Vector3.zero;
     public float Smoothing = 5f;
     public Transform Target;
 
@@ -19,13 +19,12 @@ public class CameraMovement : MonoBehaviour
     // Update is called once per frame
     private void LateUpdate()
     {
-        var targetDirection = (Target.position - transform.position).normalized;
-
-        var targetCamPos = Target.position + Target.right*PositionToTarget.x + Target.up*PositionToTarget.y +
-                           Target.forward*PositionToTarget.z;
+        var targetCamPos = Target.position + Target.right*MovePosition.x + Target.up*MovePosition.y +
+                           Target.forward*MovePosition.z;
         transform.position = Vector3.Slerp(transform.position, targetCamPos, Smoothing*Time.deltaTime);
 
-        var lookToPlayer = Quaternion.LookRotation(targetDirection + DirectionToTarget, transform.up);
+        var targetDirection = (Target.position + MoveTarget - transform.position).normalized;
+        var lookToPlayer = Quaternion.LookRotation(targetDirection, transform.up);
         transform.rotation = Quaternion.Slerp(transform.rotation, lookToPlayer, Smoothing*Time.deltaTime);
 
         NonInterpolatedTransform.position = targetCamPos;
@@ -35,8 +34,8 @@ public class CameraMovement : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         // line to view target
-        Gizmos.color = Color.gray;
-        Gizmos.DrawLine(transform.position, Target.position);
+        Gizmos.color = Color.green;
+        Gizmos.DrawLine(transform.position, Target.position + MoveTarget);
         // line from position to final position after smoothing
         if (Application.isPlaying)
         {

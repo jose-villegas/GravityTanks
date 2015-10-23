@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class BulletLife : MonoBehaviour
+public class BulletParameters : MonoBehaviour
 {
     /// <summary>
     ///     Bullets have an initial owner to avoid self collision
