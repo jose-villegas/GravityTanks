@@ -8,6 +8,8 @@ public class StickToPlayer : MonoBehaviour
     private void Awake()
     {
         _stickToPlanet = Target.gameObject.GetComponent<StickToPlanet>();
+        // disable hieracy transform, use local transform
+        transform.SetParent(transform.parent.transform, false);
     }
 
     // Update is called once per frame

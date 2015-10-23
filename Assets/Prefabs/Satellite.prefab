@@ -14,6 +14,7 @@ GameObject:
   - 54: {fileID: 5427044}
   - 114: {fileID: 11419466}
   - 114: {fileID: 11468764}
+  - 114: {fileID: 11445446}
   m_Layer: 8
   m_Name: Satellite
   m_TagString: Untagged
@@ -90,14 +91,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75c3034244c681844823ea002e427650, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CurvePrecision: 100
+  DistanceTimeStep: .0500000007
   GravityObjects:
   - {fileID: 0}
-  StartingVelocity: {x: 0, y: 0, z: .349999994}
-  CurvePrecision: 100
   MaxSimulationCount: 10000
-  DistanceTime: .0500000007
   OrbitalSpeedFactor: .0500000007
-  OrbitToleranceDistance: .0500000007
+  OrbitToleranceDistance: .699999988
+  StartingVelocity: {x: 0, y: 0, z: .349999994}
+--- !u!114 &11445446
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 133388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3748d13bd616f2c42b2f8b6b85c8cbc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Gravity: 4
 --- !u!114 &11468764
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -109,11 +122,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4dc243e7cae8634a8b8083ec8fd9a0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GravitationalPull: 4.5
-  PullRadius: 10
+  PlanetInformation: {fileID: 11445446}
   PullMasks:
     serializedVersion: 2
     m_Bits: 3584
+  PullRadius: 10
 --- !u!135 &13544352
 SphereCollider:
   m_ObjectHideFlags: 1

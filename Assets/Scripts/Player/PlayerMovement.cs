@@ -55,13 +55,13 @@ public class PlayerMovement : MonoBehaviour
 
     private void Turn(float h, float v)
     {
+        var mainCamera = Camera.main.transform;
         // smooth rotation with damping parameter
-        if (_isWalking)
+        if (_isWalking && mainCamera.up != Vector3.zero)
         {
-            var mainCamera = Camera.main.transform;
-
-            _turnDirection = Quaternion.LookRotation(mainCamera.up, _stickToPlanet.PlanetCurrentNormal)*
-                             new Vector3(h, 0f, v);
+            var newTurnDirection = Quaternion.LookRotation(mainCamera.up, _stickToPlanet.PlanetCurrentNormal)*
+                                   new Vector3(h, 0f, v);
+            _turnDirection = newTurnDirection == Vector3.zero ? _turnDirection : newTurnDirection;
             var rotAround = Quaternion.LookRotation(_turnDirection, _stickToPlanet.PlanetCurrentNormal);
             // look forward to input plane direction
             _pRigidbody.MoveRotation(Quaternion.Slerp(_pRigidbody.transform.rotation, rotAround, Damping*Time.deltaTime));
@@ -72,9 +72,10 @@ public class PlayerMovement : MonoBehaviour
             // rot to up vector based on gravity
             _pRigidbody.MoveRotation(Quaternion.Slerp(_pRigidbody.transform.rotation,
                 rotAround*_pRigidbody.transform.rotation, Damping*Time.deltaTime));
-            // kill angular rotation from accumulated force on rigidbody
-            _pRigidbody.AddTorque(-_pRigidbody.angularVelocity*KillAngularVelocity);
         }
+
+        // kill angular rotation from accumulated force on rigidbody
+        _pRigidbody.AddTorque(-_pRigidbody.angularVelocity*KillAngularVelocity);
     }
 
     private void Jump(float f)

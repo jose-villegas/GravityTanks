@@ -13,6 +13,7 @@ GameObject:
   - 23: {fileID: 2347778}
   - 54: {fileID: 5442668}
   - 114: {fileID: 11401954}
+  - 114: {fileID: 11465984}
   m_Layer: 8
   m_Name: Planet
   m_TagString: Untagged
@@ -89,11 +90,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4dc243e7cae8634a8b8083ec8fd9a0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GravitationalPull: 9
-  PullRadius: 50
+  PlanetInformation: {fileID: 11465984}
   PullMasks:
     serializedVersion: 2
     m_Bits: 3584
+  PullRadius: 50
+--- !u!114 &11465984
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 174812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3748d13bd616f2c42b2f8b6b85c8cbc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Gravity: 9
 --- !u!135 &13518502
 SphereCollider:
   m_ObjectHideFlags: 1

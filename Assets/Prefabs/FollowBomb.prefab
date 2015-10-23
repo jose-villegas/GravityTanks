@@ -13,6 +13,7 @@ GameObject:
   - 23: {fileID: 2391480}
   - 54: {fileID: 5432572}
   - 114: {fileID: 11467908}
+  - 114: {fileID: 11419556}
   m_Layer: 11
   m_Name: FollowBomb
   m_TagString: Enemy
@@ -78,6 +79,23 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &11419556
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 183274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b02d4d8195cbc0488427523b69495c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _currentStatus: 0
+  _moveDirection: 0
+  PositionChangeTolerance: .100000001
+  RefreshStatusFrequency: .25
+  TurningDistanceTolerance: .100000001
+  UseSquareDistance: 0
 --- !u!114 &11467908
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -89,12 +107,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd9e5fe9aaeba2040820dae801fec245, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player: {fileID: 0}
+  CapsuleBegin: {x: 0, y: 1.5, z: 0}
+  CapsuleEnd: {x: 0, y: -5, z: 0}
+  CapsuleRadius: 5
+  MovementType: 2
+  OutRangeSlowdown: .649999976
   Planet: {fileID: 0}
-  VelocityImpulse: 175
-  DetectionRange: 5
-  OutRangeSlowdown: .125
-  LimitCapsuleEnd: .949999988
+  Player: {fileID: 0}
+  UseSquareDistance: 1
+  VelocityImpulse: .5
 --- !u!135 &13571690
 SphereCollider:
   m_ObjectHideFlags: 1
