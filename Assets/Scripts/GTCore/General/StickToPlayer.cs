@@ -6,12 +6,12 @@ namespace GTCore.General
 {
     public class StickToPlayer : MonoBehaviour
     {
-        private StickToPlanet stickToPlanet;
+        private StickToPlanet _stickToPlanet;
         public Transform Target;
 
         private void Awake()
         {
-            stickToPlanet = Target.gameObject.GetComponent<StickToPlanet>();
+            _stickToPlanet = Target.gameObject.GetComponent<StickToPlanet>();
             // disable hieracy transform, use local transform
             transform.SetParent(transform.parent.transform, false);
         }
@@ -20,7 +20,7 @@ namespace GTCore.General
         private void LateUpdate()
         {
             transform.position = Target.position;
-            transform.up = stickToPlanet.PlanetCurrentNormal;
+            transform.up = _stickToPlanet.PlanetCurrentNormal;
         }
     }
 }

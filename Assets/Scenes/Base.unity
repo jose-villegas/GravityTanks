@@ -179,6 +179,18 @@ Prefab:
       propertyPath: Smoothing
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 11418036, guid: 4aafb086a43f6494ba12c1de5b54c4c7, type: 2}
+      propertyPath: MoveTarget.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11418036, guid: 4aafb086a43f6494ba12c1de5b54c4c7, type: 2}
+      propertyPath: MoveTarget.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11418036, guid: 4aafb086a43f6494ba12c1de5b54c4c7, type: 2}
+      propertyPath: MoveTarget.z
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4aafb086a43f6494ba12c1de5b54c4c7, type: 2}
   m_IsPrefabParent: 0

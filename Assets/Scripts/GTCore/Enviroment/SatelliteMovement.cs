@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-using GTCore.Utils;
+using GTUtils;
 
 using UnityEngine;
 
@@ -16,7 +16,11 @@ namespace GTCore.Enviroment
         /// <summary>
         ///     Collection of precomputed orbit points
         /// </summary>
-        private readonly List<Vector3> orbitPoints = new List<Vector3>();
+        private readonly List<Vector3> _orbitPoints = new List<Vector3>();
+
+        private SphericalGravity _gravityPull;
+        private Rigidbody _satelliteRigidbody;
+        private float _timer;
 
         /// <summary>
         ///     Precision of the final point list, higher = less points
@@ -28,16 +32,13 @@ namespace GTCore.Enviroment
         ///     Distance * Time simulation step through orbit, higher = less points
         /// </summary>
         [Tooltip("Distance * Time simulation step through orbit")]
-        public float
-            DistanceTimeStep = 0.02f;
+        public float DistanceTimeStep = 0.02f;
 
         /// <summary>
         ///     Gravitational bodies which this object interacts with
         /// </summary>
         [Tooltip("Gravitational bodies which this object interacts with")]
         public List<SphericalGravity> GravityObjects;
-
-        private SphericalGravity gravityPull;
 
         /// <summary>
         ///     Maximum number of points to simulate orbit, important to stop long simulations
@@ -55,18 +56,14 @@ namespace GTCore.Enviroment
         ///     Distance of the last point to the first point on orbit to be considered stable
         /// </summary>
         [Tooltip("Distance of the last point on orbit to the first")]
-        public
-            float OrbitToleranceDistance = 0.05f;
-
-        private Rigidbody satelliteRigidbody;
+        public float OrbitToleranceDistance = 0.05f;
 
         public Vector3 StartingVelocity = Vector3.up;
-        private float timer;
 
         private void Awake()
         {
-            satelliteRigidbody = GetComponent<Rigidbody>();
-            gravityPull = GetComponent<SphericalGravity>();
+            _satelliteRigidbody = GetComponent<Rigidbody>();
+            _gravityPull = GetComponent<SphericalGravity>();
         }
 
         private void Start()
@@ -81,25 +78,26 @@ namespace GTCore.Enviroment
 
         private Vector3 CurveAt(float time)
         {
-            if (time < 0f || time > 1f)
+            if ( time < 0f || time > 1f )
             {
                 return Vector3.zero;
             }
 
-            var index = (int)(time * (orbitPoints.Count - 1));
-            var atTime = (time * (orbitPoints.Count - 1)) - index;
-            return Vector3.Slerp(orbitPoints[index],
-                orbitPoints[Mathf.Min(index + 1, orbitPoints.Count - 1)], atTime);
+            var index = (int)(time * (_orbitPoints.Count - 1));
+            var atTime = (time * (_orbitPoints.Count - 1)) - index;
+            return Vector3.Slerp(_orbitPoints[index],
+                _orbitPoints[Mathf.Min(index + 1, _orbitPoints.Count - 1)],
+                atTime);
         }
 
         private void Move()
         {
-            timer += Time.fixedDeltaTime * OrbitalSpeedFactor;
-            timer %= 1f; // mod 1, values go from 0 to 1
+            _timer += Time.fixedDeltaTime * OrbitalSpeedFactor;
+            _timer %= 1f; // mod 1, values go from 0 to 1
 
-            satelliteRigidbody.MovePosition(
-                Vector3.Slerp(satelliteRigidbody.position,
-                    CurveAt(timer), Time.deltaTime));
+            _satelliteRigidbody.MovePosition(
+                Vector3.Slerp(_satelliteRigidbody.position, CurveAt(_timer),
+                    Time.deltaTime));
         }
 
         private float ClosestPuller()
@@ -116,8 +114,8 @@ namespace GTCore.Enviroment
         private float OrbitalSpeed()
         {
             return
-                Mathf.Sqrt((gravityPull.PlanetInformation.Gravity *
-                            satelliteRigidbody.mass) / ClosestPuller());
+                Mathf.Sqrt((_gravityPull.PlanetInformation.Gravity *
+                            _satelliteRigidbody.mass) / ClosestPuller());
         }
 
         private void ComputeTrajectory()
@@ -132,19 +130,19 @@ namespace GTCore.Enviroment
 
             float temporalAngleSum = 0;
             var step = 0;
-            orbitPoints.Clear();
+            _orbitPoints.Clear();
 
-            while (angle < 360 && step < MaxSimulationCount)
+            while ( angle < 360 && step < MaxSimulationCount )
             {
-                if (step % CurvePrecision == 0)
+                if ( step % CurvePrecision == 0 )
                 {
-                    orbitPoints.Add(orbitPoint);
+                    _orbitPoints.Add(orbitPoint);
                     angle += temporalAngleSum;
                     temporalAngleSum = 0;
 
-                    var distanceT = Vector3.Distance(orbitPoint, orbitPoints[0]);
-                    if (distanceT < OrbitToleranceDistance &&
-                        orbitPoints.Count > 1)
+                    var distanceT = Vector3.Distance(orbitPoint, _orbitPoints[0]);
+                    if ( distanceT < OrbitToleranceDistance &&
+                         _orbitPoints.Count > 1 )
                     {
                         break;
                     }
@@ -154,7 +152,7 @@ namespace GTCore.Enviroment
                 velocity += a * dt;
                 orbitPoint += velocity * dt;
 
-                if (GravityObjects.Count == 1)
+                if ( GravityObjects.Count == 1 )
                 {
                     temporalAngleSum +=
                         Mathf.Abs(Vector3.Angle(orbitPoint, lastOrbitPoint));
@@ -164,7 +162,7 @@ namespace GTCore.Enviroment
                 step++;
             }
 
-            orbitPoints.RemoveAt(orbitPoints.Count - 1);
+            _orbitPoints.RemoveAt(_orbitPoints.Count - 1);
         }
 
         private static Vector3 AccelerationCalc(
@@ -172,7 +170,7 @@ namespace GTCore.Enviroment
         {
             var acceleration = Vector3.zero;
 
-            foreach (var sphericalGravity in sgArray)
+            foreach ( var sphericalGravity in sgArray )
             {
                 var direction = sphericalGravity.transform.position - simPos;
                 var gravity =
@@ -188,27 +186,27 @@ namespace GTCore.Enviroment
         private void OnDrawGizmosSelected()
         {
             // recalculates trajectorie on current parameters - cpu heavy
-            if (!Application.isPlaying)
+            if ( !Application.isPlaying )
             {
                 ComputeTrajectory();
             }
 
             // draw initial velocity vector
             var maxScale = Mathf.Max(transform.lossyScale.x,
-                transform.lossyScale.y,
-                transform.lossyScale.z);
+                transform.lossyScale.y, transform.lossyScale.z);
 
             Gizmos.color = Color.blue;
             Gizmos.DrawLine(transform.position,
                 transform.position + StartingVelocity * maxScale);
-            DrawArrow.ForGizmo(transform.position + StartingVelocity * maxScale,
+            DrawArrow.ForGizmo(
+                transform.position + StartingVelocity * maxScale,
                 StartingVelocity * maxScale);
 
             Gizmos.color = Color.magenta;
             // draws current simulation orbit points
-            for (var i = 0; i < orbitPoints.Count - 1; i++)
+            for ( var i = 0; i < _orbitPoints.Count - 1; i++ )
             {
-                Gizmos.DrawLine(orbitPoints[i], orbitPoints[i + 1]);
+                Gizmos.DrawLine(_orbitPoints[i], _orbitPoints[i + 1]);
             }
         }
     }

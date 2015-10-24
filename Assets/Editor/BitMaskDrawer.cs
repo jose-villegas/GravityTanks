@@ -1,5 +1,7 @@
-﻿using GTCore.Utils;
+﻿using GTUtils;
+
 using UnityEditor;
+
 using UnityEngine;
 
 [CustomPropertyDrawer(typeof(BitMaskAttribute))]
@@ -20,30 +22,31 @@ public class EnumFlagsAttributeDrawer : PropertyDrawer
 
         EditorGUI.BeginChangeCheck();
 
-        for (var index = 0; index < enumLength; index++)
+        for ( var index = 0; index < enumLength; index++ )
         {
             // Check if the button is/was pressed 
-            if ((property.intValue & (1 << index)) == 1 << index)
+            if ( (property.intValue & (1 << index)) == 1 << index )
             {
                 buttonPressed[index] = true;
             }
 
             var buttonPos =
                 new Rect(
-                    position.x + EditorGUIUtility.labelWidth + buttonWidth * index,
+                    position.x + EditorGUIUtility.labelWidth +
+                    buttonWidth * index,
                     position.y, buttonWidth,
                     position.height);
 
             buttonPressed[index] = GUI.Toggle(buttonPos, buttonPressed[index],
                 property.enumNames[index], "Button");
 
-            if (buttonPressed[index])
+            if ( buttonPressed[index] )
             {
                 buttonsIntValue += 1 << index;
             }
         }
 
-        if (EditorGUI.EndChangeCheck())
+        if ( EditorGUI.EndChangeCheck() )
         {
             property.intValue = buttonsIntValue;
         }

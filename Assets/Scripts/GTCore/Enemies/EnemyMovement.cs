@@ -1,10 +1,10 @@
-using GTCore.Utils;
+using GTUtils;
 
 using UnityEngine;
 
 namespace GTCore.Enemies
 {
-    [RequireComponent(typeof (Rigidbody))]
+    [RequireComponent(typeof(Rigidbody))]
     public class EnemyMovement : MonoBehaviour
     {
         #region MovementBehaviour enum
@@ -63,23 +63,23 @@ namespace GTCore.Enemies
 
         private void FixedUpdate()
         {
-            if (_isPlayerInRange)
+            if ( _isPlayerInRange )
             {
                 var forceIntensity = Vector3.zero;
                 var targetDirection =
                     (Player.position - transform.position).normalized;
 
-                switch (MovementType)
+                switch ( MovementType )
                 {
                     case MovementBehaviour.Constant:
-                        forceIntensity = VelocityImpulse*targetDirection;
+                        forceIntensity = VelocityImpulse * targetDirection;
                         break;
                     case MovementBehaviour.DecreaseOnDistance:
-                        forceIntensity = VelocityImpulse*targetDirection/
+                        forceIntensity = VelocityImpulse * targetDirection /
                                          _distanceToPlayer;
                         break;
                     case MovementBehaviour.IncreaseOnDistance:
-                        forceIntensity = VelocityImpulse*targetDirection*
+                        forceIntensity = VelocityImpulse * targetDirection *
                                          _distanceToPlayer;
                         break;
                     case MovementBehaviour.Fixed:
@@ -87,29 +87,29 @@ namespace GTCore.Enemies
                 }
 
                 // apply force on object rigidbody
-                if (MovementType != MovementBehaviour.Fixed)
+                if ( MovementType != MovementBehaviour.Fixed )
                 {
                     _eRigidbody.AddForce(forceIntensity);
                 }
                 else
                 {
-                    _eRigidbody.velocity = targetDirection*VelocityImpulse*
+                    _eRigidbody.velocity = targetDirection * VelocityImpulse *
                                            Time.fixedDeltaTime;
                 }
             }
             else // slowly slow down
             {
                 _eRigidbody.velocity = Vector3.Lerp(_eRigidbody.velocity,
-                    Vector3.zero, Time.fixedDeltaTime*OutRangeSlowdown);
+                    Vector3.zero, Time.fixedDeltaTime * OutRangeSlowdown);
             }
         }
 
         private void DetectPlayer()
         {
             var targetNormal = (transform.position - Planet.position).normalized;
-            var capsuleB = Quaternion.FromToRotation(Vector3.up, targetNormal)*
+            var capsuleB = Quaternion.FromToRotation(Vector3.up, targetNormal) *
                            CapsuleBegin;
-            var capsuleE = Quaternion.FromToRotation(Vector3.up, targetNormal)*
+            var capsuleE = Quaternion.FromToRotation(Vector3.up, targetNormal) *
                            CapsuleEnd;
 
             _isPlayerInRange =
@@ -126,23 +126,23 @@ namespace GTCore.Enemies
         private void OnDrawGizmosSelected()
         {
             // gravity opposite direction
-            if (_eRigidbody != null)
+            if ( _eRigidbody != null )
             {
                 Gizmos.color = Color.cyan;
                 DrawArrow.ForGizmo(transform.position, _eRigidbody.velocity);
             }
 
             var targetNormal = (transform.position - Planet.position).normalized;
-            var capsuleB = Quaternion.FromToRotation(Vector3.up, targetNormal)*
+            var capsuleB = Quaternion.FromToRotation(Vector3.up, targetNormal) *
                            CapsuleBegin;
-            var capsuleE = Quaternion.FromToRotation(Vector3.up, targetNormal)*
+            var capsuleE = Quaternion.FromToRotation(Vector3.up, targetNormal) *
                            CapsuleEnd;
             // bomb player detection range
             DebugExtension.DrawCapsule(transform.position + capsuleB,
                 transform.position + capsuleE,
                 _isPlayerInRange ? Color.red : Color.gray, CapsuleRadius);
 
-            if (!_isPlayerInRange)
+            if ( !_isPlayerInRange )
             {
                 return;
             }
@@ -150,7 +150,7 @@ namespace GTCore.Enemies
             Gizmos.color = Color.red;
             Gizmos.DrawLine(transform.position,
                 transform.position +
-                (Player.position - transform.position).normalized*
+                (Player.position - transform.position).normalized *
                 _distanceToPlayer);
         }
     }

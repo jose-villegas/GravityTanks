@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace GTCore.Utils
+namespace GTUtils
 {
     public static class DrawArrow
     {
@@ -8,7 +8,7 @@ namespace GTCore.Utils
             float arrowHeadLength = 0.25f,
             float arrowHeadAngle = 20.0f)
         {
-            if (direction == Vector3.zero)
+            if ( direction == Vector3.zero )
             {
                 return;
             }

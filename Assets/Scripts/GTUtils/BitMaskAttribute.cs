@@ -3,7 +3,8 @@
 using UnityEngine;
 
 // Have to be defined somewhere in a runtime script file
-namespace GTCore.Utils
+
+namespace GTUtils
 {
     public class BitMaskAttribute : PropertyAttribute
     {

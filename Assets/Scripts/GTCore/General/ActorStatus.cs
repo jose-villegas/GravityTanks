@@ -1,6 +1,6 @@
 ﻿using System;
 
-using GTCore.Utils;
+using GTUtils;
 
 using UnityEngine;
 
@@ -8,6 +8,8 @@ namespace GTCore.General
 {
     public class ActorStatus : MonoBehaviour
     {
+        #region MovingTo enum
+
         [Flags]
         public enum MovingTo
         {
@@ -20,6 +22,10 @@ namespace GTCore.General
             Backwards = (1 << 6)
         }
 
+        #endregion
+
+        #region Status enum
+
         [Flags]
         public enum Status
         {
@@ -28,15 +34,18 @@ namespace GTCore.General
             Idle = (1 << 2)
         }
 
+        #endregion
+
         [BitMask(typeof(Status))]
         [SerializeField]
-        private Status currentStatus;
+        private Status _currentStatus;
 
         [BitMask(typeof(MovingTo))]
         [SerializeField]
-        private MovingTo moveDirection;
+        private MovingTo _moveDirection;
 
-        private TransformStorage prevTransform;
+        private TransformStorage _previousTransform;
+
         public float PositionChangeTolerance = 0.1f;
         public float RefreshStatusFrequency = 0.25f;
         public float TurningDistanceTolerance = 0.25f;
@@ -44,19 +53,19 @@ namespace GTCore.General
 
         public Status CurrentStatus
         {
-            get { return currentStatus; }
-            private set { currentStatus = value; }
+            get { return _currentStatus; }
+            private set { _currentStatus = value; }
         }
 
         public MovingTo MoveDirection
         {
-            get { return moveDirection; }
-            private set { moveDirection = value; }
+            get { return _moveDirection; }
+            private set { _moveDirection = value; }
         }
 
         private void Awake()
         {
-            prevTransform = new TransformStorage
+            _previousTransform = new TransformStorage
             {
                 Position = transform.position,
                 Rotation = transform.rotation,
@@ -73,12 +82,13 @@ namespace GTCore.General
         {
             var positionDistance = UseSquareDistance
                 ? Vector3.SqrMagnitude(transform.position -
-                                       prevTransform.Position)
-                : Vector3.Distance(transform.position, prevTransform.Position);
+                                       _previousTransform.Position)
+                : Vector3.Distance(transform.position,
+                    _previousTransform.Position);
             var turningAngle = Quaternion.Angle(transform.rotation,
-                prevTransform.Rotation);
+                _previousTransform.Rotation);
             var movingDirection =
-                (transform.position - prevTransform.Position).normalized;
+                (transform.position - _previousTransform.Position).normalized;
 
             // detect if actor moved
             CurrentStatus = positionDistance > PositionChangeTolerance
@@ -95,59 +105,59 @@ namespace GTCore.General
             MoveDirection = MovingTo.None;
             // moving up or down
 
-            if ((!UseSquareDistance
+            if ( (!UseSquareDistance
                 ? Vector3.Distance(movingDirection, transform.up)
                 : Vector3.SqrMagnitude(movingDirection - transform.up)) <=
-                TurningDistanceTolerance)
+                 TurningDistanceTolerance )
             {
                 MoveDirection = MovingTo.Up;
             }
-            else if ((!UseSquareDistance
+            else if ( (!UseSquareDistance
                 ? Vector3.Distance(movingDirection, downDirection)
                 : Vector3.SqrMagnitude(movingDirection - downDirection)) <=
-                     TurningDistanceTolerance)
+                      TurningDistanceTolerance )
             {
                 MoveDirection = MovingTo.Down;
             }
             // moving right of left
-            if ((!UseSquareDistance
+            if ( (!UseSquareDistance
                 ? Vector3.Angle(movingDirection, transform.right)
                 : Vector3.SqrMagnitude(movingDirection - transform.right)) <=
-                TurningDistanceTolerance)
+                 TurningDistanceTolerance )
             {
                 MoveDirection = MoveDirection | MovingTo.Right;
             }
-            else if ((!UseSquareDistance
+            else if ( (!UseSquareDistance
                 ? Vector3.Distance(movingDirection, leftDirection)
                 : Vector3.SqrMagnitude(movingDirection - leftDirection)) <=
-                     TurningDistanceTolerance)
+                      TurningDistanceTolerance )
             {
                 MoveDirection = MoveDirection | MovingTo.Left;
             }
             // moving forward or backwards
-            if ((!UseSquareDistance
+            if ( (!UseSquareDistance
                 ? Vector3.Distance(movingDirection, transform.forward)
                 : Vector3.SqrMagnitude(movingDirection - transform.forward)) <=
-                TurningDistanceTolerance)
+                 TurningDistanceTolerance )
             {
                 MoveDirection = MoveDirection | MovingTo.Forward;
             }
-            else if ((!UseSquareDistance
+            else if ( (!UseSquareDistance
                 ? Vector3.Distance(movingDirection, backDirection)
                 : Vector3.SqrMagnitude(movingDirection - backDirection)) <=
-                     TurningDistanceTolerance)
+                      TurningDistanceTolerance )
             {
                 MoveDirection = MoveDirection | MovingTo.Backwards;
             }
             // if actually moving delete None flag
-            if ((MoveDirection & ~MovingTo.None) > 0)
+            if ( (MoveDirection & ~MovingTo.None) > 0 )
             {
                 MoveDirection = MoveDirection & ~MovingTo.None;
             }
 
-            prevTransform.Position = transform.position;
-            prevTransform.Rotation = transform.rotation;
-            prevTransform.LocalScale = transform.localScale;
+            _previousTransform.Position = transform.position;
+            _previousTransform.Rotation = transform.rotation;
+            _previousTransform.LocalScale = transform.localScale;
         }
 
         public class TransformStorage

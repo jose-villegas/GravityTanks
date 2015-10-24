@@ -6,10 +6,8 @@ namespace GTCore.Player
     {
         public float CamRayLength = 100f;
         public float CanonDistance = 0.5f;
-
         public Transform RotateAround;
         public float TurningSpeed = 8.0f;
-
         public int InputMask { get; private set; }
 
         private void Start()
@@ -29,10 +27,13 @@ namespace GTCore.Player
             transform.position = RotateAround.position +
                                  transform.forward * CanonDistance;
 
-            var camRay = UnityEngine.Camera.main.ScreenPointToRay(Input.mousePosition);
+            var camRay =
+                UnityEngine.Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit inputPlaneHit;
 
-            if (!Physics.Raycast(camRay, out inputPlaneHit, CamRayLength, InputMask))
+            if (
+                !Physics.Raycast(camRay, out inputPlaneHit, CamRayLength,
+                    InputMask) )
             {
                 return;
             }

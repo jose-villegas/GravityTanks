@@ -1,4 +1,4 @@
-﻿using GTCore.Utils;
+﻿using GTUtils;
 
 using UnityEngine;
 
@@ -23,7 +23,10 @@ namespace GTCore.Enviroment
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.tag == gameObject.tag) return;
+            if ( other.gameObject.tag == gameObject.tag )
+            {
+                return;
+            }
 
             Destroy(gameObject);
         }

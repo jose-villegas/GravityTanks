@@ -1,7 +1,8 @@
 ﻿using System;
 
 using GTCore.General;
-using GTCore.Utils;
+
+using GTUtils;
 
 using UnityEngine;
 
@@ -10,6 +11,8 @@ namespace GTCore.Player
     [RequireComponent(typeof(ActorStatus))]
     public class StickToPlanet : MonoBehaviour
     {
+        #region StickStatus enum
+
         [Flags]
         public enum StickStatus
         {
@@ -19,13 +22,14 @@ namespace GTCore.Player
             ChangingPlanet = (1 << 3) // moving to another planetary body
         }
 
-        private ActorStatus actorStatus;
+        #endregion
 
-        private Vector3 downDirection;
-        private RaycastHit hitDown;
-        private RaycastHit hitUp;
-        private Transform onPlanet;
-        private int planetLayer; // all planets reside in this layer
+        private ActorStatus _actorStatus;
+        private Vector3 _downDirection;
+        private RaycastHit _hitDown;
+        private RaycastHit _hitUp;
+        private Transform _onPlanet;
+        private int _planetLayer; // all planets reside in this layer
         public float GroundMinimumDistance = 0.65f;
         public float LinkToPlanetDistance = 10f;
         public float PlanetChangeDamping = 3f;
@@ -37,39 +41,40 @@ namespace GTCore.Player
 
         private void Awake()
         {
-            planetLayer = LayerMask.GetMask("Planets");
-            actorStatus = GetComponent<ActorStatus>();
+            _planetLayer = LayerMask.GetMask("Planets");
+            _actorStatus = GetComponent<ActorStatus>();
         }
 
         private void LateUpdate()
         {
-            downDirection = transform.TransformDirection(Vector3.down);
+            _downDirection = transform.TransformDirection(Vector3.down);
 
             var notStranded = false;
             // link ray from transform to ground
-            if (Physics.Raycast(transform.position, downDirection, out hitDown,
-                LinkToPlanetDistance, planetLayer))
+            if ( Physics.Raycast(transform.position, _downDirection,
+                out _hitDown,
+                LinkToPlanetDistance, _planetLayer) )
             {
                 notStranded = true;
                 // change status based on distance to ground
-                Status = hitDown.distance < GroundMinimumDistance
+                Status = _hitDown.distance < GroundMinimumDistance
                     ? StickStatus.OnGround
                     : (Status | StickStatus.Flying) & ~StickStatus.OnGround;
                 // normal extracted from ground hit
-                PlanetCurrentNormal = hitDown.normal;
+                PlanetCurrentNormal = _hitDown.normal;
             }
 
             // link ray from transform to whatever is on it
-            if (Physics.Raycast(transform.position, transform.up, out hitUp,
-                LinkToPlanetDistance, planetLayer))
+            if ( Physics.Raycast(transform.position, transform.up, out _hitUp,
+                LinkToPlanetDistance, _planetLayer) )
             {
-                if (hitUp.distance > hitDown.distance ||
-                    (Status & StickStatus.OnGround) > 0)
+                if ( _hitUp.distance > _hitDown.distance ||
+                     (Status & StickStatus.OnGround) > 0 )
                 {
                     return;
                 }
 
-                Debug.Log(hitUp);
+                Debug.Log(_hitUp);
             }
 
             Status = notStranded ? Status : StickStatus.Stranded;
@@ -77,29 +82,29 @@ namespace GTCore.Player
 
         private void LinkToPlanet(RaycastHit hit)
         {
-            var lastPlanet = onPlanet;
-            onPlanet = hit.transform;
+            var lastPlanet = _onPlanet;
+            _onPlanet = hit.transform;
             // change status based on distance to ground
             Status = hit.distance < GroundMinimumDistance
                 ? StickStatus.OnGround
                 : (Status | StickStatus.Flying) & ~StickStatus.OnGround;
 
             // change of active planet
-            Status |= onPlanet != lastPlanet &&
+            Status |= _onPlanet != lastPlanet &&
                       hit.distance >= GroundMinimumDistance
                 ? StickStatus.ChangingPlanet
                 : Status;
 
-            if ((actorStatus.MoveDirection & ActorStatus.MovingTo.Down) > 0)
+            if ( (_actorStatus.MoveDirection & ActorStatus.MovingTo.Down) > 0 )
             {
                 Status = Status & ~StickStatus.ChangingPlanet;
             }
 
-            if ((Status & StickStatus.ChangingPlanet) > 0)
+            if ( (Status & StickStatus.ChangingPlanet) > 0 )
             {
             }
             // change normal with closest planet body hit
-            if (onPlanet == lastPlanet)
+            if ( _onPlanet == lastPlanet )
             {
                 PlanetCurrentNormal = hit.normal;
             }
@@ -108,9 +113,9 @@ namespace GTCore.Player
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.red;
-            DrawArrow.ForGizmo(transform.position, hitDown.normal);
+            DrawArrow.ForGizmo(transform.position, _hitDown.normal);
             Gizmos.color = Color.red;
-            DrawArrow.ForGizmo(transform.position, hitUp.normal);
+            DrawArrow.ForGizmo(transform.position, _hitUp.normal);
         }
     }
 }

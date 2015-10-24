@@ -7,7 +7,7 @@ namespace GTCore.Enviroment
     [RequireComponent(typeof(PlanetInfo))]
     public class SphericalGravity : MonoBehaviour
     {
-        private int playerLayer;
+        private int _playerLayer;
 
         [Tooltip("Moves the sphere center")]
         public Vector3 MovePosition = Vector3.zero;
@@ -16,13 +16,12 @@ namespace GTCore.Enviroment
         public LayerMask PullMasks;
         public float PullRadius = 5f;
 
-        [Tooltip("Calculates the center of mass with all children's rigidbodies")]
-        public bool
-            UseCenterOfMass = false;
+        [Tooltip("Compute center of mass with all children's rigidbodies")]
+        public bool UseCenterOfMass = false;
 
         private void Awake()
         {
-            playerLayer = LayerMask.GetMask("PlayerLayer");
+            _playerLayer = LayerMask.GetMask("PlayerLayer");
         }
 
         private void OnDrawGizmosSelected()
@@ -45,13 +44,14 @@ namespace GTCore.Enviroment
 
         private void FixedUpdate()
         {
-            var colliders = Physics.OverlapSphere(GetCenter(), PullRadius, PullMasks);
+            var colliders = Physics.OverlapSphere(GetCenter(), PullRadius,
+                PullMasks);
 
-            foreach (var other in colliders)
+            foreach ( var other in colliders )
             {
                 var oRigidBody = other.GetComponent<Rigidbody>();
 
-                if (oRigidBody == null)
+                if ( oRigidBody == null )
                 {
                     continue;
                 }
@@ -60,12 +60,14 @@ namespace GTCore.Enviroment
                     (transform.position - other.transform.position).normalized;
 
                 // player special case
-                if ((1 << other.gameObject.layer & playerLayer) > 0)
+                if ( (1 << other.gameObject.layer & _playerLayer) > 0 )
                 {
-                    var playerStick = other.gameObject.GetComponent<StickToPlanet>();
+                    var playerStick =
+                        other.gameObject.GetComponent<StickToPlanet>();
 
-                    if ((playerStick.Status & StickToPlanet.StickStatus.Stranded) >
-                        0)
+                    if ( (playerStick.Status &
+                          StickToPlanet.StickStatus.Stranded) >
+                         0 )
                     {
                         oRigidBody
                             .AddForce(forceDirection *
@@ -79,7 +81,8 @@ namespace GTCore.Enviroment
                 }
                 else
                 {
-                    oRigidBody.AddForce(forceDirection * PlanetInformation.Gravity);
+                    oRigidBody.AddForce(forceDirection *
+                                        PlanetInformation.Gravity);
                 }
             }
         }
@@ -89,7 +92,7 @@ namespace GTCore.Enviroment
             var com = Vector3.zero;
             var c = 0f;
 
-            foreach (var goRigidbody in rbArray)
+            foreach ( var goRigidbody in rbArray )
             {
                 com += goRigidbody.worldCenterOfMass * goRigidbody.mass;
                 c += goRigidbody.mass;
