@@ -5,10 +5,13 @@ using UnityEngine;
 namespace GTCore.Enemies
 {
     [RequireComponent(typeof(Rigidbody))]
-    public class EnemyMovement : MonoBehaviour
+    public class FollowBombMovement : MonoBehaviour
     {
         #region MovementBehaviour enum
 
+        /// <summary>
+        ///     Defines the aproaching behaviour of the follow bomb
+        /// </summary>
         public enum MovementBehaviour
         {
             Fixed,
@@ -20,7 +23,7 @@ namespace GTCore.Enemies
         #endregion
 
         private float _distanceToPlayer;
-        private Rigidbody _eRigidbody;
+        private Rigidbody _enemyRigidbody;
         private bool _isPlayerInRange;
         private int _playerLayer;
 
@@ -37,8 +40,12 @@ namespace GTCore.Enemies
         public Vector3 CapsuleEnd = Vector3.zero;
 
         public float CapsuleRadius = 1f;
-
         public MovementBehaviour MovementType;
+
+        /// <summary>
+        ///     Smoothing value for enemy slowdown once the player is out of
+        ///     range
+        /// </summary>
         public float OutRangeSlowdown = 1f;
 
         /// <summary>
@@ -52,7 +59,7 @@ namespace GTCore.Enemies
 
         private void Awake()
         {
-            _eRigidbody = GetComponent<Rigidbody>();
+            _enemyRigidbody = GetComponent<Rigidbody>();
             _playerLayer = LayerMask.GetMask("PlayerLayer");
         }
 
@@ -69,6 +76,7 @@ namespace GTCore.Enemies
                 var targetDirection =
                     (Player.position - transform.position).normalized;
 
+                // change force based on movement behaviour
                 switch ( MovementType )
                 {
                     case MovementBehaviour.Constant:
@@ -89,17 +97,18 @@ namespace GTCore.Enemies
                 // apply force on object rigidbody
                 if ( MovementType != MovementBehaviour.Fixed )
                 {
-                    _eRigidbody.AddForce(forceIntensity);
+                    _enemyRigidbody.AddForce(forceIntensity);
                 }
                 else
                 {
-                    _eRigidbody.velocity = targetDirection * VelocityImpulse *
-                                           Time.fixedDeltaTime;
+                    _enemyRigidbody.velocity = targetDirection * VelocityImpulse *
+                                               Time.fixedDeltaTime;
                 }
             }
             else // slowly slow down
             {
-                _eRigidbody.velocity = Vector3.Lerp(_eRigidbody.velocity,
+                _enemyRigidbody.velocity = Vector3.Lerp(
+                    _enemyRigidbody.velocity,
                     Vector3.zero, Time.fixedDeltaTime * OutRangeSlowdown);
             }
         }
@@ -126,10 +135,10 @@ namespace GTCore.Enemies
         private void OnDrawGizmosSelected()
         {
             // gravity opposite direction
-            if ( _eRigidbody != null )
+            if ( _enemyRigidbody != null )
             {
                 Gizmos.color = Color.cyan;
-                DrawArrow.ForGizmo(transform.position, _eRigidbody.velocity);
+                DrawArrow.ForGizmo(transform.position, _enemyRigidbody.velocity);
             }
 
             var targetNormal = (transform.position - Planet.position).normalized;

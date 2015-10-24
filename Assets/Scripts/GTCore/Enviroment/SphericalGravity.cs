@@ -9,13 +9,27 @@ namespace GTCore.Enviroment
     {
         private int _playerLayer;
 
+        /// <summary>
+        ///     Moves the sphere center of mass or current center
+        /// </summary>
         [Tooltip("Moves the sphere center")]
         public Vector3 MovePosition = Vector3.zero;
 
         public PlanetInfo PlanetInformation;
+
+        /// <summary>
+        ///     Pulls the objects that reside in these masks if they posses
+        ///     rigidbodies
+        /// </summary>
+        [Tooltip("Indicates from whick mask this range will pull with gravity")]
         public LayerMask PullMasks;
+
         public float PullRadius = 5f;
 
+        /// <summary>
+        ///     Enables to calculate the center of mass per update using all the
+        ///     rigdbodies in this transform childrens
+        /// </summary>
         [Tooltip("Compute center of mass with all children's rigidbodies")]
         public bool UseCenterOfMass = false;
 

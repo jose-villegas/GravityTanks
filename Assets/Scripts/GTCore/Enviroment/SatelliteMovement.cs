@@ -29,7 +29,8 @@ namespace GTCore.Enviroment
         public uint CurvePrecision = 100;
 
         /// <summary>
-        ///     Distance * Time simulation step through orbit, higher = less points
+        ///     Distance * Time simulation step through orbit, higher = less
+        ///     points
         /// </summary>
         [Tooltip("Distance * Time simulation step through orbit")]
         public float DistanceTimeStep = 0.02f;
@@ -41,7 +42,8 @@ namespace GTCore.Enviroment
         public List<SphericalGravity> GravityObjects;
 
         /// <summary>
-        ///     Maximum number of points to simulate orbit, important to stop long simulations
+        ///     Maximum number of points to simulate orbit, important to stop
+        ///     long simulations
         /// </summary>
         [Tooltip("Maximum number of points to simulate orbit")]
         public int MaxSimulationCount = 10000;
@@ -53,7 +55,8 @@ namespace GTCore.Enviroment
         public float OrbitalSpeedFactor = 1f;
 
         /// <summary>
-        ///     Distance of the last point to the first point on orbit to be considered stable
+        ///     Distance of the last point to the first point on orbit to be
+        ///     considered stable
         /// </summary>
         [Tooltip("Distance of the last point on orbit to the first")]
         public float OrbitToleranceDistance = 0.05f;

@@ -299,7 +299,8 @@ Prefab:
       propertyPath: UseSquareDistance
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 11419556, guid: d80ae988248f3e549915ebaa61349f78, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: d80ae988248f3e549915ebaa61349f78, type: 2}
   m_IsPrefabParent: 0
 --- !u!1001 &198187317

@@ -46,9 +46,16 @@ namespace GTCore.General
 
         private TransformStorage _previousTransform;
 
+        [Tooltip("Indicates the minimum distance to set the object as moving")]
         public float PositionChangeTolerance = 0.1f;
+
+        [Tooltip("Indicates the frecuency in which the status will be updated")]
         public float RefreshStatusFrequency = 0.25f;
+
+        [Tooltip("Indicates the minimum distance to set the moving direction")]
         public float TurningDistanceTolerance = 0.25f;
+
+        [Tooltip("If false will use sqrt to calculate distance (slower)")]
         public bool UseSquareDistance = false;
 
         public Status CurrentStatus

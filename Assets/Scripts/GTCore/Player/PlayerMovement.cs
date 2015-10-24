@@ -11,10 +11,13 @@ namespace GTCore.Player
     public class PlayerMovement : MonoBehaviour
     {
         private bool _isWalking;
-        private Vector3 _movement;
         private Rigidbody _playerRigidbody;
         private StickToPlanet _stickToPlanet;
         private Vector3 _turnDirection = Vector3.up;
+        /// <summary>
+        /// Softens the player rotation / turning
+        /// </summary>
+        [Tooltip("Softens the player turning movement")]
         public float Damping = 8f;
         public CameraMovement GameCamera;
         public float JumpStrength = 2f;
@@ -55,8 +58,9 @@ namespace GTCore.Player
                 return;
             }
 
-            _movement = GameCamera.NonInterpolatedTransform.right * horizontal +
-                        GameCamera.NonInterpolatedTransform.up * vertical;
+            var _movement = GameCamera.NonInterpolatedTransform.right *
+                            horizontal +
+                            GameCamera.NonInterpolatedTransform.up * vertical;
             _movement = _movement.normalized * MovementSpeed *
                         Time.fixedDeltaTime;
 
@@ -66,9 +70,9 @@ namespace GTCore.Player
 
         private void Turn(float horizontal, float vertical)
         {
-            var mainCamera = UnityEngine.Camera.main.transform;
+            var mainCamera = GameCamera.NonInterpolatedTransform;
             // smooth rotation with damping parameter
-            if ( _isWalking && mainCamera.up != Vector3.zero )
+            if ( _isWalking && mainCamera.up != Vector3.zero)
             {
                 var newTurnDirection =
                     Quaternion.LookRotation(mainCamera.up,
@@ -89,7 +93,7 @@ namespace GTCore.Player
             {
                 var rotAround = Quaternion.FromToRotation(transform.up,
                     _stickToPlanet.PlanetCurrentNormal);
-                // rot to up vector based on gravity
+                // rotate to up vector based on gravity
                 _playerRigidbody.MoveRotation(
                     Quaternion.Slerp(_playerRigidbody.transform.rotation,
                         rotAround * _playerRigidbody.transform.rotation,

@@ -14,13 +14,15 @@ namespace GTCore.Camera
         public Vector3 MovePosition = Vector3.zero;
 
         /// <summary>
-        ///     Moves the view target position, changing the resulting direction vector
+        ///     Moves the view target position, changing the resulting direction
+        ///     vector
         /// </summary>
         [Tooltip("Moves the view target direction")]
         public Vector3 MoveTarget = Vector3.zero;
 
         /// <summary>
-        ///     Damps the camera movement making the movement softly reach its final
+        ///     Damps the camera movement making the movement softly reach its
+        ///     final
         ///     position
         /// </summary>
         [Tooltip("Softens the camera movement")]
