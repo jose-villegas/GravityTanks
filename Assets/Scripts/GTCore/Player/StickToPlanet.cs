@@ -1,9 +1,6 @@
 ﻿using System;
-
 using GTCore.General;
-
 using GTUtils;
-
 using UnityEngine;
 
 namespace GTCore.Player

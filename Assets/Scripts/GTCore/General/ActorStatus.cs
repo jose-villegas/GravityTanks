@@ -1,7 +1,5 @@
 ﻿using System;
-
 using GTUtils;
-
 using UnityEngine;
 
 namespace GTCore.General
@@ -36,25 +34,48 @@ namespace GTCore.General
 
         #endregion
 
+        /// <summary>
+        ///     State of the current associated actor
+        /// </summary>
         [BitMask(typeof(Status))]
         [SerializeField]
         private Status _currentStatus;
 
+        /// <summary>
+        ///     If the actor is moving this indicates which direction it's moving
+        /// </summary>
         [BitMask(typeof(MovingTo))]
         [SerializeField]
         private MovingTo _moveDirection;
 
         private TransformStorage _previousTransform;
 
+        /// <summary>
+        ///     ActorStatus stores the previous position periodically, this value
+        ///     indicates how much the actor had to move to be considered 'moving'
+        /// </summary>
         [Tooltip("Indicates the minimum distance to set the object as moving")]
         public float PositionChangeTolerance = 0.1f;
 
+        /// <summary>
+        ///     Indicates how often the actor status will be updated, a smaller
+        ///     number will give the best precision
+        /// </summary>
         [Tooltip("Indicates the frecuency in which the status will be updated")]
         public float RefreshStatusFrequency = 0.25f;
 
+        /// <summary>
+        ///     Every transform has three direction components up, right and
+        ///     forward, this value indicates how far the moving direction has
+        ///     to be from these vectors to consider in which direction is moving
+        /// </summary>
         [Tooltip("Indicates the minimum distance to set the moving direction")]
         public float TurningDistanceTolerance = 0.25f;
 
+        /// <summary>
+        ///     If false will use square root clasical point-point distance
+        ///     (slower) otherwise the script will use square distance
+        /// </summary>
         [Tooltip("If false will use sqrt to calculate distance (slower)")]
         public bool UseSquareDistance = false;
 

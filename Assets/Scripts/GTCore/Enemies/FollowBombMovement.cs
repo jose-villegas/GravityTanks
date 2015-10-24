@@ -1,5 +1,4 @@
 using GTUtils;
-
 using UnityEngine;
 
 namespace GTCore.Enemies

@@ -577,6 +577,10 @@ Prefab:
       propertyPath: BulletSpeed
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 11490822, guid: fafc09c156af55343888850228e7c0f0, type: 2}
+      propertyPath: CanonOwner
+      value: 
+      objectReference: {fileID: 1756232767}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fafc09c156af55343888850228e7c0f0, type: 2}
   m_IsPrefabParent: 0

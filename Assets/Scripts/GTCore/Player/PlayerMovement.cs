@@ -1,7 +1,5 @@
 ﻿using GTCore.Camera;
-
 using GTUtils;
-
 using UnityEngine;
 
 namespace GTCore.Player
@@ -14,11 +12,13 @@ namespace GTCore.Player
         private Rigidbody _playerRigidbody;
         private StickToPlanet _stickToPlanet;
         private Vector3 _turnDirection = Vector3.up;
+
         /// <summary>
-        /// Softens the player rotation / turning
+        ///     Softens the player rotation / turning
         /// </summary>
         [Tooltip("Softens the player turning movement")]
         public float Damping = 8f;
+
         public CameraMovement GameCamera;
         public float JumpStrength = 2f;
 
@@ -26,6 +26,7 @@ namespace GTCore.Player
         ///     Torque based solution to kill angular velocity
         ///     this value decides how fast this happens
         /// </summary>
+        [Tooltip("Indicates how fast the angular velocity becomes zero, x < 1")]
         public float KillAngularVelocity = 0.1f;
 
         public float MovementSpeed = 5f;
@@ -72,7 +73,7 @@ namespace GTCore.Player
         {
             var mainCamera = GameCamera.NonInterpolatedTransform;
             // smooth rotation with damping parameter
-            if ( _isWalking && mainCamera.up != Vector3.zero)
+            if ( _isWalking && mainCamera.up != Vector3.zero )
             {
                 var newTurnDirection =
                     Quaternion.LookRotation(mainCamera.up,

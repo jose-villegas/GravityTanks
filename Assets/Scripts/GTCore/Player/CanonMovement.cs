@@ -14,11 +14,13 @@ namespace GTCore.Player
         /// <summary>
         ///     Indicates the seperation between the canon owner and the canon
         /// </summary>
+        [Tooltip("Seperation between the canon owner and the canon object")]
         public float CanonSeparation = 0.5f;
 
         /// <summary>
         ///     Damps the canon rotation to make it rotate around softly
         /// </summary>
+        [Tooltip("Damps the canon rotation to make it rotate around softly")]
         public float TurningDamping = 8.0f;
 
         private void Start()

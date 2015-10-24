@@ -1,5 +1,4 @@
 ﻿using GTUtils;
-
 using UnityEngine;
 
 namespace GTCore.Enviroment
@@ -21,7 +20,7 @@ namespace GTCore.Enviroment
             gameObject.tag = "Untagged";
         }
 
-        private void OnTriggerEnter(Collider other)
+        private void OnTriggerEnter(Component other)
         {
             if ( other.gameObject.tag == gameObject.tag )
             {
