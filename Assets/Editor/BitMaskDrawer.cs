@@ -1,5 +1,5 @@
-﻿using UnityEditor;
-
+﻿using GTCore.Utils;
+using UnityEditor;
 using UnityEngine;
 
 [CustomPropertyDrawer(typeof(BitMaskAttribute))]

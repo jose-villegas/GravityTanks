@@ -562,7 +562,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11408690, guid: fafc09c156af55343888850228e7c0f0, type: 2}
       propertyPath: BulletSpeed
-      value: 15
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fafc09c156af55343888850228e7c0f0, type: 2}
@@ -588,7 +588,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 458528, guid: 9b8061112e0cc544997c10efaef22c69, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -16.7299995
+      value: -22.5
       objectReference: {fileID: 0}
     - target: {fileID: 458528, guid: 9b8061112e0cc544997c10efaef22c69, type: 2}
       propertyPath: m_LocalPosition.y
@@ -596,7 +596,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 458528, guid: 9b8061112e0cc544997c10efaef22c69, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -14.1999998
+      value: -18.1000004
       objectReference: {fileID: 0}
     - target: {fileID: 458528, guid: 9b8061112e0cc544997c10efaef22c69, type: 2}
       propertyPath: m_LocalRotation.x

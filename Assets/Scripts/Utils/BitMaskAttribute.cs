@@ -3,12 +3,15 @@
 using UnityEngine;
 
 // Have to be defined somewhere in a runtime script file
-public class BitMaskAttribute : PropertyAttribute
+namespace GTCore.Utils
 {
-    public Type PropType;
-
-    public BitMaskAttribute(Type aType)
+    public class BitMaskAttribute : PropertyAttribute
     {
-        PropType = aType;
+        public Type PropType;
+
+        public BitMaskAttribute(Type aType)
+        {
+            PropType = aType;
+        }
     }
 }
