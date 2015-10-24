@@ -2,12 +2,12 @@
 
 public class StickToPlayer : MonoBehaviour
 {
-    private StickToPlanet _stickToPlanet;
+    private StickToPlanet stickToPlanet;
     public Transform Target;
 
     private void Awake()
     {
-        _stickToPlanet = Target.gameObject.GetComponent<StickToPlanet>();
+        stickToPlanet = Target.gameObject.GetComponent<StickToPlanet>();
         // disable hieracy transform, use local transform
         transform.SetParent(transform.parent.transform, false);
     }
@@ -16,6 +16,6 @@ public class StickToPlayer : MonoBehaviour
     private void LateUpdate()
     {
         transform.position = Target.position;
-        transform.up = _stickToPlanet.PlanetCurrentNormal;
+        transform.up = stickToPlanet.PlanetCurrentNormal;
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+
 using UnityEngine;
 
 public class ActorStatus : MonoBehaviour
@@ -23,10 +24,15 @@ public class ActorStatus : MonoBehaviour
         Idle = (1 << 2)
     }
 
-    [BitMask(typeof (Status))] [SerializeField] private Status _currentStatus;
-    [BitMask(typeof (MovingTo))] [SerializeField] private MovingTo _moveDirection;
+    [BitMask(typeof(Status))]
+    [SerializeField]
+    private Status currentStatus;
 
-    private TransformStorage _prevTransform;
+    [BitMask(typeof(MovingTo))]
+    [SerializeField]
+    private MovingTo moveDirection;
+
+    private TransformStorage prevTransform;
     public float PositionChangeTolerance = 0.1f;
     public float RefreshStatusFrequency = 0.25f;
     public float TurningDistanceTolerance = 0.25f;
@@ -34,19 +40,19 @@ public class ActorStatus : MonoBehaviour
 
     public Status CurrentStatus
     {
-        get { return _currentStatus; }
-        private set { _currentStatus = value; }
+        get { return currentStatus; }
+        private set { currentStatus = value; }
     }
 
     public MovingTo MoveDirection
     {
-        get { return _moveDirection; }
-        private set { _moveDirection = value; }
+        get { return moveDirection; }
+        private set { moveDirection = value; }
     }
 
     private void Awake()
     {
-        _prevTransform = new TransformStorage
+        prevTransform = new TransformStorage
         {
             Position = transform.position,
             Rotation = transform.rotation,
@@ -55,16 +61,19 @@ public class ActorStatus : MonoBehaviour
         CurrentStatus = Status.Idle;
         MoveDirection = MovingTo.None;
         // refresh status at frequency
-        InvokeRepeating("RefreshStatus", RefreshStatusFrequency, RefreshStatusFrequency);
+        InvokeRepeating("RefreshStatus", RefreshStatusFrequency,
+            RefreshStatusFrequency);
     }
 
     private void RefreshStatus()
     {
         var positionDistance = UseSquareDistance
-            ? Vector3.SqrMagnitude(transform.position - _prevTransform.Position)
-            : Vector3.Distance(transform.position, _prevTransform.Position);
-        var turningAngle = Quaternion.Angle(transform.rotation, _prevTransform.Rotation);
-        var movingDirection = (transform.position - _prevTransform.Position).normalized;
+            ? Vector3.SqrMagnitude(transform.position - prevTransform.Position)
+            : Vector3.Distance(transform.position, prevTransform.Position);
+        var turningAngle = Quaternion.Angle(transform.rotation,
+            prevTransform.Rotation);
+        var movingDirection =
+            (transform.position - prevTransform.Position).normalized;
 
         // detect if actor moved
         CurrentStatus = positionDistance > PositionChangeTolerance
@@ -83,39 +92,45 @@ public class ActorStatus : MonoBehaviour
 
         if ((!UseSquareDistance
             ? Vector3.Distance(movingDirection, transform.up)
-            : Vector3.SqrMagnitude(movingDirection - transform.up)) <= TurningDistanceTolerance)
+            : Vector3.SqrMagnitude(movingDirection - transform.up)) <=
+            TurningDistanceTolerance)
         {
             MoveDirection = MovingTo.Up;
         }
         else if ((!UseSquareDistance
             ? Vector3.Distance(movingDirection, downDirection)
-            : Vector3.SqrMagnitude(movingDirection - downDirection)) <= TurningDistanceTolerance)
+            : Vector3.SqrMagnitude(movingDirection - downDirection)) <=
+                 TurningDistanceTolerance)
         {
             MoveDirection = MovingTo.Down;
         }
         // moving right of left
         if ((!UseSquareDistance
             ? Vector3.Angle(movingDirection, transform.right)
-            : Vector3.SqrMagnitude(movingDirection - transform.right)) <= TurningDistanceTolerance)
+            : Vector3.SqrMagnitude(movingDirection - transform.right)) <=
+            TurningDistanceTolerance)
         {
             MoveDirection = MoveDirection | MovingTo.Right;
         }
         else if ((!UseSquareDistance
             ? Vector3.Distance(movingDirection, leftDirection)
-            : Vector3.SqrMagnitude(movingDirection - leftDirection)) <= TurningDistanceTolerance)
+            : Vector3.SqrMagnitude(movingDirection - leftDirection)) <=
+                 TurningDistanceTolerance)
         {
             MoveDirection = MoveDirection | MovingTo.Left;
         }
         // moving forward or backwards
         if ((!UseSquareDistance
             ? Vector3.Distance(movingDirection, transform.forward)
-            : Vector3.SqrMagnitude(movingDirection - transform.forward)) <= TurningDistanceTolerance)
+            : Vector3.SqrMagnitude(movingDirection - transform.forward)) <=
+            TurningDistanceTolerance)
         {
             MoveDirection = MoveDirection | MovingTo.Forward;
         }
         else if ((!UseSquareDistance
             ? Vector3.Distance(movingDirection, backDirection)
-            : Vector3.SqrMagnitude(movingDirection - backDirection)) <= TurningDistanceTolerance)
+            : Vector3.SqrMagnitude(movingDirection - backDirection)) <=
+                 TurningDistanceTolerance)
         {
             MoveDirection = MoveDirection | MovingTo.Backwards;
         }
@@ -125,10 +140,9 @@ public class ActorStatus : MonoBehaviour
             MoveDirection = MoveDirection & ~MovingTo.None;
         }
 
-
-        _prevTransform.Position = transform.position;
-        _prevTransform.Rotation = transform.rotation;
-        _prevTransform.LocalScale = transform.localScale;
+        prevTransform.Position = transform.position;
+        prevTransform.Rotation = transform.rotation;
+        prevTransform.LocalScale = transform.localScale;
     }
 
     public class TransformStorage

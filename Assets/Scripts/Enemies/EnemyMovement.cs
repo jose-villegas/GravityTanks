@@ -1,8 +1,10 @@
 using UnityEngine;
 
-[RequireComponent(typeof (Rigidbody))]
+[RequireComponent(typeof(Rigidbody))]
 public class EnemyMovement : MonoBehaviour
 {
+    #region MovementBehaviour enum
+
     public enum MovementBehaviour
     {
         Fixed,
@@ -11,11 +13,13 @@ public class EnemyMovement : MonoBehaviour
         DecreaseOnDistance
     }
 
-    private float _distanceToPlayer;
+    #endregion
 
-    private Rigidbody _eRigidbody;
-    private bool _isPlayerInRange;
-    private int _playerLayer;
+    private float distanceToPlayer;
+
+    private Rigidbody eRigidbody;
+    private bool isPlayerInRange;
+    private int playerLayer;
 
     /// <summary>
     ///     Traslates the area detection capsule beginning position
@@ -45,8 +49,8 @@ public class EnemyMovement : MonoBehaviour
 
     private void Awake()
     {
-        _eRigidbody = GetComponent<Rigidbody>();
-        _playerLayer = LayerMask.GetMask("PlayerLayer");
+        eRigidbody = GetComponent<Rigidbody>();
+        playerLayer = LayerMask.GetMask("PlayerLayer");
     }
 
     private void Start()
@@ -56,21 +60,24 @@ public class EnemyMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (_isPlayerInRange)
+        if (isPlayerInRange)
         {
             var forceIntensity = Vector3.zero;
-            var targetDirection = (Player.position - transform.position).normalized;
+            var targetDirection =
+                (Player.position - transform.position).normalized;
 
             switch (MovementType)
             {
                 case MovementBehaviour.Constant:
-                    forceIntensity = VelocityImpulse*targetDirection;
+                    forceIntensity = VelocityImpulse * targetDirection;
                     break;
                 case MovementBehaviour.DecreaseOnDistance:
-                    forceIntensity = VelocityImpulse*targetDirection/_distanceToPlayer;
+                    forceIntensity = VelocityImpulse * targetDirection /
+                                     distanceToPlayer;
                     break;
                 case MovementBehaviour.IncreaseOnDistance:
-                    forceIntensity = VelocityImpulse*targetDirection*_distanceToPlayer;
+                    forceIntensity = VelocityImpulse * targetDirection *
+                                     distanceToPlayer;
                     break;
                 case MovementBehaviour.Fixed:
                     break;
@@ -79,28 +86,33 @@ public class EnemyMovement : MonoBehaviour
             // apply force on object rigidbody
             if (MovementType != MovementBehaviour.Fixed)
             {
-                _eRigidbody.AddForce(forceIntensity);
+                eRigidbody.AddForce(forceIntensity);
             }
             else
             {
-                _eRigidbody.velocity = targetDirection*VelocityImpulse*Time.fixedDeltaTime;
+                eRigidbody.velocity = targetDirection * VelocityImpulse *
+                                       Time.fixedDeltaTime;
             }
         }
         else // slowly slow down
         {
-            _eRigidbody.velocity = Vector3.Lerp(_eRigidbody.velocity, Vector3.zero, Time.fixedDeltaTime*OutRangeSlowdown);
+            eRigidbody.velocity = Vector3.Lerp(eRigidbody.velocity,
+                Vector3.zero, Time.fixedDeltaTime * OutRangeSlowdown);
         }
     }
 
     private void DetectPlayer()
     {
         var targetNormal = (transform.position - Planet.position).normalized;
-        var capsuleB = Quaternion.FromToRotation(Vector3.up, targetNormal)*CapsuleBegin;
-        var capsuleE = Quaternion.FromToRotation(Vector3.up, targetNormal)*CapsuleEnd;
+        var capsuleB = Quaternion.FromToRotation(Vector3.up, targetNormal) *
+                       CapsuleBegin;
+        var capsuleE = Quaternion.FromToRotation(Vector3.up, targetNormal) *
+                       CapsuleEnd;
 
-        _isPlayerInRange = Physics.CheckCapsule(transform.position + capsuleB, transform.position + capsuleE,
-            CapsuleRadius, _playerLayer);
-        _distanceToPlayer = _isPlayerInRange
+        isPlayerInRange = Physics.CheckCapsule(transform.position + capsuleB,
+            transform.position + capsuleE,
+            CapsuleRadius, playerLayer);
+        distanceToPlayer = isPlayerInRange
             ? UseSquareDistance
                 ? Vector3.SqrMagnitude(transform.position - Player.position)
                 : Vector3.Distance(transform.position, Player.position)
@@ -110,23 +122,31 @@ public class EnemyMovement : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         // gravity opposite direction
-        if (_eRigidbody != null)
+        if (eRigidbody != null)
         {
             Gizmos.color = Color.cyan;
-            DrawArrow.ForGizmo(transform.position, _eRigidbody.velocity);
+            DrawArrow.ForGizmo(transform.position, eRigidbody.velocity);
         }
 
         var targetNormal = (transform.position - Planet.position).normalized;
-        var capsuleB = Quaternion.FromToRotation(Vector3.up, targetNormal)*CapsuleBegin;
-        var capsuleE = Quaternion.FromToRotation(Vector3.up, targetNormal)*CapsuleEnd;
+        var capsuleB = Quaternion.FromToRotation(Vector3.up, targetNormal) *
+                       CapsuleBegin;
+        var capsuleE = Quaternion.FromToRotation(Vector3.up, targetNormal) *
+                       CapsuleEnd;
         // bomb player detection range
-        DebugExtension.DrawCapsule(transform.position + capsuleB, transform.position + capsuleE,
-            _isPlayerInRange ? Color.red : Color.gray, CapsuleRadius);
+        DebugExtension.DrawCapsule(transform.position + capsuleB,
+            transform.position + capsuleE,
+            isPlayerInRange ? Color.red : Color.gray, CapsuleRadius);
 
-        if (!_isPlayerInRange) return;
+        if (!isPlayerInRange)
+        {
+            return;
+        }
 
         Gizmos.color = Color.red;
         Gizmos.DrawLine(transform.position,
-            transform.position + (Player.position - transform.position).normalized*_distanceToPlayer);
+            transform.position +
+            (Player.position - transform.position).normalized *
+            distanceToPlayer);
     }
 }

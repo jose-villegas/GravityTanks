@@ -1,60 +1,64 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+
 using UnityEngine;
 
 // on rails accurate orbit
-[RequireComponent(typeof (Rigidbody))]
-[RequireComponent(typeof (SphericalGravity))]
+[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(SphericalGravity))]
 public class SatelliteMovement : MonoBehaviour
 {
-    private SphericalGravity _gravityPull;
-
     /// <summary>
     ///     Collection of precomputed orbit points
     /// </summary>
-    private readonly List<Vector3> _orbitPoints = new List<Vector3>();
+    private readonly List<Vector3> orbitPoints = new List<Vector3>();
 
-    private Rigidbody _sRigidbody;
-    private float _timer;
+    private SphericalGravity gravityPull;
+    private Rigidbody satelliteRigidbody;
+    private float timer;
 
     /// <summary>
     ///     Precision of the final point list, higher = less points
     /// </summary>
-    [Tooltip("Precision of the final point list (higher = less points)")] public uint CurvePrecision = 100;
+    [Tooltip("Precision of the final point list (higher = less points)")]
+    public uint CurvePrecision = 100;
 
     /// <summary>
     ///     Distance * Time simulation step through orbit, higher = less points
     /// </summary>
-    [Tooltip("Distance * Time simulation step through orbit")] public float DistanceTimeStep = 0.02f;
+    [Tooltip("Distance * Time simulation step through orbit")]
+    public float DistanceTimeStep = 0.02f;
 
     /// <summary>
     ///     Gravitational bodies which this object interacts with
     /// </summary>
-    [Tooltip("Gravitational bodies which this object interacts with")] public List<SphericalGravity> GravityObjects;
+    [Tooltip("Gravitational bodies which this object interacts with")]
+    public List<SphericalGravity> GravityObjects;
 
     /// <summary>
     ///     Maximum number of points to simulate orbit, important to stop long simulations
     /// </summary>
-    [Tooltip("Maximum number of points to simulate orbit, stops long simulations")] public int MaxSimulationCount =
-        10000;
+    [Tooltip("Maximum number of points to simulate orbit")]
+    public int MaxSimulationCount = 10000;
 
     /// <summary>
     ///     Controls the speed in which the object complets its orbit
     /// </summary>
-    [Tooltip("Controls the speed in which the object complets its orbit")] public float OrbitalSpeedFactor = 1f;
+    [Tooltip("Controls the speed in which the object complets its orbit")]
+    public float OrbitalSpeedFactor = 1f;
 
     /// <summary>
     ///     Distance of the last point to the first point on orbit to be considered stable
     /// </summary>
-    [Tooltip("Distance of the last point on orbit to the first to be considered stable")] public float
-        OrbitToleranceDistance = 0.05f;
+    [Tooltip("Distance of the last point on orbit to the first")]
+    public float OrbitToleranceDistance = 0.05f;
 
     public Vector3 StartingVelocity = Vector3.up;
 
     private void Awake()
     {
-        _sRigidbody = GetComponent<Rigidbody>();
-        _gravityPull = GetComponent<SphericalGravity>();
+        satelliteRigidbody = GetComponent<Rigidbody>();
+        gravityPull = GetComponent<SphericalGravity>();
     }
 
     private void Start()
@@ -67,34 +71,44 @@ public class SatelliteMovement : MonoBehaviour
         Move();
     }
 
-    private Vector3 CurveAt(float t)
+    private Vector3 CurveAt(float time)
     {
-        if (t < 0f || t > 1f) return Vector3.zero;
+        if (time < 0f || time > 1f)
+        {
+            return Vector3.zero;
+        }
 
-        var i = (int) (t*(_orbitPoints.Count - 1));
-        var f = (t*(_orbitPoints.Count - 1)) - i;
-        return Vector3.Slerp(_orbitPoints[i], _orbitPoints[Mathf.Min(i + 1, _orbitPoints.Count - 1)], f);
+        var index = (int)(time * (orbitPoints.Count - 1));
+        var atTime = (time * (orbitPoints.Count - 1)) - index;
+        return Vector3.Slerp(orbitPoints[index],
+            orbitPoints[Mathf.Min(index + 1, orbitPoints.Count - 1)], atTime);
     }
 
     private void Move()
     {
-        _timer += Time.fixedDeltaTime*OrbitalSpeedFactor;
-        _timer %= 1f; // mod 1, values go from 0 to 1
+        timer += Time.fixedDeltaTime * OrbitalSpeedFactor;
+        timer %= 1f; // mod 1, values go from 0 to 1
 
-        _sRigidbody.MovePosition(CurveAt(_timer));
+        satelliteRigidbody.MovePosition(
+            Vector3.Slerp(satelliteRigidbody.position,
+                CurveAt(timer), Time.deltaTime));
     }
 
     private float ClosestPuller()
     {
         return
-            GravityObjects.Select(go => Vector3.Distance(transform.position, go.transform.position))
-                .Concat(new[] {Mathf.Infinity})
+            GravityObjects.Select(
+                go =>
+                    Vector3.Distance(transform.position, go.transform.position))
+                .Concat(new[] { Mathf.Infinity })
                 .Min();
     }
 
     private float OrbitalSpeed()
     {
-        return Mathf.Sqrt((_gravityPull.PlanetInformation.Gravity*_sRigidbody.mass)/ClosestPuller());
+        return
+            Mathf.Sqrt((gravityPull.PlanetInformation.Gravity *
+                        satelliteRigidbody.mass) / ClosestPuller());
     }
 
     private void ComputeTrajectory()
@@ -102,75 +116,85 @@ public class SatelliteMovement : MonoBehaviour
         float angle = 0;
         var dt = DistanceTimeStep;
 
-        var s = transform.position;
-        var lastS = s;
+        var orbitPoint = transform.position;
+        var lastOrbitPoint = orbitPoint;
 
-        var v = StartingVelocity;
-        var a = AccelerationCalc(GravityObjects, s);
+        var velocity = StartingVelocity;
 
-        float tempAngleSum = 0;
+        float temporalAngleSum = 0;
         var step = 0;
-        _orbitPoints.Clear();
+        orbitPoints.Clear();
 
         while (angle < 360 && step < MaxSimulationCount)
         {
-            if (step%CurvePrecision == 0)
+            if (step % CurvePrecision == 0)
             {
-                _orbitPoints.Add(s);
-                angle += tempAngleSum;
-                tempAngleSum = 0;
+                orbitPoints.Add(orbitPoint);
+                angle += temporalAngleSum;
+                temporalAngleSum = 0;
 
-                var distanceT = Vector3.Distance(s, _orbitPoints[0]);
-                if (distanceT < OrbitToleranceDistance && _orbitPoints.Count > 1) break;
+                var distanceT = Vector3.Distance(orbitPoint, orbitPoints[0]);
+                if (distanceT < OrbitToleranceDistance && orbitPoints.Count > 1)
+                {
+                    break;
+                }
             }
 
-            a = AccelerationCalc(GravityObjects, s);
-            v += a*dt;
-            s += v*dt;
+            var a = AccelerationCalc(GravityObjects, orbitPoint);
+            velocity += a * dt;
+            orbitPoint += velocity * dt;
 
             if (GravityObjects.Count == 1)
             {
-                tempAngleSum += Mathf.Abs(Vector3.Angle(s, lastS));
+                temporalAngleSum += Mathf.Abs(Vector3.Angle(orbitPoint, lastOrbitPoint));
             }
 
-            lastS = s;
+            lastOrbitPoint = orbitPoint;
             step++;
         }
 
-        _orbitPoints.RemoveAt(_orbitPoints.Count - 1);
+        orbitPoints.RemoveAt(orbitPoints.Count - 1);
     }
 
-    private static Vector3 AccelerationCalc(IEnumerable<SphericalGravity> goArray, Vector3 simPos)
+    private static Vector3 AccelerationCalc(
+        IEnumerable<SphericalGravity> sgArray, Vector3 simPos)
     {
-        var a = Vector3.zero;
+        var acceleration = Vector3.zero;
 
-        foreach (var t in goArray)
+        foreach (var sphericalGravity in sgArray)
         {
-            var dir = t.transform.position - simPos;
-            var gravity = t.GetComponent<SphericalGravity>().PlanetInformation.Gravity;
-            a += dir.normalized*gravity/dir.sqrMagnitude;
+            var direction = sphericalGravity.transform.position - simPos;
+            var gravity =
+                sphericalGravity.GetComponent<SphericalGravity>().PlanetInformation.Gravity;
+            acceleration += direction.normalized * gravity / direction.sqrMagnitude;
         }
 
-        return a;
+        return acceleration;
     }
 
     private void OnDrawGizmosSelected()
     {
         // recalculates trajectorie on current parameters - cpu heavy
-        if (!Application.isPlaying) ComputeTrajectory();
+        if (!Application.isPlaying)
+        {
+            ComputeTrajectory();
+        }
 
         // draw initial velocity vector
-        var maxScale = Mathf.Max(transform.lossyScale.x, transform.lossyScale.y, transform.lossyScale.z);
+        var maxScale = Mathf.Max(transform.lossyScale.x, transform.lossyScale.y,
+            transform.lossyScale.z);
 
         Gizmos.color = Color.blue;
-        Gizmos.DrawLine(transform.position, transform.position + StartingVelocity*maxScale);
-        DrawArrow.ForGizmo(transform.position + StartingVelocity*maxScale, StartingVelocity*maxScale);
+        Gizmos.DrawLine(transform.position,
+            transform.position + StartingVelocity * maxScale);
+        DrawArrow.ForGizmo(transform.position + StartingVelocity * maxScale,
+            StartingVelocity * maxScale);
 
         Gizmos.color = Color.magenta;
         // draws current simulation orbit points
-        for (var i = 0; i < _orbitPoints.Count - 1; i++)
+        for (var i = 0; i < orbitPoints.Count - 1; i++)
         {
-            Gizmos.DrawLine(_orbitPoints[i], _orbitPoints[i + 1]);
+            Gizmos.DrawLine(orbitPoints[i], orbitPoints[i + 1]);
         }
     }
 }

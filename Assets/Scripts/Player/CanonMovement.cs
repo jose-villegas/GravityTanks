@@ -24,16 +24,22 @@ public class CanonMovement : MonoBehaviour
     private void Move()
     {
         // set cannon to proper distance to the player or target
-        transform.position = RotateAround.position + transform.forward*CanonDistance;
+        transform.position = RotateAround.position +
+                             transform.forward * CanonDistance;
 
         var camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit inputPlaneHit;
 
-        if (Physics.Raycast(camRay, out inputPlaneHit, CamRayLength, InputMask))
+        if (!Physics.Raycast(camRay, out inputPlaneHit, CamRayLength, InputMask))
         {
-            var mouseDirection = (inputPlaneHit.point - transform.position).normalized;
-            var toMouse = Quaternion.LookRotation(mouseDirection, RotateAround.up);
-            transform.rotation = Quaternion.Slerp(transform.rotation, toMouse, TurningSpeed*Time.deltaTime);
+            return;
         }
+
+        var mouseDirection =
+            (inputPlaneHit.point - transform.position).normalized;
+        var toMouse = Quaternion.LookRotation(mouseDirection,
+            RotateAround.up);
+        transform.rotation = Quaternion.Slerp(transform.rotation, toMouse,
+            TurningSpeed * Time.deltaTime);
     }
 }

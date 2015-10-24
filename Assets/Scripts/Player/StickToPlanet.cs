@@ -1,7 +1,8 @@
 ﻿using System;
+
 using UnityEngine;
 
-[RequireComponent(typeof (ActorStatus))]
+[RequireComponent(typeof(ActorStatus))]
 public class StickToPlanet : MonoBehaviour
 {
     [Flags]
@@ -13,48 +14,57 @@ public class StickToPlanet : MonoBehaviour
         ChangingPlanet = (1 << 3) // moving to another planetary body
     }
 
-    private ActorStatus _actorStatus;
+    private ActorStatus actorStatus;
 
-    private Vector3 _downDirection;
-    private RaycastHit _hitDown, _hitUp;
-    private Transform _onPlanet;
-    private int _planetLayer; // all planets reside in this layer
-    private Vector3 _targetNormal;
+    private Vector3 downDirection;
+    private RaycastHit hitDown;
+    private RaycastHit hitUp;
+    private Transform onPlanet;
+    private int planetLayer; // all planets reside in this layer
     public float GroundMinimumDistance = 0.65f;
     public float LinkToPlanetDistance = 10f;
     public float PlanetChangeDamping = 3f;
-    [BitMask(typeof (StickStatus))] public StickStatus Status = StickStatus.Stranded;
+
+    [BitMask(typeof(StickStatus))]
+    public StickStatus Status = StickStatus.Stranded;
+
     public Vector3 PlanetCurrentNormal { get; private set; }
 
     private void Awake()
     {
-        _planetLayer = LayerMask.GetMask("Planets");
-        _actorStatus = GetComponent<ActorStatus>();
+        planetLayer = LayerMask.GetMask("Planets");
+        actorStatus = GetComponent<ActorStatus>();
     }
 
     private void LateUpdate()
     {
-        _downDirection = transform.TransformDirection(Vector3.down);
+        downDirection = transform.TransformDirection(Vector3.down);
 
         var notStranded = false;
         // link ray from transform to ground
-        if (Physics.Raycast(transform.position, _downDirection, out _hitDown, LinkToPlanetDistance, _planetLayer))
+        if (Physics.Raycast(transform.position, downDirection, out hitDown,
+            LinkToPlanetDistance, planetLayer))
         {
             notStranded = true;
             // change status based on distance to ground
-            Status = _hitDown.distance < GroundMinimumDistance
+            Status = hitDown.distance < GroundMinimumDistance
                 ? StickStatus.OnGround
                 : (Status | StickStatus.Flying) & ~StickStatus.OnGround;
             // normal extracted from ground hit
-            PlanetCurrentNormal = _hitDown.normal;
+            PlanetCurrentNormal = hitDown.normal;
         }
 
         // link ray from transform to whatever is on it
-        if (Physics.Raycast(transform.position, transform.up, out _hitUp, LinkToPlanetDistance, _planetLayer))
+        if (Physics.Raycast(transform.position, transform.up, out hitUp,
+            LinkToPlanetDistance, planetLayer))
         {
-            if (_hitUp.distance > _hitDown.distance || (Status & StickStatus.OnGround) > 0) return;
+            if (hitUp.distance > hitDown.distance ||
+                (Status & StickStatus.OnGround) > 0)
+            {
+                return;
+            }
 
-            Debug.Log(_hitUp);
+            Debug.Log(hitUp);
         }
 
         Status = notStranded ? Status : StickStatus.Stranded;
@@ -62,36 +72,39 @@ public class StickToPlanet : MonoBehaviour
 
     private void LinkToPlanet(RaycastHit hit)
     {
-        var lastPlanet = _onPlanet;
-        _onPlanet = hit.transform;
+        var lastPlanet = onPlanet;
+        onPlanet = hit.transform;
         // change status based on distance to ground
         Status = hit.distance < GroundMinimumDistance
             ? StickStatus.OnGround
             : (Status | StickStatus.Flying) & ~StickStatus.OnGround;
 
         // change of active planet
-        Status |= _onPlanet != lastPlanet && hit.distance >= GroundMinimumDistance
+        Status |= onPlanet != lastPlanet &&
+                  hit.distance >= GroundMinimumDistance
             ? StickStatus.ChangingPlanet
             : Status;
 
-        if ((_actorStatus.MoveDirection & ActorStatus.MovingTo.Down) > 0)
+        if ((actorStatus.MoveDirection & ActorStatus.MovingTo.Down) > 0)
         {
             Status = Status & ~StickStatus.ChangingPlanet;
         }
 
         if ((Status & StickStatus.ChangingPlanet) > 0)
         {
-            _targetNormal = hit.normal;
         }
         // change normal with closest planet body hit
-        if(_onPlanet == lastPlanet) PlanetCurrentNormal = hit.normal;
+        if (onPlanet == lastPlanet)
+        {
+            PlanetCurrentNormal = hit.normal;
+        }
     }
 
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        DrawArrow.ForGizmo(transform.position, _hitDown.normal);
+        DrawArrow.ForGizmo(transform.position, hitDown.normal);
         Gizmos.color = Color.red;
-        DrawArrow.ForGizmo(transform.position, _hitUp.normal);
+        DrawArrow.ForGizmo(transform.position, hitUp.normal);
     }
 }
