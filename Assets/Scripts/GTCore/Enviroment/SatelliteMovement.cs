@@ -3,8 +3,6 @@ using System.Linq;
 using GTUtils;
 using UnityEngine;
 
-// on rails accurate orbit
-
 namespace GTCore.Enviroment
 {
     [RequireComponent(typeof(Rigidbody))]

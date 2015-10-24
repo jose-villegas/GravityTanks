@@ -1,0 +1,113 @@
+\hypertarget{class_g_t_core_1_1_enviroment_1_1_satellite_movement}{}\section{G\+T\+Core.\+Enviroment.\+Satellite\+Movement Class Reference}
+\label{class_g_t_core_1_1_enviroment_1_1_satellite_movement}\index{G\+T\+Core.\+Enviroment.\+Satellite\+Movement@{G\+T\+Core.\+Enviroment.\+Satellite\+Movement}}
+Inheritance diagram for G\+T\+Core.\+Enviroment.\+Satellite\+Movement\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_g_t_core_1_1_enviroment_1_1_satellite_movement}
+\end{center}
+\end{figure}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+uint \hyperlink{class_g_t_core_1_1_enviroment_1_1_satellite_movement_a4367ff0305eef42e5f23cdd3dcee1d6b}{Curve\+Precision} = 100
+\begin{DoxyCompactList}\small\item\em Precision of the final point list, higher = less points \end{DoxyCompactList}\item 
+float \hyperlink{class_g_t_core_1_1_enviroment_1_1_satellite_movement_a2bcfe4e72d44e5c6850f151bea94ff0d}{Distance\+Time\+Step} = 0.\+02f
+\begin{DoxyCompactList}\small\item\em Distance $\ast$ Time simulation step through orbit, higher = less points \end{DoxyCompactList}\item 
+List$<$ \hyperlink{class_g_t_core_1_1_enviroment_1_1_spherical_gravity}{Spherical\+Gravity} $>$ \hyperlink{class_g_t_core_1_1_enviroment_1_1_satellite_movement_a584e1245a9f119598f6fec5556612484}{Gravity\+Objects}
+\begin{DoxyCompactList}\small\item\em Gravitational bodies which this object interacts with \end{DoxyCompactList}\item 
+int \hyperlink{class_g_t_core_1_1_enviroment_1_1_satellite_movement_af7c8eb740e4d9802edadfa1d4c605f26}{Max\+Simulation\+Count} = 10000
+\begin{DoxyCompactList}\small\item\em Maximum number of points to simulate orbit, important to stop long simulations \end{DoxyCompactList}\item 
+float \hyperlink{class_g_t_core_1_1_enviroment_1_1_satellite_movement_a50b66bcd0969474ef47af91dcd129b72}{Orbital\+Speed\+Factor} = 1f
+\begin{DoxyCompactList}\small\item\em Controls the speed in which the object complets its orbit \end{DoxyCompactList}\item 
+float \hyperlink{class_g_t_core_1_1_enviroment_1_1_satellite_movement_a87d2eb7380cf22cc86c30e8812eabe28}{Orbit\+Tolerance\+Distance} = 0.\+05f
+\begin{DoxyCompactList}\small\item\em Distance of the last point to the first point on orbit to be considered stable \end{DoxyCompactList}\item 
+Vector3 \hyperlink{class_g_t_core_1_1_enviroment_1_1_satellite_movement_a40de5e52bf15f802fc963ff3ee3434bc}{Starting\+Velocity} = Vector3.\+up
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 10 of file Satellite\+Movement.\+cs.
+
+
+
+\subsection{Member Data Documentation}
+\hypertarget{class_g_t_core_1_1_enviroment_1_1_satellite_movement_a4367ff0305eef42e5f23cdd3dcee1d6b}{}\index{G\+T\+Core\+::\+Enviroment\+::\+Satellite\+Movement@{G\+T\+Core\+::\+Enviroment\+::\+Satellite\+Movement}!Curve\+Precision@{Curve\+Precision}}
+\index{Curve\+Precision@{Curve\+Precision}!G\+T\+Core\+::\+Enviroment\+::\+Satellite\+Movement@{G\+T\+Core\+::\+Enviroment\+::\+Satellite\+Movement}}
+\subsubsection[{Curve\+Precision}]{\setlength{\rightskip}{0pt plus 5cm}uint G\+T\+Core.\+Enviroment.\+Satellite\+Movement.\+Curve\+Precision = 100}\label{class_g_t_core_1_1_enviroment_1_1_satellite_movement_a4367ff0305eef42e5f23cdd3dcee1d6b}
+
+
+Precision of the final point list, higher = less points 
+
+
+
+Definition at line 25 of file Satellite\+Movement.\+cs.
+
+\hypertarget{class_g_t_core_1_1_enviroment_1_1_satellite_movement_a2bcfe4e72d44e5c6850f151bea94ff0d}{}\index{G\+T\+Core\+::\+Enviroment\+::\+Satellite\+Movement@{G\+T\+Core\+::\+Enviroment\+::\+Satellite\+Movement}!Distance\+Time\+Step@{Distance\+Time\+Step}}
+\index{Distance\+Time\+Step@{Distance\+Time\+Step}!G\+T\+Core\+::\+Enviroment\+::\+Satellite\+Movement@{G\+T\+Core\+::\+Enviroment\+::\+Satellite\+Movement}}
+\subsubsection[{Distance\+Time\+Step}]{\setlength{\rightskip}{0pt plus 5cm}float G\+T\+Core.\+Enviroment.\+Satellite\+Movement.\+Distance\+Time\+Step = 0.\+02f}\label{class_g_t_core_1_1_enviroment_1_1_satellite_movement_a2bcfe4e72d44e5c6850f151bea94ff0d}
+
+
+Distance $\ast$ Time simulation step through orbit, higher = less points 
+
+
+
+Definition at line 32 of file Satellite\+Movement.\+cs.
+
+\hypertarget{class_g_t_core_1_1_enviroment_1_1_satellite_movement_a584e1245a9f119598f6fec5556612484}{}\index{G\+T\+Core\+::\+Enviroment\+::\+Satellite\+Movement@{G\+T\+Core\+::\+Enviroment\+::\+Satellite\+Movement}!Gravity\+Objects@{Gravity\+Objects}}
+\index{Gravity\+Objects@{Gravity\+Objects}!G\+T\+Core\+::\+Enviroment\+::\+Satellite\+Movement@{G\+T\+Core\+::\+Enviroment\+::\+Satellite\+Movement}}
+\subsubsection[{Gravity\+Objects}]{\setlength{\rightskip}{0pt plus 5cm}List$<${\bf Spherical\+Gravity}$>$ G\+T\+Core.\+Enviroment.\+Satellite\+Movement.\+Gravity\+Objects}\label{class_g_t_core_1_1_enviroment_1_1_satellite_movement_a584e1245a9f119598f6fec5556612484}
+
+
+Gravitational bodies which this object interacts with 
+
+
+
+Definition at line 38 of file Satellite\+Movement.\+cs.
+
+\hypertarget{class_g_t_core_1_1_enviroment_1_1_satellite_movement_af7c8eb740e4d9802edadfa1d4c605f26}{}\index{G\+T\+Core\+::\+Enviroment\+::\+Satellite\+Movement@{G\+T\+Core\+::\+Enviroment\+::\+Satellite\+Movement}!Max\+Simulation\+Count@{Max\+Simulation\+Count}}
+\index{Max\+Simulation\+Count@{Max\+Simulation\+Count}!G\+T\+Core\+::\+Enviroment\+::\+Satellite\+Movement@{G\+T\+Core\+::\+Enviroment\+::\+Satellite\+Movement}}
+\subsubsection[{Max\+Simulation\+Count}]{\setlength{\rightskip}{0pt plus 5cm}int G\+T\+Core.\+Enviroment.\+Satellite\+Movement.\+Max\+Simulation\+Count = 10000}\label{class_g_t_core_1_1_enviroment_1_1_satellite_movement_af7c8eb740e4d9802edadfa1d4c605f26}
+
+
+Maximum number of points to simulate orbit, important to stop long simulations 
+
+
+
+Definition at line 45 of file Satellite\+Movement.\+cs.
+
+\hypertarget{class_g_t_core_1_1_enviroment_1_1_satellite_movement_a50b66bcd0969474ef47af91dcd129b72}{}\index{G\+T\+Core\+::\+Enviroment\+::\+Satellite\+Movement@{G\+T\+Core\+::\+Enviroment\+::\+Satellite\+Movement}!Orbital\+Speed\+Factor@{Orbital\+Speed\+Factor}}
+\index{Orbital\+Speed\+Factor@{Orbital\+Speed\+Factor}!G\+T\+Core\+::\+Enviroment\+::\+Satellite\+Movement@{G\+T\+Core\+::\+Enviroment\+::\+Satellite\+Movement}}
+\subsubsection[{Orbital\+Speed\+Factor}]{\setlength{\rightskip}{0pt plus 5cm}float G\+T\+Core.\+Enviroment.\+Satellite\+Movement.\+Orbital\+Speed\+Factor = 1f}\label{class_g_t_core_1_1_enviroment_1_1_satellite_movement_a50b66bcd0969474ef47af91dcd129b72}
+
+
+Controls the speed in which the object complets its orbit 
+
+
+
+Definition at line 51 of file Satellite\+Movement.\+cs.
+
+\hypertarget{class_g_t_core_1_1_enviroment_1_1_satellite_movement_a87d2eb7380cf22cc86c30e8812eabe28}{}\index{G\+T\+Core\+::\+Enviroment\+::\+Satellite\+Movement@{G\+T\+Core\+::\+Enviroment\+::\+Satellite\+Movement}!Orbit\+Tolerance\+Distance@{Orbit\+Tolerance\+Distance}}
+\index{Orbit\+Tolerance\+Distance@{Orbit\+Tolerance\+Distance}!G\+T\+Core\+::\+Enviroment\+::\+Satellite\+Movement@{G\+T\+Core\+::\+Enviroment\+::\+Satellite\+Movement}}
+\subsubsection[{Orbit\+Tolerance\+Distance}]{\setlength{\rightskip}{0pt plus 5cm}float G\+T\+Core.\+Enviroment.\+Satellite\+Movement.\+Orbit\+Tolerance\+Distance = 0.\+05f}\label{class_g_t_core_1_1_enviroment_1_1_satellite_movement_a87d2eb7380cf22cc86c30e8812eabe28}
+
+
+Distance of the last point to the first point on orbit to be considered stable 
+
+
+
+Definition at line 58 of file Satellite\+Movement.\+cs.
+
+\hypertarget{class_g_t_core_1_1_enviroment_1_1_satellite_movement_a40de5e52bf15f802fc963ff3ee3434bc}{}\index{G\+T\+Core\+::\+Enviroment\+::\+Satellite\+Movement@{G\+T\+Core\+::\+Enviroment\+::\+Satellite\+Movement}!Starting\+Velocity@{Starting\+Velocity}}
+\index{Starting\+Velocity@{Starting\+Velocity}!G\+T\+Core\+::\+Enviroment\+::\+Satellite\+Movement@{G\+T\+Core\+::\+Enviroment\+::\+Satellite\+Movement}}
+\subsubsection[{Starting\+Velocity}]{\setlength{\rightskip}{0pt plus 5cm}Vector3 G\+T\+Core.\+Enviroment.\+Satellite\+Movement.\+Starting\+Velocity = Vector3.\+up}\label{class_g_t_core_1_1_enviroment_1_1_satellite_movement_a40de5e52bf15f802fc963ff3ee3434bc}
+
+
+Definition at line 60 of file Satellite\+Movement.\+cs.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Assets/\+Scripts/\+G\+T\+Core/\+Enviroment/\hyperlink{_satellite_movement_8cs}{Satellite\+Movement.\+cs}\end{DoxyCompactItemize}

@@ -1,0 +1,109 @@
+\hypertarget{class_g_t_core_1_1_player_1_1_stick_to_planet}{}\section{G\+T\+Core.\+Player.\+Stick\+To\+Planet Class Reference}
+\label{class_g_t_core_1_1_player_1_1_stick_to_planet}\index{G\+T\+Core.\+Player.\+Stick\+To\+Planet@{G\+T\+Core.\+Player.\+Stick\+To\+Planet}}
+Inheritance diagram for G\+T\+Core.\+Player.\+Stick\+To\+Planet\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_g_t_core_1_1_player_1_1_stick_to_planet}
+\end{center}
+\end{figure}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{class_g_t_core_1_1_player_1_1_stick_to_planet_ab080d35c69764b3967026265d41fff67}{Stick\+Status} \{ \hyperlink{class_g_t_core_1_1_player_1_1_stick_to_planet_ab080d35c69764b3967026265d41fff67a0b39370ea87ef482a4def72565f537a4}{Stick\+Status.\+Stranded} = (1 $<$$<$ 0), 
+\hyperlink{class_g_t_core_1_1_player_1_1_stick_to_planet_ab080d35c69764b3967026265d41fff67a2b9beed57034f5727573d7ded76cf777}{Stick\+Status.\+On\+Ground} = (1 $<$$<$ 1), 
+\hyperlink{class_g_t_core_1_1_player_1_1_stick_to_planet_ab080d35c69764b3967026265d41fff67a444733081a578880ba8a563d3c59d22d}{Stick\+Status.\+Flying} = (1 $<$$<$ 2), 
+\hyperlink{class_g_t_core_1_1_player_1_1_stick_to_planet_ab080d35c69764b3967026265d41fff67ad1fffb0bbc691ac077c60bd99284a005}{Stick\+Status.\+Changing\+Planet} = (1 $<$$<$ 3)
+ \}
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+float \hyperlink{class_g_t_core_1_1_player_1_1_stick_to_planet_abda4ff29f854ffcb71426930c1291182}{Ground\+Minimum\+Distance} = 0.\+65f
+\item 
+float \hyperlink{class_g_t_core_1_1_player_1_1_stick_to_planet_a88684571f58f674e9de3a305f87e4b53}{Link\+To\+Planet\+Distance} = 10f
+\item 
+float \hyperlink{class_g_t_core_1_1_player_1_1_stick_to_planet_a5ccaddd5d4bdc14fc1c289fca645c470}{Planet\+Change\+Damping} = 3f
+\item 
+\hyperlink{class_g_t_core_1_1_player_1_1_stick_to_planet_ab080d35c69764b3967026265d41fff67}{Stick\+Status} \hyperlink{class_g_t_core_1_1_player_1_1_stick_to_planet_a7fb03985d99e5effac6072d51c59811e}{Status} = \hyperlink{class_g_t_core_1_1_player_1_1_stick_to_planet_ab080d35c69764b3967026265d41fff67a0b39370ea87ef482a4def72565f537a4}{Stick\+Status.\+Stranded}
+\end{DoxyCompactItemize}
+\subsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+Vector3 \hyperlink{class_g_t_core_1_1_player_1_1_stick_to_planet_a2987fbd9ccbaba54cc7fa12b2d2d858e}{Planet\+Current\+Normal}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 9 of file Stick\+To\+Planet.\+cs.
+
+
+
+\subsection{Member Enumeration Documentation}
+\hypertarget{class_g_t_core_1_1_player_1_1_stick_to_planet_ab080d35c69764b3967026265d41fff67}{}\index{G\+T\+Core\+::\+Player\+::\+Stick\+To\+Planet@{G\+T\+Core\+::\+Player\+::\+Stick\+To\+Planet}!Stick\+Status@{Stick\+Status}}
+\index{Stick\+Status@{Stick\+Status}!G\+T\+Core\+::\+Player\+::\+Stick\+To\+Planet@{G\+T\+Core\+::\+Player\+::\+Stick\+To\+Planet}}
+\subsubsection[{Stick\+Status}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf G\+T\+Core.\+Player.\+Stick\+To\+Planet.\+Stick\+Status}\hspace{0.3cm}{\ttfamily [strong]}}\label{class_g_t_core_1_1_player_1_1_stick_to_planet_ab080d35c69764b3967026265d41fff67}
+\begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{Stranded@{Stranded}!G\+T\+Core\+::\+Player\+::\+Stick\+To\+Planet@{G\+T\+Core\+::\+Player\+::\+Stick\+To\+Planet}}\index{G\+T\+Core\+::\+Player\+::\+Stick\+To\+Planet@{G\+T\+Core\+::\+Player\+::\+Stick\+To\+Planet}!Stranded@{Stranded}}\item[{\em 
+\hypertarget{class_g_t_core_1_1_player_1_1_stick_to_planet_ab080d35c69764b3967026265d41fff67a0b39370ea87ef482a4def72565f537a4}{}Stranded\label{class_g_t_core_1_1_player_1_1_stick_to_planet_ab080d35c69764b3967026265d41fff67a0b39370ea87ef482a4def72565f537a4}
+}]\index{On\+Ground@{On\+Ground}!G\+T\+Core\+::\+Player\+::\+Stick\+To\+Planet@{G\+T\+Core\+::\+Player\+::\+Stick\+To\+Planet}}\index{G\+T\+Core\+::\+Player\+::\+Stick\+To\+Planet@{G\+T\+Core\+::\+Player\+::\+Stick\+To\+Planet}!On\+Ground@{On\+Ground}}\item[{\em 
+\hypertarget{class_g_t_core_1_1_player_1_1_stick_to_planet_ab080d35c69764b3967026265d41fff67a2b9beed57034f5727573d7ded76cf777}{}On\+Ground\label{class_g_t_core_1_1_player_1_1_stick_to_planet_ab080d35c69764b3967026265d41fff67a2b9beed57034f5727573d7ded76cf777}
+}]\index{Flying@{Flying}!G\+T\+Core\+::\+Player\+::\+Stick\+To\+Planet@{G\+T\+Core\+::\+Player\+::\+Stick\+To\+Planet}}\index{G\+T\+Core\+::\+Player\+::\+Stick\+To\+Planet@{G\+T\+Core\+::\+Player\+::\+Stick\+To\+Planet}!Flying@{Flying}}\item[{\em 
+\hypertarget{class_g_t_core_1_1_player_1_1_stick_to_planet_ab080d35c69764b3967026265d41fff67a444733081a578880ba8a563d3c59d22d}{}Flying\label{class_g_t_core_1_1_player_1_1_stick_to_planet_ab080d35c69764b3967026265d41fff67a444733081a578880ba8a563d3c59d22d}
+}]\index{Changing\+Planet@{Changing\+Planet}!G\+T\+Core\+::\+Player\+::\+Stick\+To\+Planet@{G\+T\+Core\+::\+Player\+::\+Stick\+To\+Planet}}\index{G\+T\+Core\+::\+Player\+::\+Stick\+To\+Planet@{G\+T\+Core\+::\+Player\+::\+Stick\+To\+Planet}!Changing\+Planet@{Changing\+Planet}}\item[{\em 
+\hypertarget{class_g_t_core_1_1_player_1_1_stick_to_planet_ab080d35c69764b3967026265d41fff67ad1fffb0bbc691ac077c60bd99284a005}{}Changing\+Planet\label{class_g_t_core_1_1_player_1_1_stick_to_planet_ab080d35c69764b3967026265d41fff67ad1fffb0bbc691ac077c60bd99284a005}
+}]\end{description}
+\end{Desc}
+
+
+Definition at line 14 of file Stick\+To\+Planet.\+cs.
+
+
+
+\subsection{Member Data Documentation}
+\hypertarget{class_g_t_core_1_1_player_1_1_stick_to_planet_abda4ff29f854ffcb71426930c1291182}{}\index{G\+T\+Core\+::\+Player\+::\+Stick\+To\+Planet@{G\+T\+Core\+::\+Player\+::\+Stick\+To\+Planet}!Ground\+Minimum\+Distance@{Ground\+Minimum\+Distance}}
+\index{Ground\+Minimum\+Distance@{Ground\+Minimum\+Distance}!G\+T\+Core\+::\+Player\+::\+Stick\+To\+Planet@{G\+T\+Core\+::\+Player\+::\+Stick\+To\+Planet}}
+\subsubsection[{Ground\+Minimum\+Distance}]{\setlength{\rightskip}{0pt plus 5cm}float G\+T\+Core.\+Player.\+Stick\+To\+Planet.\+Ground\+Minimum\+Distance = 0.\+65f}\label{class_g_t_core_1_1_player_1_1_stick_to_planet_abda4ff29f854ffcb71426930c1291182}
+
+
+Definition at line 30 of file Stick\+To\+Planet.\+cs.
+
+\hypertarget{class_g_t_core_1_1_player_1_1_stick_to_planet_a88684571f58f674e9de3a305f87e4b53}{}\index{G\+T\+Core\+::\+Player\+::\+Stick\+To\+Planet@{G\+T\+Core\+::\+Player\+::\+Stick\+To\+Planet}!Link\+To\+Planet\+Distance@{Link\+To\+Planet\+Distance}}
+\index{Link\+To\+Planet\+Distance@{Link\+To\+Planet\+Distance}!G\+T\+Core\+::\+Player\+::\+Stick\+To\+Planet@{G\+T\+Core\+::\+Player\+::\+Stick\+To\+Planet}}
+\subsubsection[{Link\+To\+Planet\+Distance}]{\setlength{\rightskip}{0pt plus 5cm}float G\+T\+Core.\+Player.\+Stick\+To\+Planet.\+Link\+To\+Planet\+Distance = 10f}\label{class_g_t_core_1_1_player_1_1_stick_to_planet_a88684571f58f674e9de3a305f87e4b53}
+
+
+Definition at line 31 of file Stick\+To\+Planet.\+cs.
+
+\hypertarget{class_g_t_core_1_1_player_1_1_stick_to_planet_a5ccaddd5d4bdc14fc1c289fca645c470}{}\index{G\+T\+Core\+::\+Player\+::\+Stick\+To\+Planet@{G\+T\+Core\+::\+Player\+::\+Stick\+To\+Planet}!Planet\+Change\+Damping@{Planet\+Change\+Damping}}
+\index{Planet\+Change\+Damping@{Planet\+Change\+Damping}!G\+T\+Core\+::\+Player\+::\+Stick\+To\+Planet@{G\+T\+Core\+::\+Player\+::\+Stick\+To\+Planet}}
+\subsubsection[{Planet\+Change\+Damping}]{\setlength{\rightskip}{0pt plus 5cm}float G\+T\+Core.\+Player.\+Stick\+To\+Planet.\+Planet\+Change\+Damping = 3f}\label{class_g_t_core_1_1_player_1_1_stick_to_planet_a5ccaddd5d4bdc14fc1c289fca645c470}
+
+
+Definition at line 32 of file Stick\+To\+Planet.\+cs.
+
+\hypertarget{class_g_t_core_1_1_player_1_1_stick_to_planet_a7fb03985d99e5effac6072d51c59811e}{}\index{G\+T\+Core\+::\+Player\+::\+Stick\+To\+Planet@{G\+T\+Core\+::\+Player\+::\+Stick\+To\+Planet}!Status@{Status}}
+\index{Status@{Status}!G\+T\+Core\+::\+Player\+::\+Stick\+To\+Planet@{G\+T\+Core\+::\+Player\+::\+Stick\+To\+Planet}}
+\subsubsection[{Status}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Stick\+Status} G\+T\+Core.\+Player.\+Stick\+To\+Planet.\+Status = {\bf Stick\+Status.\+Stranded}}\label{class_g_t_core_1_1_player_1_1_stick_to_planet_a7fb03985d99e5effac6072d51c59811e}
+
+
+Definition at line 35 of file Stick\+To\+Planet.\+cs.
+
+
+
+\subsection{Property Documentation}
+\hypertarget{class_g_t_core_1_1_player_1_1_stick_to_planet_a2987fbd9ccbaba54cc7fa12b2d2d858e}{}\index{G\+T\+Core\+::\+Player\+::\+Stick\+To\+Planet@{G\+T\+Core\+::\+Player\+::\+Stick\+To\+Planet}!Planet\+Current\+Normal@{Planet\+Current\+Normal}}
+\index{Planet\+Current\+Normal@{Planet\+Current\+Normal}!G\+T\+Core\+::\+Player\+::\+Stick\+To\+Planet@{G\+T\+Core\+::\+Player\+::\+Stick\+To\+Planet}}
+\subsubsection[{Planet\+Current\+Normal}]{\setlength{\rightskip}{0pt plus 5cm}Vector3 G\+T\+Core.\+Player.\+Stick\+To\+Planet.\+Planet\+Current\+Normal\hspace{0.3cm}{\ttfamily [get]}}\label{class_g_t_core_1_1_player_1_1_stick_to_planet_a2987fbd9ccbaba54cc7fa12b2d2d858e}
+
+
+Definition at line 37 of file Stick\+To\+Planet.\+cs.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Assets/\+Scripts/\+G\+T\+Core/\+Player/\hyperlink{_stick_to_planet_8cs}{Stick\+To\+Planet.\+cs}\end{DoxyCompactItemize}

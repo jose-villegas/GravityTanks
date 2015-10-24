@@ -1,0 +1,166 @@
+\hypertarget{class_g_t_core_1_1_enemies_1_1_follow_bomb_movement}{}\section{G\+T\+Core.\+Enemies.\+Follow\+Bomb\+Movement Class Reference}
+\label{class_g_t_core_1_1_enemies_1_1_follow_bomb_movement}\index{G\+T\+Core.\+Enemies.\+Follow\+Bomb\+Movement@{G\+T\+Core.\+Enemies.\+Follow\+Bomb\+Movement}}
+
+
+Defined the behaviour of the Follow\+Bomb enemy, this enemy is supposed to follow the player and explode once he is close enough or collides with the player  
+
+
+Inheritance diagram for G\+T\+Core.\+Enemies.\+Follow\+Bomb\+Movement\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_g_t_core_1_1_enemies_1_1_follow_bomb_movement}
+\end{center}
+\end{figure}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{class_g_t_core_1_1_enemies_1_1_follow_bomb_movement_adf9532fc09595ec68cbe32713697fa48}{Movement\+Behaviour} \{ \hyperlink{class_g_t_core_1_1_enemies_1_1_follow_bomb_movement_adf9532fc09595ec68cbe32713697fa48a4457d440870ad6d42bab9082d9bf9b61}{Movement\+Behaviour.\+Fixed}, 
+\hyperlink{class_g_t_core_1_1_enemies_1_1_follow_bomb_movement_adf9532fc09595ec68cbe32713697fa48acb17869fe51048b5a5c4c6106551a255}{Movement\+Behaviour.\+Constant}, 
+\hyperlink{class_g_t_core_1_1_enemies_1_1_follow_bomb_movement_adf9532fc09595ec68cbe32713697fa48a9a451f1b8dbcf5ca79ee91948a53d4e0}{Movement\+Behaviour.\+Increase\+On\+Distance}, 
+\hyperlink{class_g_t_core_1_1_enemies_1_1_follow_bomb_movement_adf9532fc09595ec68cbe32713697fa48a73e37c29fccdc1ddd535722e06ee00dd}{Movement\+Behaviour.\+Decrease\+On\+Distance}
+ \}\begin{DoxyCompactList}\small\item\em Defines the aproaching behaviour of the follow bomb \end{DoxyCompactList}
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+Vector3 \hyperlink{class_g_t_core_1_1_enemies_1_1_follow_bomb_movement_a80e25eb90a06eabb7bd3d45c2b0d8d24}{Capsule\+Begin} = Vector3.\+zero
+\begin{DoxyCompactList}\small\item\em Traslates the area detection capsule beginning position from the object position, aligned with Planet center of mass \end{DoxyCompactList}\item 
+Vector3 \hyperlink{class_g_t_core_1_1_enemies_1_1_follow_bomb_movement_a77d4cf25b4178b1e27b8c7251b1239db}{Capsule\+End} = Vector3.\+zero
+\begin{DoxyCompactList}\small\item\em Translates the area detection capsule ending position from the object position, aligned with Planet center of mass \end{DoxyCompactList}\item 
+float \hyperlink{class_g_t_core_1_1_enemies_1_1_follow_bomb_movement_aaf76d148d9b094d5a61e1412e345196f}{Capsule\+Radius} = 1f
+\item 
+\hyperlink{class_g_t_core_1_1_enemies_1_1_follow_bomb_movement_adf9532fc09595ec68cbe32713697fa48}{Movement\+Behaviour} \hyperlink{class_g_t_core_1_1_enemies_1_1_follow_bomb_movement_accd113a49589727e231c06b1cf02d79c}{Movement\+Type}
+\item 
+float \hyperlink{class_g_t_core_1_1_enemies_1_1_follow_bomb_movement_aa6e51f2d1015ecae0f9c30ce8e1c55bc}{Out\+Range\+Slowdown} = 1f
+\begin{DoxyCompactList}\small\item\em Smoothing value for enemy slowdown once the player is out of range \end{DoxyCompactList}\item 
+Transform \hyperlink{class_g_t_core_1_1_enemies_1_1_follow_bomb_movement_a41203fb8ac8a63c736780e054903fea8}{Planet}
+\begin{DoxyCompactList}\small\item\em Planetary body where this object resides \end{DoxyCompactList}\item 
+Transform \hyperlink{class_g_t_core_1_1_enemies_1_1_follow_bomb_movement_adaab5b48a877d03861e6f1e40838306e}{Player}
+\item 
+bool \hyperlink{class_g_t_core_1_1_enemies_1_1_follow_bomb_movement_a6acfe7e9ede561ff19f064d5f887b18b}{Use\+Square\+Distance} = false
+\item 
+float \hyperlink{class_g_t_core_1_1_enemies_1_1_follow_bomb_movement_a3665241c62f4b791a62f51a1e4238b8c}{Velocity\+Impulse} = 5f
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Defined the behaviour of the Follow\+Bomb enemy, this enemy is supposed to follow the player and explode once he is close enough or collides with the player 
+
+
+
+Definition at line 12 of file Follow\+Bomb\+Movement.\+cs.
+
+
+
+\subsection{Member Enumeration Documentation}
+\hypertarget{class_g_t_core_1_1_enemies_1_1_follow_bomb_movement_adf9532fc09595ec68cbe32713697fa48}{}\index{G\+T\+Core\+::\+Enemies\+::\+Follow\+Bomb\+Movement@{G\+T\+Core\+::\+Enemies\+::\+Follow\+Bomb\+Movement}!Movement\+Behaviour@{Movement\+Behaviour}}
+\index{Movement\+Behaviour@{Movement\+Behaviour}!G\+T\+Core\+::\+Enemies\+::\+Follow\+Bomb\+Movement@{G\+T\+Core\+::\+Enemies\+::\+Follow\+Bomb\+Movement}}
+\subsubsection[{Movement\+Behaviour}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf G\+T\+Core.\+Enemies.\+Follow\+Bomb\+Movement.\+Movement\+Behaviour}\hspace{0.3cm}{\ttfamily [strong]}}\label{class_g_t_core_1_1_enemies_1_1_follow_bomb_movement_adf9532fc09595ec68cbe32713697fa48}
+
+
+Defines the aproaching behaviour of the follow bomb 
+
+\begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{Fixed@{Fixed}!G\+T\+Core\+::\+Enemies\+::\+Follow\+Bomb\+Movement@{G\+T\+Core\+::\+Enemies\+::\+Follow\+Bomb\+Movement}}\index{G\+T\+Core\+::\+Enemies\+::\+Follow\+Bomb\+Movement@{G\+T\+Core\+::\+Enemies\+::\+Follow\+Bomb\+Movement}!Fixed@{Fixed}}\item[{\em 
+\hypertarget{class_g_t_core_1_1_enemies_1_1_follow_bomb_movement_adf9532fc09595ec68cbe32713697fa48a4457d440870ad6d42bab9082d9bf9b61}{}Fixed\label{class_g_t_core_1_1_enemies_1_1_follow_bomb_movement_adf9532fc09595ec68cbe32713697fa48a4457d440870ad6d42bab9082d9bf9b61}
+}]\index{Constant@{Constant}!G\+T\+Core\+::\+Enemies\+::\+Follow\+Bomb\+Movement@{G\+T\+Core\+::\+Enemies\+::\+Follow\+Bomb\+Movement}}\index{G\+T\+Core\+::\+Enemies\+::\+Follow\+Bomb\+Movement@{G\+T\+Core\+::\+Enemies\+::\+Follow\+Bomb\+Movement}!Constant@{Constant}}\item[{\em 
+\hypertarget{class_g_t_core_1_1_enemies_1_1_follow_bomb_movement_adf9532fc09595ec68cbe32713697fa48acb17869fe51048b5a5c4c6106551a255}{}Constant\label{class_g_t_core_1_1_enemies_1_1_follow_bomb_movement_adf9532fc09595ec68cbe32713697fa48acb17869fe51048b5a5c4c6106551a255}
+}]\index{Increase\+On\+Distance@{Increase\+On\+Distance}!G\+T\+Core\+::\+Enemies\+::\+Follow\+Bomb\+Movement@{G\+T\+Core\+::\+Enemies\+::\+Follow\+Bomb\+Movement}}\index{G\+T\+Core\+::\+Enemies\+::\+Follow\+Bomb\+Movement@{G\+T\+Core\+::\+Enemies\+::\+Follow\+Bomb\+Movement}!Increase\+On\+Distance@{Increase\+On\+Distance}}\item[{\em 
+\hypertarget{class_g_t_core_1_1_enemies_1_1_follow_bomb_movement_adf9532fc09595ec68cbe32713697fa48a9a451f1b8dbcf5ca79ee91948a53d4e0}{}Increase\+On\+Distance\label{class_g_t_core_1_1_enemies_1_1_follow_bomb_movement_adf9532fc09595ec68cbe32713697fa48a9a451f1b8dbcf5ca79ee91948a53d4e0}
+}]\index{Decrease\+On\+Distance@{Decrease\+On\+Distance}!G\+T\+Core\+::\+Enemies\+::\+Follow\+Bomb\+Movement@{G\+T\+Core\+::\+Enemies\+::\+Follow\+Bomb\+Movement}}\index{G\+T\+Core\+::\+Enemies\+::\+Follow\+Bomb\+Movement@{G\+T\+Core\+::\+Enemies\+::\+Follow\+Bomb\+Movement}!Decrease\+On\+Distance@{Decrease\+On\+Distance}}\item[{\em 
+\hypertarget{class_g_t_core_1_1_enemies_1_1_follow_bomb_movement_adf9532fc09595ec68cbe32713697fa48a73e37c29fccdc1ddd535722e06ee00dd}{}Decrease\+On\+Distance\label{class_g_t_core_1_1_enemies_1_1_follow_bomb_movement_adf9532fc09595ec68cbe32713697fa48a73e37c29fccdc1ddd535722e06ee00dd}
+}]\end{description}
+\end{Desc}
+
+
+Definition at line 19 of file Follow\+Bomb\+Movement.\+cs.
+
+
+
+\subsection{Member Data Documentation}
+\hypertarget{class_g_t_core_1_1_enemies_1_1_follow_bomb_movement_a80e25eb90a06eabb7bd3d45c2b0d8d24}{}\index{G\+T\+Core\+::\+Enemies\+::\+Follow\+Bomb\+Movement@{G\+T\+Core\+::\+Enemies\+::\+Follow\+Bomb\+Movement}!Capsule\+Begin@{Capsule\+Begin}}
+\index{Capsule\+Begin@{Capsule\+Begin}!G\+T\+Core\+::\+Enemies\+::\+Follow\+Bomb\+Movement@{G\+T\+Core\+::\+Enemies\+::\+Follow\+Bomb\+Movement}}
+\subsubsection[{Capsule\+Begin}]{\setlength{\rightskip}{0pt plus 5cm}Vector3 G\+T\+Core.\+Enemies.\+Follow\+Bomb\+Movement.\+Capsule\+Begin = Vector3.\+zero}\label{class_g_t_core_1_1_enemies_1_1_follow_bomb_movement_a80e25eb90a06eabb7bd3d45c2b0d8d24}
+
+
+Traslates the area detection capsule beginning position from the object position, aligned with Planet center of mass 
+
+
+
+Definition at line 38 of file Follow\+Bomb\+Movement.\+cs.
+
+\hypertarget{class_g_t_core_1_1_enemies_1_1_follow_bomb_movement_a77d4cf25b4178b1e27b8c7251b1239db}{}\index{G\+T\+Core\+::\+Enemies\+::\+Follow\+Bomb\+Movement@{G\+T\+Core\+::\+Enemies\+::\+Follow\+Bomb\+Movement}!Capsule\+End@{Capsule\+End}}
+\index{Capsule\+End@{Capsule\+End}!G\+T\+Core\+::\+Enemies\+::\+Follow\+Bomb\+Movement@{G\+T\+Core\+::\+Enemies\+::\+Follow\+Bomb\+Movement}}
+\subsubsection[{Capsule\+End}]{\setlength{\rightskip}{0pt plus 5cm}Vector3 G\+T\+Core.\+Enemies.\+Follow\+Bomb\+Movement.\+Capsule\+End = Vector3.\+zero}\label{class_g_t_core_1_1_enemies_1_1_follow_bomb_movement_a77d4cf25b4178b1e27b8c7251b1239db}
+
+
+Translates the area detection capsule ending position from the object position, aligned with Planet center of mass 
+
+
+
+Definition at line 44 of file Follow\+Bomb\+Movement.\+cs.
+
+\hypertarget{class_g_t_core_1_1_enemies_1_1_follow_bomb_movement_aaf76d148d9b094d5a61e1412e345196f}{}\index{G\+T\+Core\+::\+Enemies\+::\+Follow\+Bomb\+Movement@{G\+T\+Core\+::\+Enemies\+::\+Follow\+Bomb\+Movement}!Capsule\+Radius@{Capsule\+Radius}}
+\index{Capsule\+Radius@{Capsule\+Radius}!G\+T\+Core\+::\+Enemies\+::\+Follow\+Bomb\+Movement@{G\+T\+Core\+::\+Enemies\+::\+Follow\+Bomb\+Movement}}
+\subsubsection[{Capsule\+Radius}]{\setlength{\rightskip}{0pt plus 5cm}float G\+T\+Core.\+Enemies.\+Follow\+Bomb\+Movement.\+Capsule\+Radius = 1f}\label{class_g_t_core_1_1_enemies_1_1_follow_bomb_movement_aaf76d148d9b094d5a61e1412e345196f}
+
+
+Definition at line 46 of file Follow\+Bomb\+Movement.\+cs.
+
+\hypertarget{class_g_t_core_1_1_enemies_1_1_follow_bomb_movement_accd113a49589727e231c06b1cf02d79c}{}\index{G\+T\+Core\+::\+Enemies\+::\+Follow\+Bomb\+Movement@{G\+T\+Core\+::\+Enemies\+::\+Follow\+Bomb\+Movement}!Movement\+Type@{Movement\+Type}}
+\index{Movement\+Type@{Movement\+Type}!G\+T\+Core\+::\+Enemies\+::\+Follow\+Bomb\+Movement@{G\+T\+Core\+::\+Enemies\+::\+Follow\+Bomb\+Movement}}
+\subsubsection[{Movement\+Type}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Movement\+Behaviour} G\+T\+Core.\+Enemies.\+Follow\+Bomb\+Movement.\+Movement\+Type}\label{class_g_t_core_1_1_enemies_1_1_follow_bomb_movement_accd113a49589727e231c06b1cf02d79c}
+
+
+Definition at line 47 of file Follow\+Bomb\+Movement.\+cs.
+
+\hypertarget{class_g_t_core_1_1_enemies_1_1_follow_bomb_movement_aa6e51f2d1015ecae0f9c30ce8e1c55bc}{}\index{G\+T\+Core\+::\+Enemies\+::\+Follow\+Bomb\+Movement@{G\+T\+Core\+::\+Enemies\+::\+Follow\+Bomb\+Movement}!Out\+Range\+Slowdown@{Out\+Range\+Slowdown}}
+\index{Out\+Range\+Slowdown@{Out\+Range\+Slowdown}!G\+T\+Core\+::\+Enemies\+::\+Follow\+Bomb\+Movement@{G\+T\+Core\+::\+Enemies\+::\+Follow\+Bomb\+Movement}}
+\subsubsection[{Out\+Range\+Slowdown}]{\setlength{\rightskip}{0pt plus 5cm}float G\+T\+Core.\+Enemies.\+Follow\+Bomb\+Movement.\+Out\+Range\+Slowdown = 1f}\label{class_g_t_core_1_1_enemies_1_1_follow_bomb_movement_aa6e51f2d1015ecae0f9c30ce8e1c55bc}
+
+
+Smoothing value for enemy slowdown once the player is out of range 
+
+
+
+Definition at line 53 of file Follow\+Bomb\+Movement.\+cs.
+
+\hypertarget{class_g_t_core_1_1_enemies_1_1_follow_bomb_movement_a41203fb8ac8a63c736780e054903fea8}{}\index{G\+T\+Core\+::\+Enemies\+::\+Follow\+Bomb\+Movement@{G\+T\+Core\+::\+Enemies\+::\+Follow\+Bomb\+Movement}!Planet@{Planet}}
+\index{Planet@{Planet}!G\+T\+Core\+::\+Enemies\+::\+Follow\+Bomb\+Movement@{G\+T\+Core\+::\+Enemies\+::\+Follow\+Bomb\+Movement}}
+\subsubsection[{Planet}]{\setlength{\rightskip}{0pt plus 5cm}Transform G\+T\+Core.\+Enemies.\+Follow\+Bomb\+Movement.\+Planet}\label{class_g_t_core_1_1_enemies_1_1_follow_bomb_movement_a41203fb8ac8a63c736780e054903fea8}
+
+
+Planetary body where this object resides 
+
+
+
+Definition at line 58 of file Follow\+Bomb\+Movement.\+cs.
+
+\hypertarget{class_g_t_core_1_1_enemies_1_1_follow_bomb_movement_adaab5b48a877d03861e6f1e40838306e}{}\index{G\+T\+Core\+::\+Enemies\+::\+Follow\+Bomb\+Movement@{G\+T\+Core\+::\+Enemies\+::\+Follow\+Bomb\+Movement}!Player@{Player}}
+\index{Player@{Player}!G\+T\+Core\+::\+Enemies\+::\+Follow\+Bomb\+Movement@{G\+T\+Core\+::\+Enemies\+::\+Follow\+Bomb\+Movement}}
+\subsubsection[{Player}]{\setlength{\rightskip}{0pt plus 5cm}Transform G\+T\+Core.\+Enemies.\+Follow\+Bomb\+Movement.\+Player}\label{class_g_t_core_1_1_enemies_1_1_follow_bomb_movement_adaab5b48a877d03861e6f1e40838306e}
+
+
+Definition at line 60 of file Follow\+Bomb\+Movement.\+cs.
+
+\hypertarget{class_g_t_core_1_1_enemies_1_1_follow_bomb_movement_a6acfe7e9ede561ff19f064d5f887b18b}{}\index{G\+T\+Core\+::\+Enemies\+::\+Follow\+Bomb\+Movement@{G\+T\+Core\+::\+Enemies\+::\+Follow\+Bomb\+Movement}!Use\+Square\+Distance@{Use\+Square\+Distance}}
+\index{Use\+Square\+Distance@{Use\+Square\+Distance}!G\+T\+Core\+::\+Enemies\+::\+Follow\+Bomb\+Movement@{G\+T\+Core\+::\+Enemies\+::\+Follow\+Bomb\+Movement}}
+\subsubsection[{Use\+Square\+Distance}]{\setlength{\rightskip}{0pt plus 5cm}bool G\+T\+Core.\+Enemies.\+Follow\+Bomb\+Movement.\+Use\+Square\+Distance = false}\label{class_g_t_core_1_1_enemies_1_1_follow_bomb_movement_a6acfe7e9ede561ff19f064d5f887b18b}
+
+
+Definition at line 61 of file Follow\+Bomb\+Movement.\+cs.
+
+\hypertarget{class_g_t_core_1_1_enemies_1_1_follow_bomb_movement_a3665241c62f4b791a62f51a1e4238b8c}{}\index{G\+T\+Core\+::\+Enemies\+::\+Follow\+Bomb\+Movement@{G\+T\+Core\+::\+Enemies\+::\+Follow\+Bomb\+Movement}!Velocity\+Impulse@{Velocity\+Impulse}}
+\index{Velocity\+Impulse@{Velocity\+Impulse}!G\+T\+Core\+::\+Enemies\+::\+Follow\+Bomb\+Movement@{G\+T\+Core\+::\+Enemies\+::\+Follow\+Bomb\+Movement}}
+\subsubsection[{Velocity\+Impulse}]{\setlength{\rightskip}{0pt plus 5cm}float G\+T\+Core.\+Enemies.\+Follow\+Bomb\+Movement.\+Velocity\+Impulse = 5f}\label{class_g_t_core_1_1_enemies_1_1_follow_bomb_movement_a3665241c62f4b791a62f51a1e4238b8c}
+
+
+Definition at line 62 of file Follow\+Bomb\+Movement.\+cs.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Assets/\+Scripts/\+G\+T\+Core/\+Enemies/\hyperlink{_follow_bomb_movement_8cs}{Follow\+Bomb\+Movement.\+cs}\end{DoxyCompactItemize}

@@ -3,6 +3,11 @@ using UnityEngine;
 
 namespace GTCore.Enemies
 {
+    /// <summary>
+    /// Defined the behaviour of the FollowBomb enemy, this enemy is supposed
+    /// to follow the player and explode once he is close enough or collides
+    /// with the player
+    /// </summary>
     [RequireComponent(typeof(Rigidbody))]
     public class FollowBombMovement : MonoBehaviour
     {

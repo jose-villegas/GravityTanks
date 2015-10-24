@@ -1,0 +1,104 @@
+\hypertarget{class_g_t_core_1_1_camera_1_1_camera_movement}{}\section{G\+T\+Core.\+Camera.\+Camera\+Movement Class Reference}
+\label{class_g_t_core_1_1_camera_1_1_camera_movement}\index{G\+T\+Core.\+Camera.\+Camera\+Movement@{G\+T\+Core.\+Camera.\+Camera\+Movement}}
+
+
+Controls the main camera movement behaviour  
+
+
+Inheritance diagram for G\+T\+Core.\+Camera.\+Camera\+Movement\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_g_t_core_1_1_camera_1_1_camera_movement}
+\end{center}
+\end{figure}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+Vector3 \hyperlink{class_g_t_core_1_1_camera_1_1_camera_movement_a41c414edba414aada8b4a60a81dfe645}{Move\+Position} = Vector3.\+zero
+\begin{DoxyCompactList}\small\item\em Moves the position of the camera relative to the target position \end{DoxyCompactList}\item 
+Vector3 \hyperlink{class_g_t_core_1_1_camera_1_1_camera_movement_a6e6ee6e6693f79f8280cbd3a00787f01}{Move\+Target} = Vector3.\+zero
+\begin{DoxyCompactList}\small\item\em Moves the view target position, changing the resulting direction vector \end{DoxyCompactList}\item 
+float \hyperlink{class_g_t_core_1_1_camera_1_1_camera_movement_a65a4a371001a930368dc17f51c6f7b77}{Smoothing} = 5f
+\begin{DoxyCompactList}\small\item\em Damps the camera movement making the movement softly reach its final position \end{DoxyCompactList}\item 
+Transform \hyperlink{class_g_t_core_1_1_camera_1_1_camera_movement_a90c325f21f94e65dc0347a239bce2147}{Target}
+\begin{DoxyCompactList}\small\item\em The target which the camera will be looking at \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+Transform \hyperlink{class_g_t_core_1_1_camera_1_1_camera_movement_ae91326322724ddf4ef145703e4b16eba}{Non\+Interpolated\+Transform}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Represents the camera final position without movement smoothing \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Controls the main camera movement behaviour 
+
+
+
+Definition at line 8 of file Camera\+Movement.\+cs.
+
+
+
+\subsection{Member Data Documentation}
+\hypertarget{class_g_t_core_1_1_camera_1_1_camera_movement_a41c414edba414aada8b4a60a81dfe645}{}\index{G\+T\+Core\+::\+Camera\+::\+Camera\+Movement@{G\+T\+Core\+::\+Camera\+::\+Camera\+Movement}!Move\+Position@{Move\+Position}}
+\index{Move\+Position@{Move\+Position}!G\+T\+Core\+::\+Camera\+::\+Camera\+Movement@{G\+T\+Core\+::\+Camera\+::\+Camera\+Movement}}
+\subsubsection[{Move\+Position}]{\setlength{\rightskip}{0pt plus 5cm}Vector3 G\+T\+Core.\+Camera.\+Camera\+Movement.\+Move\+Position = Vector3.\+zero}\label{class_g_t_core_1_1_camera_1_1_camera_movement_a41c414edba414aada8b4a60a81dfe645}
+
+
+Moves the position of the camera relative to the target position 
+
+
+
+Definition at line 14 of file Camera\+Movement.\+cs.
+
+\hypertarget{class_g_t_core_1_1_camera_1_1_camera_movement_a6e6ee6e6693f79f8280cbd3a00787f01}{}\index{G\+T\+Core\+::\+Camera\+::\+Camera\+Movement@{G\+T\+Core\+::\+Camera\+::\+Camera\+Movement}!Move\+Target@{Move\+Target}}
+\index{Move\+Target@{Move\+Target}!G\+T\+Core\+::\+Camera\+::\+Camera\+Movement@{G\+T\+Core\+::\+Camera\+::\+Camera\+Movement}}
+\subsubsection[{Move\+Target}]{\setlength{\rightskip}{0pt plus 5cm}Vector3 G\+T\+Core.\+Camera.\+Camera\+Movement.\+Move\+Target = Vector3.\+zero}\label{class_g_t_core_1_1_camera_1_1_camera_movement_a6e6ee6e6693f79f8280cbd3a00787f01}
+
+
+Moves the view target position, changing the resulting direction vector 
+
+
+
+Definition at line 21 of file Camera\+Movement.\+cs.
+
+\hypertarget{class_g_t_core_1_1_camera_1_1_camera_movement_a65a4a371001a930368dc17f51c6f7b77}{}\index{G\+T\+Core\+::\+Camera\+::\+Camera\+Movement@{G\+T\+Core\+::\+Camera\+::\+Camera\+Movement}!Smoothing@{Smoothing}}
+\index{Smoothing@{Smoothing}!G\+T\+Core\+::\+Camera\+::\+Camera\+Movement@{G\+T\+Core\+::\+Camera\+::\+Camera\+Movement}}
+\subsubsection[{Smoothing}]{\setlength{\rightskip}{0pt plus 5cm}float G\+T\+Core.\+Camera.\+Camera\+Movement.\+Smoothing = 5f}\label{class_g_t_core_1_1_camera_1_1_camera_movement_a65a4a371001a930368dc17f51c6f7b77}
+
+
+Damps the camera movement making the movement softly reach its final position 
+
+
+
+Definition at line 29 of file Camera\+Movement.\+cs.
+
+\hypertarget{class_g_t_core_1_1_camera_1_1_camera_movement_a90c325f21f94e65dc0347a239bce2147}{}\index{G\+T\+Core\+::\+Camera\+::\+Camera\+Movement@{G\+T\+Core\+::\+Camera\+::\+Camera\+Movement}!Target@{Target}}
+\index{Target@{Target}!G\+T\+Core\+::\+Camera\+::\+Camera\+Movement@{G\+T\+Core\+::\+Camera\+::\+Camera\+Movement}}
+\subsubsection[{Target}]{\setlength{\rightskip}{0pt plus 5cm}Transform G\+T\+Core.\+Camera.\+Camera\+Movement.\+Target}\label{class_g_t_core_1_1_camera_1_1_camera_movement_a90c325f21f94e65dc0347a239bce2147}
+
+
+The target which the camera will be looking at 
+
+
+
+Definition at line 34 of file Camera\+Movement.\+cs.
+
+
+
+\subsection{Property Documentation}
+\hypertarget{class_g_t_core_1_1_camera_1_1_camera_movement_ae91326322724ddf4ef145703e4b16eba}{}\index{G\+T\+Core\+::\+Camera\+::\+Camera\+Movement@{G\+T\+Core\+::\+Camera\+::\+Camera\+Movement}!Non\+Interpolated\+Transform@{Non\+Interpolated\+Transform}}
+\index{Non\+Interpolated\+Transform@{Non\+Interpolated\+Transform}!G\+T\+Core\+::\+Camera\+::\+Camera\+Movement@{G\+T\+Core\+::\+Camera\+::\+Camera\+Movement}}
+\subsubsection[{Non\+Interpolated\+Transform}]{\setlength{\rightskip}{0pt plus 5cm}Transform G\+T\+Core.\+Camera.\+Camera\+Movement.\+Non\+Interpolated\+Transform\hspace{0.3cm}{\ttfamily [get]}}\label{class_g_t_core_1_1_camera_1_1_camera_movement_ae91326322724ddf4ef145703e4b16eba}
+
+
+Represents the camera final position without movement smoothing 
+
+
+
+Definition at line 39 of file Camera\+Movement.\+cs.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Assets/\+Scripts/\+G\+T\+Core/\+Camera/\hyperlink{_camera_movement_8cs}{Camera\+Movement.\+cs}\end{DoxyCompactItemize}
